@@ -1,0 +1,131 @@
+.TH "kumonosu::OutgoingClient" 3 "9 Aug 2009" "Doxygen" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+kumonosu::OutgoingClient \- Manages remote server connections and processes sending queueItems.  
+
+.PP
+.SH SYNOPSIS
+.br
+.PP
+\fC#include <OutgoingClient.h>\fP
+.PP
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "\fBOutgoingClient\fP (\fBRequestQueue\fP *queue)"
+.br
+.RI "\fIInitializes internal data objects and sets the queue to check. \fP"
+.ti -1c
+.RI "void \fBsetOutgoingQueue\fP (\fBRequestQueue\fP *queue)"
+.br
+.RI "\fISets the \fBRequestQueue\fP for outgoing requests. \fP"
+.ti -1c
+.RI "void \fBaddServer\fP (int32_t serverId, std::vector< int32_t > serviceIds, std::string serverAddress, int32_t serverPort)"
+.br
+.RI "\fICreates a remote server connection and adds to the list. \fP"
+.ti -1c
+.RI "void \fBremoveServer\fP (int32_t serverId)"
+.br
+.RI "\fIRemoves a server from the associations. \fP"
+.ti -1c
+.RI "void \fBrun\fP ()"
+.br
+.RI "\fIStarts processing of outgoing requests. \fP"
+.ti -1c
+.RI "void \fBshutdown\fP ()"
+.br
+.RI "\fIStops processing of outgoing requests. \fP"
+.in -1c
+.SH "Detailed Description"
+.PP 
+Manages remote server connections and processes sending queueItems. 
+
+\fBOutgoingClient\fP is a service for processing the actual sending of requests to remote servers. It processes items in the outgoing queue and sends them to the appropriate servers. Items are not processed or sent until \fBrun()\fP is called. Once called, the system will loop over checking for items in the outgoing queue and sending them until \fBshutdown()\fP is called. Once \fBshutdown()\fP is called, the object is still valid and subsequent calls to \fBrun()\fP will start sending objects again. Note that queueItems destined for a service id of 0 must have a remote server id specified or they will be consumed and discarded.
+.PP
+\fBAuthor:\fP
+.RS 4
+Matt Brace 
+.RE
+.PP
+
+.PP
+Definition at line 36 of file OutgoingClient.h.
+.SH "Constructor & Destructor Documentation"
+.PP 
+.SS "OutgoingClient::OutgoingClient (\fBRequestQueue\fP * queue)"
+.PP
+Initializes internal data objects and sets the queue to check. 
+.PP
+Initializes internal data objects and prepares the system for a call to \fBrun()\fP. Processing does not begin with a call to the constructor. 
+.PP
+\fBParameters:\fP
+.RS 4
+\fIqueue\fP the \fBRequestQueue\fP object that will contain/contains outgoing requests to process. 
+.RE
+.PP
+
+.PP
+Definition at line 5 of file OutgoingClient.cpp.
+.SH "Member Function Documentation"
+.PP 
+.SS "void OutgoingClient::setOutgoingQueue (\fBRequestQueue\fP * queue)"
+.PP
+Sets the \fBRequestQueue\fP for outgoing requests. 
+.PP
+Assigns the specified \fBRequestQueue\fP for processing outgoing requests. 
+.PP
+\fBParameters:\fP
+.RS 4
+\fIqueue\fP the \fBRequestQueue\fP to assign. 
+.RE
+.PP
+
+.PP
+Definition at line 14 of file OutgoingClient.cpp.
+.SS "void OutgoingClient::addServer (int32_t serverId, std::vector< int32_t > serviceIds, std::string serverAddress, int32_t serverPort)"
+.PP
+Creates a remote server connection and adds to the list. 
+.PP
+Creates a \fBRemoteServer\fP object based on supplied parameters and assigns it as a destination for the specified identifiers. 
+.PP
+\fBParameters:\fP
+.RS 4
+\fIserverId\fP the id to associate with the server for requests with service id 0. 
+.br
+\fIserviceIds\fP a std::vector containing the service ids to associate with the server. 
+.br
+\fIserverAddress\fP the server address for the remote server. 
+.br
+\fIserverPort\fP the server port for the remote server. 
+.RE
+.PP
+
+.PP
+Definition at line 20 of file OutgoingClient.cpp.
+.SS "void OutgoingClient::removeServer (int32_t serverId)"
+.PP
+Removes a server from the associations. 
+.PP
+Removes a server from association with the server id and service ids. The server object is then destroyed, closing and freeing the connection. 
+.PP
+Definition at line 35 of file OutgoingClient.cpp.
+.SS "void OutgoingClient::run ()"
+.PP
+Starts processing of outgoing requests. 
+.PP
+Initiates a loop that processes all outgoing requests for service ids that have an associated \fBRemoteServer\fP and all requests for a service id of 0 (using the supplied server id). The \fBOutgoingClient\fP does not provide any multi-threading on its own, however, it includes protections that make it thread safe. A mutex is used so that once \fBrun()\fP is called, any subsequent calls have no effect. \fBRequestQueue\fP notification locks are used for blocking behavior so that the \fBOutgoingClient\fP doesn't need to use an explicit wait or sleep to prevent spinning. a pthread_mutex_timedlock of 10 seconds is used so that shutdown commands can break the loop from processing. Once started, the \fBOutgoingClient\fP will run until \fBshutdown()\fP is called. 
+.PP
+Definition at line 60 of file OutgoingClient.cpp.
+.SS "void OutgoingClient::shutdown ()"
+.PP
+Stops processing of outgoing requests. 
+.PP
+Sets the flag that indicates that processing should stop. Due to the architecture of the \fBrun()\fP loop, any outstanding requests will be processed prior to shutting down. 
+.PP
+Definition at line 97 of file OutgoingClient.cpp.
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen from the source code.

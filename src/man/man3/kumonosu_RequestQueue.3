@@ -1,0 +1,176 @@
+.TH "kumonosu::RequestQueue" 3 "9 Aug 2009" "Doxygen" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+kumonosu::RequestQueue \- Provides management of std::queue's for multiple destination services.  
+
+.PP
+.SH SYNOPSIS
+.br
+.PP
+\fC#include <RequestQueue.h>\fP
+.PP
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "\fBRequestQueue\fP ()"
+.br
+.RI "\fIInitializes internal data objects. \fP"
+.ti -1c
+.RI "void \fBaddItem\fP (int32_t serviceId, queueItem *item)"
+.br
+.RI "\fIAdds an item to the end of the queue for the service id. \fP"
+.ti -1c
+.RI "queueItem * \fBgetItem\fP (int32_t serviceId)"
+.br
+.RI "\fIRetrieves the next item in the specified queue. \fP"
+.ti -1c
+.RI "std::queue< queueItem * > \fBgetItemQueue\fP (int32_t serviceId)"
+.br
+.RI "\fIRetrieves the entire queue for the associated service id. \fP"
+.ti -1c
+.RI "std::queue< queueItem * > \fBgetItemQueue\fP (int32_t serviceId, int32_t count)"
+.br
+.RI "\fIRetrieves a queue with n items for the service id. \fP"
+.ti -1c
+.RI "std::vector< int32_t > \fBgetServiceIds\fP ()"
+.br
+.RI "\fIRetrieves the list of service ids with items in a queue. \fP"
+.ti -1c
+.RI "void \fBqueueLock\fP (pthread_mutex_t *mutex)"
+.br
+.RI "\fIAssigns a mutex for use in notifications of new items in a queue. \fP"
+.in -1c
+.SH "Detailed Description"
+.PP 
+Provides management of std::queue's for multiple destination services. 
+
+\fBRequestQueue\fP is designed to provide a queue of items destined for multiple consumers. It is an aggregation of queues for each service. It is not designed to replace std::queue, instead it is a container for multiple std::queue's. It is organized by service id and allows multiple methods of accessing the items in the queues. To ease use, the internal storage will not contain entries for empty queues. The system will dynamically add and remove entries based on adding and removing items. The idea is that a call to getServiceIds will retrieve a list of all service ids with items in a queue. The goal is to have no additional overhead on the caller, just add or get items and the right thing is done.
+.PP
+\fBAuthor:\fP
+.RS 4
+Matt Brace 
+.RE
+.PP
+
+.PP
+Definition at line 42 of file RequestQueue.h.
+.SH "Constructor & Destructor Documentation"
+.PP 
+.SS "RequestQueue::RequestQueue ()"
+.PP
+Initializes internal data objects. 
+.PP
+Constructor, initializes _dataStoreMutex 
+.PP
+Definition at line 7 of file RequestQueue.cpp.
+.SH "Member Function Documentation"
+.PP 
+.SS "void RequestQueue::addItem (int32_t serviceId, queueItem * item)"
+.PP
+Adds an item to the end of the queue for the service id. 
+.PP
+Adds an item to the queue associated with the supplied service id. If a queue did not originally exist, one is created. 
+.PP
+\fBParameters:\fP
+.RS 4
+\fIserviceId\fP a 32 bit integer indicating the id of the associated service. 
+.br
+\fIitem\fP a pointer to a queueItem object to be added to the queue.
+.RE
+.PP
+Adds an item to the end of the queue for the specified service id 
+.PP
+Definition at line 17 of file RequestQueue.cpp.
+.SS "queueItem * RequestQueue::getItem (int32_t serviceId)"
+.PP
+Retrieves the next item in the specified queue. 
+.PP
+Returns an appropriate queueItem or null if one does not exist. 
+.PP
+\fBParameters:\fP
+.RS 4
+\fIserviceId\fP a 32 bit integer indicating the id of the service to retrieve the item from. 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+the next queueItem in the queue or NULL
+.RE
+.PP
+Retrieves the next item in the specified queue 
+.PP
+Definition at line 45 of file RequestQueue.cpp.
+.SS "std::queue< queueItem * > RequestQueue::getItemQueue (int32_t serviceId)"
+.PP
+Retrieves the entire queue for the associated service id. 
+.PP
+Retrieves the entire associated queue for the supplied service id or an empty queue if there are no items. 
+.PP
+\fBParameters:\fP
+.RS 4
+\fIserviceId\fP a 32 bit integer indiciating the id of service to retrieve the queue for. 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+a std::queue for the specified service id or an empty queue if there are no associated items.
+.RE
+.PP
+Retrieves the entire associated queue 
+.PP
+Definition at line 67 of file RequestQueue.cpp.
+.SS "std::queue< queueItem * > RequestQueue::getItemQueue (int32_t serviceId, int32_t count)"
+.PP
+Retrieves a queue with n items for the service id. 
+.PP
+Retrieves the queue for the specified service id, with a maximum number of items as specified by count. 
+.PP
+\fBParameters:\fP
+.RS 4
+\fIserviceId\fP a 32 bit integer indicating the id of the service to retrieve the queue for. 
+.br
+\fIcount\fP a 32 bit integer indicating the maximum number of items to include in the return item. 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+a std::queue for the specified service id with a maximum of count items, or an empty queue if there are no associated items.
+.RE
+.PP
+Retrieves the next count items in the queue 
+.PP
+Definition at line 90 of file RequestQueue.cpp.
+.SS "std::vector< int32_t > RequestQueue::getServiceIds ()"
+.PP
+Retrieves the list of service ids with items in a queue. 
+.PP
+Retrieves the list of service ids that have items in their queue, suitable for a global consumer to determine what needs to be requested. 
+.PP
+\fBReturns:\fP
+.RS 4
+a std::vector of service ids.
+.RE
+.PP
+Retrieves the list of service ids that are used in the map 
+.PP
+Definition at line 122 of file RequestQueue.cpp.
+.SS "void RequestQueue::queueLock (pthread_mutex_t * mutex)"
+.PP
+Assigns a mutex for use in notifications of new items in a queue. 
+.PP
+The given mutex is locked when supplied. The mutex is unlocked when items are added to any queue. Suitable for providing blocking behavior waiting for items to be added to the queue. When the mutex is unlocked, it is removed from the list and must be added again when notification is needed. This allows external and containing objects time to process items before reestablishing notification. 
+.PP
+\fBParameters:\fP
+.RS 4
+\fImutex\fP The mutex to be locked initially and unlocked for notification. 
+.RE
+.PP
+
+.PP
+Definition at line 142 of file RequestQueue.cpp.
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen from the source code.

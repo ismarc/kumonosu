@@ -1,0 +1,123 @@
+.TH "kumonosu::RemoteServer" 3 "9 Aug 2009" "Doxygen" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+kumonosu::RemoteServer \- Represents a connection to a remote server for sending requests.  
+
+.PP
+.SH SYNOPSIS
+.br
+.PP
+\fC#include <RemoteServer.h>\fP
+.PP
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "\fBRemoteServer\fP (std::string serverAddress, int32_t serverPort)"
+.br
+.RI "\fIInitializes internal data objects and establishes connection. \fP"
+.ti -1c
+.RI "\fB~RemoteServer\fP ()"
+.br
+.RI "\fICleans up internal data objects and closes the remote connection. \fP"
+.ti -1c
+.RI "bool \fBsendRequest\fP (int32_t serviceId, queueItem item)"
+.br
+.RI "\fISends a request to the associated remote server. \fP"
+.ti -1c
+.RI "std::string \fBgetServerAddress\fP ()"
+.br
+.RI "\fIRetrieves the associated server address. \fP"
+.ti -1c
+.RI "int32_t \fBgetServerPort\fP ()"
+.br
+.RI "\fIRetrieves the associated server port. \fP"
+.in -1c
+.SH "Detailed Description"
+.PP 
+Represents a connection to a remote server for sending requests. 
+
+\fBRemoteServer\fP represents a single connection to a remote server, maintaining the connection for the life of the \fBRemoteServer\fP object. The connection is initially established, but the object stays valid in existence even if the remote server connection is closed.
+.PP
+\fBAuthor:\fP
+.RS 4
+Matt Brace 
+.RE
+.PP
+
+.PP
+Definition at line 40 of file RemoteServer.h.
+.SH "Constructor & Destructor Documentation"
+.PP 
+.SS "RemoteServer::RemoteServer (std::string serverAddress, int32_t serverPort)"
+.PP
+Initializes internal data objects and establishes connection. 
+.PP
+The initial connection is established in the constructor, however, the object stays valid even if the connection fails or is disconnected. 
+.PP
+\fBParameters:\fP
+.RS 4
+\fIserverAddress\fP a std::string indicating the address to connect to. 
+.br
+\fIserverPort\fP a 32 bit integer indicating the port on the remote server to connect. 
+.RE
+.PP
+
+.PP
+Definition at line 9 of file RemoteServer.cpp.
+.SH "Member Function Documentation"
+.PP 
+.SS "bool RemoteServer::sendRequest (int32_t serviceId, queueItem item)"
+.PP
+Sends a request to the associated remote server. 
+.PP
+Sends a request for the specified service and item to the associated remote server. 
+.PP
+\fBParameters:\fP
+.RS 4
+\fIserviceId\fP a 32 bit integer indicating the id of the service to associate with the request. 
+.br
+\fIitem\fP the queueItem to send to the remote server. 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+true if the request was successful, false otherwise. 
+.RE
+.PP
+
+.PP
+Definition at line 46 of file RemoteServer.cpp.
+.SS "std::string RemoteServer::getServerAddress ()"
+.PP
+Retrieves the associated server address. 
+.PP
+Returns the std:string identifying the associated server address. 
+.PP
+\fBReturns:\fP
+.RS 4
+the std::string for the associated server. 
+.RE
+.PP
+
+.PP
+Definition at line 34 of file RemoteServer.cpp.
+.SS "int32_t RemoteServer::getServerPort ()"
+.PP
+Retrieves the associated server port. 
+.PP
+Returns the 32 bit integer identifying the associated port. 
+.PP
+\fBReturns:\fP
+.RS 4
+the integer for the associated port. 
+.RE
+.PP
+
+.PP
+Definition at line 40 of file RemoteServer.cpp.
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen from the source code.

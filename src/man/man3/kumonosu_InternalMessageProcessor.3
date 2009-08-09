@@ -1,0 +1,156 @@
+.TH "kumonosu::InternalMessageProcessor" 3 "9 Aug 2009" "Doxygen" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+kumonosu::InternalMessageProcessor \- Processes items destined for the local server.  
+
+.PP
+.SH SYNOPSIS
+.br
+.PP
+\fC#include <InternalMessageProcessor.h>\fP
+.PP
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "\fBInternalMessageProcessor\fP (\fBRequestQueue\fP *internalQueue, \fBRemoteRequestManagerHandler\fP *rHandler, \fBLocalRequestManagerHandler\fP *lHandler, \fBOutgoingClient\fP *client)"
+.br
+.RI "\fIInitializes internal data objects. \fP"
+.ti -1c
+.RI "void \fBsetInternalQueue\fP (\fBRequestQueue\fP *internalQueue)"
+.br
+.RI "\fISets the \fBRequestQueue\fP for requests to be processed. \fP"
+.ti -1c
+.RI "void \fBsetRemoteHandler\fP (\fBRemoteRequestManagerHandler\fP *handler)"
+.br
+.RI "\fISets the \fBRemoteRequestManagerHandler\fP. \fP"
+.ti -1c
+.RI "void \fBsetLocalHandler\fP (\fBLocalRequestManagerHandler\fP *handler)"
+.br
+.RI "\fISets the \fBLocalRequestManagerHandler\fP. \fP"
+.ti -1c
+.RI "void \fBsetOutgoingClient\fP (\fBOutgoingClient\fP *client)"
+.br
+.RI "\fISets the \fBOutgoingClient\fP. \fP"
+.ti -1c
+.RI "void \fBrun\fP ()"
+.br
+.RI "\fIStarts processing of internal requests. \fP"
+.ti -1c
+.RI "void \fBshutdown\fP ()"
+.br
+.RI "\fIStops processing of internal requests. \fP"
+.in -1c
+.SH "Detailed Description"
+.PP 
+Processes items destined for the local server. 
+
+\fBInternalMessageProcessor\fP is a service for handling requests destined for the local running server. Items are not processed until \fBrun()\fP is called. Once called, the system will loop over checking for requests until \fBshutdown()\fP is called. The object is still valid after \fBshutdown()\fP is called, suitable to be restarted by calling \fBrun()\fP.
+.PP
+\fBAuthor:\fP
+.RS 4
+Matt Brace 
+.RE
+.PP
+
+.PP
+Definition at line 34 of file InternalMessageProcessor.h.
+.SH "Constructor & Destructor Documentation"
+.PP 
+.SS "InternalMessageProcessor::InternalMessageProcessor (\fBRequestQueue\fP * internalQueue, \fBRemoteRequestManagerHandler\fP * rHandler, \fBLocalRequestManagerHandler\fP * lHandler, \fBOutgoingClient\fP * client)"
+.PP
+Initializes internal data objects. 
+.PP
+Initializes internal data objects and prepares the system for a call to \fBrun()\fP. Processing does not begin with a call to the constructor. 
+.PP
+\fBParameters:\fP
+.RS 4
+\fIinternalQueue\fP the \fBRequestQueue\fP for requests to be processed. 
+.br
+\fIrHandler\fP the \fBRemoteRequestManagerHandler\fP for external requests. 
+.br
+\fIlHandler\fP the \fBLocalRequestManagerHandler\fP for internal requests. 
+.br
+\fIclient\fP the \fBOutgoingClient\fP that manages \fBRemoteServer\fP connections. 
+.RE
+.PP
+
+.PP
+Definition at line 5 of file InternalMessageProcessor.cpp.
+.SH "Member Function Documentation"
+.PP 
+.SS "void InternalMessageProcessor::setInternalQueue (\fBRequestQueue\fP * internalQueue)"
+.PP
+Sets the \fBRequestQueue\fP for requests to be processed. 
+.PP
+Assigns the specified \fBRequestQueue\fP for processing requests. 
+.PP
+\fBParameters:\fP
+.RS 4
+\fIinternalQueue\fP the \fBRequestQueue\fP to assign. 
+.RE
+.PP
+
+.PP
+Definition at line 20 of file InternalMessageProcessor.cpp.
+.SS "void InternalMessageProcessor::setRemoteHandler (\fBRemoteRequestManagerHandler\fP * handler)"
+.PP
+Sets the \fBRemoteRequestManagerHandler\fP. 
+.PP
+Sets the \fBRemoteRequestManagerHandler\fP. It is not invoked directly, but is contained in the object for management and method handling. 
+.PP
+\fBParameters:\fP
+.RS 4
+\fIhandler\fP the \fBRemoteRequestManagerHandler\fP to assign. 
+.RE
+.PP
+
+.PP
+Definition at line 26 of file InternalMessageProcessor.cpp.
+.SS "void InternalMessageProcessor::setLocalHandler (\fBLocalRequestManagerHandler\fP * handler)"
+.PP
+Sets the \fBLocalRequestManagerHandler\fP. 
+.PP
+Sets the \fBLocalRequestManagerHandler\fP. It is not invoked directly, but is contained in the object for management and method handling. 
+.PP
+\fBParameters:\fP
+.RS 4
+\fIhandler\fP the \fBLocalRequestManagerHandler\fP to assign. 
+.RE
+.PP
+
+.PP
+Definition at line 32 of file InternalMessageProcessor.cpp.
+.SS "void InternalMessageProcessor::setOutgoingClient (\fBOutgoingClient\fP * client)"
+.PP
+Sets the \fBOutgoingClient\fP. 
+.PP
+Sets the \fBOutgoingClient\fP. It is not invoked directly, but is contained in the object for management and method handling. 
+.PP
+\fBParameters:\fP
+.RS 4
+\fIclient\fP the \fBOutgoingClient\fP to assign. 
+.RE
+.PP
+
+.PP
+Definition at line 38 of file InternalMessageProcessor.cpp.
+.SS "void InternalMessageProcessor::run ()"
+.PP
+Starts processing of internal requests. 
+.PP
+Intiates a loop that includes processing of all internal requests to be handled by the \fBInternalMessageProcessor\fP. The \fBInternalMessageProcessor\fP does not perform any multi-threading on its own, however, it includes protections that make it thread safe. A mutex is used so that once \fBrun()\fP is called, any subsequent calls have no effect. \fBRequestQueue\fP notification locks are used for blocking behavior so that the \fBInternalMessageProcessor\fP doesn't need to use an explicit wait or sleep to prevent spinning. A pthread_mutex_timedlock of 10 seconds is used so that shutdown commands can break the loop from processing. Once started, the \fBInternalMessageProcessor\fP will run until \fBshutdown()\fP is called. 
+.PP
+Definition at line 44 of file InternalMessageProcessor.cpp.
+.SS "void InternalMessageProcessor::shutdown ()"
+.PP
+Stops processing of internal requests. 
+.PP
+Sets the flag that indicates that processing should stop. Due to the architecture of the \fBrun()\fP loop, any outstanding requests will be processed prior to shutting down. 
+.PP
+Definition at line 84 of file InternalMessageProcessor.cpp.
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen from the source code.

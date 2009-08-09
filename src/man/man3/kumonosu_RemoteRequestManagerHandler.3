@@ -1,0 +1,89 @@
+.TH "kumonosu::RemoteRequestManagerHandler" 3 "9 Aug 2009" "Doxygen" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+kumonosu::RemoteRequestManagerHandler \- Provides the manager interface for external originating requests.  
+
+.PP
+.SH SYNOPSIS
+.br
+.PP
+\fC#include <RemoteRequestManagerHandler.h>\fP
+.PP
+Inherits kumonosu::RemoteRequestManagerIf.
+.PP
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "\fBRemoteRequestManagerHandler\fP (\fBRequestQueue\fP *queue)"
+.br
+.RI "\fIInitializes internal data objects and assigns the queue. \fP"
+.ti -1c
+.RI "void \fBsetRequestQueue\fP (\fBRequestQueue\fP *queue)"
+.br
+.RI "\fIAssigns a new \fBRequestQueue\fP object. \fP"
+.ti -1c
+.RI "void \fBQueueItem\fP (const int32_t serviceId, const queueItem &item)"
+.br
+.RI "\fIRPC interface for queueing items from external calls. \fP"
+.in -1c
+.SH "Detailed Description"
+.PP 
+Provides the manager interface for external originating requests. 
+
+Processes incoming requests as defined by the RPC architecture defined by the Thrift generated interface. Handles adding items to the assigned \fBRequestQueue\fP.
+.PP
+\fBAuthor:\fP
+.RS 4
+Matt Brace 
+.RE
+.PP
+
+.PP
+Definition at line 27 of file RemoteRequestManagerHandler.h.
+.SH "Constructor & Destructor Documentation"
+.PP 
+.SS "RemoteRequestManagerHandler::RemoteRequestManagerHandler (\fBRequestQueue\fP * queue)"
+.PP
+Initializes internal data objects and assigns the queue. 
+.PP
+Associates the supplied queue with incoming requests for queuing. 
+.PP
+\fBParameters:\fP
+.RS 4
+\fIqueue\fP the \fBRequestQueue\fP to add incoming requests 
+.RE
+.PP
+
+.PP
+Definition at line 5 of file RemoteRequestManagerHandler.cpp.
+.SH "Member Function Documentation"
+.PP 
+.SS "void RemoteRequestManagerHandler::setRequestQueue (\fBRequestQueue\fP * queue)"
+.PP
+Assigns a new \fBRequestQueue\fP object. 
+.PP
+Assigns a new \fBRequestQueue\fP object to the handler for queuing incoming requests. 
+.PP
+Definition at line 11 of file RemoteRequestManagerHandler.cpp.
+.SS "void RemoteRequestManagerHandler::QueueItem (const int32_t serviceId, const queueItem & item)"
+.PP
+RPC interface for queueing items from external calls. 
+.PP
+Adds the specified item to the associated request queue using the supplied service id. 
+.PP
+\fBParameters:\fP
+.RS 4
+\fIserviceId\fP a 32 bit integer indicating the service to associate the item with. 
+.br
+\fIitem\fP the queueItem to add to the \fBRequestQueue\fP. 
+.RE
+.PP
+
+.PP
+Definition at line 17 of file RemoteRequestManagerHandler.cpp.
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen from the source code.

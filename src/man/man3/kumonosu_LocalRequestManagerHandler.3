@@ -1,0 +1,195 @@
+.TH "kumonosu::LocalRequestManagerHandler" 3 "9 Aug 2009" "Doxygen" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+kumonosu::LocalRequestManagerHandler \- Provides the manager interface for internal originating requests.  
+
+.PP
+.SH SYNOPSIS
+.br
+.PP
+\fC#include <LocalRequestManagerHandler.h>\fP
+.PP
+Inherits kumonosu::LocalRequestManagerIf.
+.PP
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "\fBLocalRequestManagerHandler\fP (\fBRequestQueue\fP *incoming_queue, \fBRequestQueue\fP *outgoing_queue, \fBRequestQueue\fP *local_queue)"
+.br
+.RI "\fIInitializes internal data objects and assigns the queues. \fP"
+.ti -1c
+.RI "void \fBQueueItem\fP (const int32_t serviceId, const queueItem &item)"
+.br
+.RI "\fIRPC interface for queueing items from internal calls. \fP"
+.ti -1c
+.RI "void \fBQueueInternalItem\fP (const queueItem &item)"
+.br
+.RI "\fIRPC interface for queueing items for the local server. \fP"
+.ti -1c
+.RI "void \fBGetItem\fP (queueItem &_return, const int32_t serviceId)"
+.br
+.RI "\fIRPC interface for retrieving an item for local calls. \fP"
+.ti -1c
+.RI "void \fBGetItemList\fP (queueItemList &_return, const int32_t serviceId)"
+.br
+.RI "\fIRPC interface for retrieving a list of items for local calls. \fP"
+.ti -1c
+.RI "void \fBGetItemListByCount\fP (queueItemList &_return, const int32_t serviceId, const int32_t count)"
+.br
+.RI "\fIRPC interface for retrieving a list of items for local calls. \fP"
+.ti -1c
+.RI "void \fBsetIncomingQueue\fP (\fBRequestQueue\fP *queue)"
+.br
+.RI "\fIAssigns a new \fBRequestQueue\fP object for the incoming queue. \fP"
+.ti -1c
+.RI "void \fBsetOutgoingQueue\fP (\fBRequestQueue\fP *queue)"
+.br
+.RI "\fIAssigns a new \fBRequestQueue\fP object for the outgoing queue. \fP"
+.ti -1c
+.RI "void \fBsetLocalQueue\fP (\fBRequestQueue\fP *queue)"
+.br
+.RI "\fIAssigns a new \fBRequestQueue\fP object for the local request queue. \fP"
+.in -1c
+.SH "Detailed Description"
+.PP 
+Provides the manager interface for internal originating requests. 
+
+Processes incoming requests from the local server as defined by the RPC architecture defined by the Thrift generated interface. Handles adding items to the proper assigned \fBRequestQueue\fP.
+.PP
+\fBAuthor:\fP
+.RS 4
+Matt Brace 
+.RE
+.PP
+
+.PP
+Definition at line 28 of file LocalRequestManagerHandler.h.
+.SH "Constructor & Destructor Documentation"
+.PP 
+.SS "LocalRequestManagerHandler::LocalRequestManagerHandler (\fBRequestQueue\fP * incoming_queue, \fBRequestQueue\fP * outgoing_queue, \fBRequestQueue\fP * local_queue)"
+.PP
+Initializes internal data objects and assigns the queues. 
+.PP
+Associates the supplied queues for sending requests and retrieving data objects. 
+.PP
+\fBParameters:\fP
+.RS 4
+\fIincoming_queue\fP \fBRequestQueue\fP object for incoming requests. 
+.br
+\fIoutgoing_queue\fP \fBRequestQueue\fP object for outgoing requests. 
+.br
+\fIlocal_queue\fP \fBRequestQueue\fP object for requests to be processed by the local system. 
+.RE
+.PP
+
+.PP
+Definition at line 5 of file LocalRequestManagerHandler.cpp.
+.SH "Member Function Documentation"
+.PP 
+.SS "void LocalRequestManagerHandler::QueueItem (const int32_t serviceId, const queueItem & item)"
+.PP
+RPC interface for queueing items from internal calls. 
+.PP
+Adds the specified item to the outgoing request queue using the supplied service id. 
+.PP
+\fBParameters:\fP
+.RS 4
+\fIserviceId\fP a 32 bit integer indicating the service to associate the item with. 
+.br
+\fIitem\fP the queueItem to add to the \fBRequestQueue\fP. 
+.RE
+.PP
+
+.PP
+Definition at line 15 of file LocalRequestManagerHandler.cpp.
+.SS "void LocalRequestManagerHandler::QueueInternalItem (const queueItem & item)"
+.PP
+RPC interface for queueing items for the local server. 
+.PP
+Adds the specified item to the local request queue. 
+.PP
+\fBParameters:\fP
+.RS 4
+\fIitem\fP The queue item to add to the local request queue. 
+.RE
+.PP
+
+.PP
+Definition at line 26 of file LocalRequestManagerHandler.cpp.
+.SS "void LocalRequestManagerHandler::GetItem (queueItem & _return, const int32_t serviceId)"
+.PP
+RPC interface for retrieving an item for local calls. 
+.PP
+Retrieves a single queue item from the incoming queue for the supplied service id. 
+.PP
+\fBParameters:\fP
+.RS 4
+\fI_return\fP a reference to a queueItem to assign the item to retrieve. 
+.br
+\fIserviceId\fP a 32 bit integer indicating the service to retrieve an item for. 
+.RE
+.PP
+
+.PP
+Definition at line 36 of file LocalRequestManagerHandler.cpp.
+.SS "void LocalRequestManagerHandler::GetItemList (queueItemList & _return, const int32_t serviceId)"
+.PP
+RPC interface for retrieving a list of items for local calls. 
+.PP
+Retrieves a queueItemList from the incoming queue for the supplied service id. 
+.PP
+\fBParameters:\fP
+.RS 4
+\fI_return\fP a reference to a queueItemList to assign the list. 
+.br
+\fIserviceId\fP a 32 bit integer indicating the service to retrieve the list for. 
+.RE
+.PP
+
+.PP
+Definition at line 48 of file LocalRequestManagerHandler.cpp.
+.SS "void LocalRequestManagerHandler::GetItemListByCount (queueItemList & _return, const int32_t serviceId, const int32_t count)"
+.PP
+RPC interface for retrieving a list of items for local calls. 
+.PP
+Retrieves a queueItemList from the incoming queue for the supplied service id with a maximum of count entries. 
+.PP
+\fBParameters:\fP
+.RS 4
+\fI_return\fP a reference to a queueItemList to assign the list. 
+.br
+\fIserviceId\fP a 32 bit integer indicating the service to retrieve the list for. 
+.br
+\fIcount\fP a 32 bit integer indicating the maximum number of items to include in the queueItemList. 
+.RE
+.PP
+
+.PP
+Definition at line 64 of file LocalRequestManagerHandler.cpp.
+.SS "void LocalRequestManagerHandler::setIncomingQueue (\fBRequestQueue\fP * queue)"
+.PP
+Assigns a new \fBRequestQueue\fP object for the incoming queue. 
+.PP
+Assigns a new \fBRequestQueue\fP object to the handler for incoming requests. 
+.PP
+Definition at line 81 of file LocalRequestManagerHandler.cpp.
+.SS "void LocalRequestManagerHandler::setOutgoingQueue (\fBRequestQueue\fP * queue)"
+.PP
+Assigns a new \fBRequestQueue\fP object for the outgoing queue. 
+.PP
+Assigns a new \fBRequestQueue\fP object to the handler for outgoing requests. 
+.PP
+Definition at line 87 of file LocalRequestManagerHandler.cpp.
+.SS "void LocalRequestManagerHandler::setLocalQueue (\fBRequestQueue\fP * queue)"
+.PP
+Assigns a new \fBRequestQueue\fP object for the local request queue. 
+.PP
+Assigns a new \fBRequestQueue\fP object to the handler for local requests. 
+.PP
+Definition at line 93 of file LocalRequestManagerHandler.cpp.
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen from the source code.
