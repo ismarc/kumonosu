@@ -315,8 +315,55 @@ ClientTest::getPendingItemsTest()
 
     queueItemList items = client->getPendingItems();
 
-    //CPPUNIT_ASSERT(items != NULL);
-    //CPPUNIT_ASSERT(items.items[0].methodId == item.methodId);
+    CPPUNIT_ASSERT(items.items.size() == 1);
+
+    client->disconnect();
+
+    testServer->stop();
+
+    delete testServer;
+}
+
+void
+ClientTest::getPendingItemsCountTest()
+{
+    Client* client = new Client(1, "localhost", 9192);
+
+    pthread_t serverThread;
+    RequestQueue* iqueue = new RequestQueue();
+    RequestQueue* oqueue = new RequestQueue();
+    RequestQueue* imqueue = new RequestQueue();
+
+    shared_ptr<LocalRequestManagerHandler> handler
+        (new LocalRequestManagerHandler(iqueue, oqueue, imqueue));
+    shared_ptr<TProcessor> processor(new LocalRequestManagerProcessor(handler));
+    shared_ptr<TServerTransport> transport(new TServerSocket(9192));
+    shared_ptr<TTransportFactory> transportFactory
+        (new TBufferedTransportFactory());
+    shared_ptr<TProtocolFactory> protocolFactory(new TBinaryProtocolFactory());
+
+    TSimpleServer *testServer = new TSimpleServer(processor,
+                                                  transport,
+                                                  transportFactory,
+                                                  protocolFactory);
+
+    pthread_create(&serverThread, NULL, runServer, (void*) testServer);
+    sleep(2);
+
+    client->connect();
+
+    queueItem item_one;
+    queueItem item_two;
+
+    item_one.methodId = 1;
+    item_two.methodId = 1;
+
+    iqueue->addItem(1, &item_one);
+    iqueue->addItem(1, &item_two);
+
+    queueItemList items = client->getPendingItems(1);
+
+    CPPUNIT_ASSERT(items.items.size() == 1);
 
     client->disconnect();
 

@@ -4,8 +4,8 @@
 ** Made by Matthew Brace
 ** Login   <mbrace@godwin.lan>
 ** 
-** Started on  Wed Aug  5 02:55:17 2009 Matthew Brace
-** Last update Wed Aug  5 02:55:17 2009 Matthew Brace
+** Started on  Wed Aug  5 02:55:17 CDT 2009 Matthew Brace
+** Last update Sun Aug  9 23:46:24 CDT 2009 Matthew Brace
 */
 
 #ifndef   	CLIENTTEST_H_
@@ -28,6 +28,7 @@ class ClientTest : public CPPUNIT_NS::TestCase {
     CPPUNIT_TEST(sendLocalRequestTest);
     CPPUNIT_TEST(getNextPendingItemTest);
     //CPPUNIT_TEST(getPendingItemsTest);
+    //CPPUNIT_TEST(getPendingItemsCountTest);
     CPPUNIT_TEST_SUITE_END();
 public:
     void setUp(void) {}
@@ -41,6 +42,7 @@ protected:
     void sendLocalRequestTest();
     void getNextPendingItemTest();
     void getPendingItemsTest();
+    void getPendingItemsCountTest();
 };
 
 #endif 	    /* !CLIENTTEST_H_ */
