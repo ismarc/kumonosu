@@ -37,7 +37,7 @@ Client::Client(int32_t serviceId,
     _serverAddress(serverAddress),
     _serverPort(serverPort),
     _socket(new TSocket(_serverAddress.c_str(), _serverPort)),
-    _transport(new TFramedTransport(_socket)),
+    _transport(new TBufferedTransport(_socket)),
     _protocol(new TBinaryProtocol(_transport)),
     _client(_protocol)
 {

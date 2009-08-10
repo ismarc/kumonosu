@@ -36,9 +36,12 @@ void
 LocalRequestManagerHandler::GetItem(queueItem& _return, const int32_t serviceId)
 {
     queueItem* item = _incomingRequestQueue->getItem(serviceId);
-    _return.methodId = item->methodId;
-    _return.serverId = item->serverId;
-    _return.argList = item->argList;
+
+    if (item != NULL) {
+        _return.methodId = item->methodId;
+        _return.serverId = item->serverId;
+        _return.argList = item->argList;
+    }
 }
 
 void

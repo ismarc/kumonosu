@@ -64,13 +64,15 @@ ClientTest::setServerAddressTest()
                                                   protocolFactory);
 
     pthread_create(&serverThread, NULL, runServer, (void*) testServer);
-    sleep(1);
+    sleep(2);
 
     client->connect();
     client->setServerAddress("localhost");
 
     CPPUNIT_ASSERT(client != NULL);
     client->disconnect();
+
+    testServer->stop();
 
     delete testServer;
 }
@@ -103,13 +105,15 @@ ClientTest::setServerPortTest()
                                                   protocolFactory);
 
     pthread_create(&serverThread, NULL, runServer, (void*) testServer);
-    sleep(1);
+    sleep(2);
 
     client->connect();
     client->setServerPort(9393);
 
     CPPUNIT_ASSERT(client != NULL);
     client->disconnect();
+
+    testServer->stop();
 
     delete testServer;
 }
@@ -139,12 +143,14 @@ ClientTest::connectTest()
                                                   protocolFactory);
 
     pthread_create(&serverThread, NULL, runServer, (void*) testServer);
-    sleep(1);
+    sleep(2);
 
     client->connect();
     CPPUNIT_ASSERT(client != NULL);
     client->disconnect();
     CPPUNIT_ASSERT(client != NULL);
+
+    testServer->stop();
 
     delete testServer;
 }
@@ -173,7 +179,7 @@ ClientTest::sendRequestTest()
                                                   protocolFactory);
 
     pthread_create(&serverThread, NULL, runServer, (void*) testServer);
-    sleep(1);
+    sleep(2);
 
     client->connect();
 
@@ -183,6 +189,8 @@ ClientTest::sendRequestTest()
     CPPUNIT_ASSERT(client->sendRequest(1, item));
 
     client->disconnect();
+
+    testServer->stop();
 
     delete testServer;
 }
@@ -211,7 +219,7 @@ ClientTest::sendLocalRequestTest()
                                                   protocolFactory);
 
     pthread_create(&serverThread, NULL, runServer, (void*) testServer);
-    sleep(1);
+    sleep(2);
 
     client->connect();
 
@@ -221,6 +229,8 @@ ClientTest::sendLocalRequestTest()
     CPPUNIT_ASSERT(client->sendLocalRequest(item));
 
     client->disconnect();
+
+    testServer->stop();
 
     delete testServer;
 }
@@ -249,7 +259,7 @@ ClientTest::getNextPendingItemTest()
                                                   protocolFactory);
 
     pthread_create(&serverThread, NULL, runServer, (void*) testServer);
-    sleep(1);
+    sleep(2);
 
     client->connect();
 
@@ -257,18 +267,60 @@ ClientTest::getNextPendingItemTest()
     queueItem new_item;
     item.methodId = 1;
 
-    //iqueue->addItem(1, &item);
+    iqueue->addItem(1, &item);
 
-    /*
-    client->getPendingItems(1);
-
-    client->getPendingItems();
-    */
     new_item = client->getNextPendingItem();
-    /*
+
     CPPUNIT_ASSERT(new_item.methodId == 1);
-    */
+
     client->disconnect();
+
+    testServer->stop();
+
+    delete testServer;
+}
+
+void
+ClientTest::getPendingItemsTest()
+{
+    Client* client = new Client(1, "localhost", 9999);
+
+    pthread_t serverThread;
+    RequestQueue* iqueue = new RequestQueue();
+    RequestQueue* oqueue = new RequestQueue();
+    RequestQueue* imqueue = new RequestQueue();
+
+    shared_ptr<LocalRequestManagerHandler> handler
+        (new LocalRequestManagerHandler(iqueue, oqueue, imqueue));
+    shared_ptr<TProcessor> processor(new LocalRequestManagerProcessor(handler));
+    shared_ptr<TServerTransport> transport(new TServerSocket(9999));
+    shared_ptr<TTransportFactory> transportFactory
+        (new TBufferedTransportFactory());
+    shared_ptr<TProtocolFactory> protocolFactory(new TBinaryProtocolFactory());
+
+    TSimpleServer *testServer = new TSimpleServer(processor,
+                                                  transport,
+                                                  transportFactory,
+                                                  protocolFactory);
+
+    pthread_create(&serverThread, NULL, runServer, (void*) testServer);
+    sleep(2);
+
+    client->connect();
+
+    queueItem item;
+    item.methodId = 1;
+
+    iqueue->addItem(1, &item);
+
+    queueItemList items = client->getPendingItems();
+
+    //CPPUNIT_ASSERT(items != NULL);
+    //CPPUNIT_ASSERT(items.items[0].methodId == item.methodId);
+
+    client->disconnect();
+
+    testServer->stop();
 
     delete testServer;
 }

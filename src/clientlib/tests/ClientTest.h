@@ -27,6 +27,7 @@ class ClientTest : public CPPUNIT_NS::TestCase {
     CPPUNIT_TEST(sendRequestTest);
     CPPUNIT_TEST(sendLocalRequestTest);
     CPPUNIT_TEST(getNextPendingItemTest);
+    //CPPUNIT_TEST(getPendingItemsTest);
     CPPUNIT_TEST_SUITE_END();
 public:
     void setUp(void) {}
@@ -39,6 +40,7 @@ protected:
     void sendRequestTest();
     void sendLocalRequestTest();
     void getNextPendingItemTest();
+    void getPendingItemsTest();
 };
 
 #endif 	    /* !CLIENTTEST_H_ */
