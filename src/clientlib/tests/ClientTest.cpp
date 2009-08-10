@@ -74,6 +74,7 @@ ClientTest::setServerAddressTest()
 
     testServer->stop();
 
+    pthread_join(serverThread, NULL);
     delete testServer;
 }
 
@@ -115,6 +116,7 @@ ClientTest::setServerPortTest()
 
     testServer->stop();
 
+    pthread_join(serverThread, NULL);
     delete testServer;
 }
 
@@ -152,6 +154,7 @@ ClientTest::connectTest()
 
     testServer->stop();
 
+    pthread_join(serverThread, NULL);
     delete testServer;
 }
 
@@ -192,6 +195,7 @@ ClientTest::sendRequestTest()
 
     testServer->stop();
 
+    pthread_join(serverThread, NULL);
     delete testServer;
 }
 
@@ -232,6 +236,7 @@ ClientTest::sendLocalRequestTest()
 
     testServer->stop();
 
+    pthread_join(serverThread, NULL);
     delete testServer;
 }
 
@@ -277,6 +282,7 @@ ClientTest::getNextPendingItemTest()
 
     testServer->stop();
 
+    pthread_join(serverThread, NULL);
     delete testServer;
 }
 
@@ -298,6 +304,7 @@ ClientTest::getPendingItemsTest()
         (new TBufferedTransportFactory());
     shared_ptr<TProtocolFactory> protocolFactory(new TBinaryProtocolFactory());
 
+    CPPUNIT_ASSERT(transport.get() != NULL);
     TSimpleServer *testServer = new TSimpleServer(processor,
                                                   transport,
                                                   transportFactory,
@@ -321,6 +328,7 @@ ClientTest::getPendingItemsTest()
 
     testServer->stop();
 
+    pthread_join(serverThread, NULL);
     delete testServer;
 }
 
@@ -369,5 +377,6 @@ ClientTest::getPendingItemsCountTest()
 
     testServer->stop();
 
+    pthread_join(serverThread, NULL);
     delete testServer;
 }
