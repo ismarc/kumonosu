@@ -955,8 +955,8 @@ uint32_t queueItem::write(apache::thrift::protocol::TProtocol* oprot) const {
   return xfer;
 }
 
-const char* queueItemList::ascii_fingerprint = "CE8EE7F45C3F87D0529D38478F16B627";
-const uint8_t queueItemList::binary_fingerprint[16] = {0xCE,0x8E,0xE7,0xF4,0x5C,0x3F,0x87,0xD0,0x52,0x9D,0x38,0x47,0x8F,0x16,0xB6,0x27};
+const char* queueItemList::ascii_fingerprint = "0F23088D4DE5581F3AE36B250AE0CCC2";
+const uint8_t queueItemList::binary_fingerprint[16] = {0x0F,0x23,0x08,0x8D,0x4D,0xE5,0x58,0x1F,0x3A,0xE3,0x6B,0x25,0x0A,0xE0,0xCC,0xC2};
 
 uint32_t queueItemList::read(apache::thrift::protocol::TProtocol* iprot) {
 
@@ -1013,19 +1013,17 @@ uint32_t queueItemList::read(apache::thrift::protocol::TProtocol* iprot) {
 uint32_t queueItemList::write(apache::thrift::protocol::TProtocol* oprot) const {
   uint32_t xfer = 0;
   xfer += oprot->writeStructBegin("queueItemList");
-  if (this->__isset.items) {
-    xfer += oprot->writeFieldBegin("items", apache::thrift::protocol::T_LIST, 1);
+  xfer += oprot->writeFieldBegin("items", apache::thrift::protocol::T_LIST, 1);
+  {
+    xfer += oprot->writeListBegin(apache::thrift::protocol::T_STRUCT, this->items.size());
+    std::vector<queueItem> ::const_iterator _iter53;
+    for (_iter53 = this->items.begin(); _iter53 != this->items.end(); ++_iter53)
     {
-      xfer += oprot->writeListBegin(apache::thrift::protocol::T_STRUCT, this->items.size());
-      std::vector<queueItem> ::const_iterator _iter53;
-      for (_iter53 = this->items.begin(); _iter53 != this->items.end(); ++_iter53)
-      {
-        xfer += (*_iter53).write(oprot);
-      }
-      xfer += oprot->writeListEnd();
+      xfer += (*_iter53).write(oprot);
     }
-    xfer += oprot->writeFieldEnd();
+    xfer += oprot->writeListEnd();
   }
+  xfer += oprot->writeFieldEnd();
   xfer += oprot->writeFieldStop();
   xfer += oprot->writeStructEnd();
   return xfer;

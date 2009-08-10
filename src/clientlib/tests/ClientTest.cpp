@@ -73,8 +73,8 @@ ClientTest::setServerAddressTest()
     client->disconnect();
 
     testServer->stop();
+    sleep(1);
 
-    pthread_join(serverThread, NULL);
     delete testServer;
 }
 
@@ -115,8 +115,8 @@ ClientTest::setServerPortTest()
     client->disconnect();
 
     testServer->stop();
+    sleep(1);
 
-    pthread_join(serverThread, NULL);
     delete testServer;
 }
 
@@ -153,8 +153,8 @@ ClientTest::connectTest()
     CPPUNIT_ASSERT(client != NULL);
 
     testServer->stop();
+    sleep(1);
 
-    pthread_join(serverThread, NULL);
     delete testServer;
 }
 
@@ -194,8 +194,8 @@ ClientTest::sendRequestTest()
     client->disconnect();
 
     testServer->stop();
+    sleep(1);
 
-    pthread_join(serverThread, NULL);
     delete testServer;
 }
 
@@ -235,8 +235,8 @@ ClientTest::sendLocalRequestTest()
     client->disconnect();
 
     testServer->stop();
+    sleep(1);
 
-    pthread_join(serverThread, NULL);
     delete testServer;
 }
 
@@ -281,8 +281,8 @@ ClientTest::getNextPendingItemTest()
     client->disconnect();
 
     testServer->stop();
+    sleep(1);
 
-    pthread_join(serverThread, NULL);
     delete testServer;
 }
 
@@ -315,20 +315,23 @@ ClientTest::getPendingItemsTest()
 
     client->connect();
 
-    queueItem item;
-    item.methodId = 1;
+    queueItem item_one;
+    queueItem item_two;
+    item_one.methodId = 1;
+    item_two.methodId = 1;
 
-    iqueue->addItem(1, &item);
+    iqueue->addItem(1, &item_one);
+    iqueue->addItem(1, &item_two);
 
     queueItemList items = client->getPendingItems();
 
-    CPPUNIT_ASSERT(items.items.size() == 1);
+    CPPUNIT_ASSERT(items.items.size() == 2);
 
     client->disconnect();
 
     testServer->stop();
+    sleep(2);
 
-    pthread_join(serverThread, NULL);
     delete testServer;
 }
 
@@ -376,7 +379,7 @@ ClientTest::getPendingItemsCountTest()
     client->disconnect();
 
     testServer->stop();
+    sleep(2);
 
-    pthread_join(serverThread, NULL);
     delete testServer;
 }

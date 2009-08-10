@@ -484,8 +484,8 @@ class queueItem {
 class queueItemList {
  public:
 
-  static const char* ascii_fingerprint; // = "CE8EE7F45C3F87D0529D38478F16B627";
-  static const uint8_t binary_fingerprint[16]; // = {0xCE,0x8E,0xE7,0xF4,0x5C,0x3F,0x87,0xD0,0x52,0x9D,0x38,0x47,0x8F,0x16,0xB6,0x27};
+  static const char* ascii_fingerprint; // = "0F23088D4DE5581F3AE36B250AE0CCC2";
+  static const uint8_t binary_fingerprint[16]; // = {0x0F,0x23,0x08,0x8D,0x4D,0xE5,0x58,0x1F,0x3A,0xE3,0x6B,0x25,0x0A,0xE0,0xCC,0xC2};
 
   queueItemList() {
   }
@@ -501,9 +501,7 @@ class queueItemList {
 
   bool operator == (const queueItemList & rhs) const
   {
-    if (__isset.items != rhs.__isset.items)
-      return false;
-    else if (__isset.items && !(items == rhs.items))
+    if (!(items == rhs.items))
       return false;
     return true;
   }
