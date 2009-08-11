@@ -1,0 +1,28 @@
+# The set of files whose dependency integrity should be checked:
+SET(CMAKE_DEPENDS_LANGUAGES
+  "CXX"
+  )
+SET(CMAKE_DEPENDS_CHECK_CXX
+  "/home/ismarc/kumonosu/core/src/RemoteServer.cpp"
+  "/home/ismarc/kumonosu/core/src/build/server/CMakeFiles/kumonosu_server.dir/__/__/RemoteServer.o"
+  "/home/ismarc/kumonosu/core/src/RemoteRequestManagerHandler.cpp"
+  "/home/ismarc/kumonosu/core/src/build/server/CMakeFiles/kumonosu_server.dir/__/__/RemoteRequestManagerHandler.o"
+  "/home/ismarc/kumonosu/core/src/RemoteRequestManager.cpp"
+  "/home/ismarc/kumonosu/core/src/build/server/CMakeFiles/kumonosu_server.dir/__/__/RemoteRequestManager.o"
+  "/home/ismarc/kumonosu/core/src/OutgoingClient.cpp"
+  "/home/ismarc/kumonosu/core/src/build/server/CMakeFiles/kumonosu_server.dir/__/__/OutgoingClient.o"
+  "/home/ismarc/kumonosu/core/src/LocalRequestManagerHandler.cpp"
+  "/home/ismarc/kumonosu/core/src/build/server/CMakeFiles/kumonosu_server.dir/__/__/LocalRequestManagerHandler.o"
+  "/home/ismarc/kumonosu/core/src/LocalRequestManager.cpp"
+  "/home/ismarc/kumonosu/core/src/build/server/CMakeFiles/kumonosu_server.dir/__/__/LocalRequestManager.o"
+  "/home/ismarc/kumonosu/core/src/kumonosu_server_types.cpp"
+  "/home/ismarc/kumonosu/core/src/build/server/CMakeFiles/kumonosu_server.dir/__/__/kumonosu_server_types.o"
+  "/home/ismarc/kumonosu/core/src/kumonosu_server_constants.cpp"
+  "/home/ismarc/kumonosu/core/src/build/server/CMakeFiles/kumonosu_server.dir/__/__/kumonosu_server_constants.o"
+  "/home/ismarc/kumonosu/core/src/InternalMessageProcessor.cpp"
+  "/home/ismarc/kumonosu/core/src/build/server/CMakeFiles/kumonosu_server.dir/__/__/InternalMessageProcessor.o"
+  "/home/ismarc/kumonosu/core/src/server/main.cpp"
+  "/home/ismarc/kumonosu/core/src/build/server/CMakeFiles/kumonosu_server.dir/main.o"
+  "/home/ismarc/kumonosu/core/src/RequestQueue.cpp"
+  "/home/ismarc/kumonosu/core/src/build/server/CMakeFiles/kumonosu_server.dir/__/__/RequestQueue.o"
+  )

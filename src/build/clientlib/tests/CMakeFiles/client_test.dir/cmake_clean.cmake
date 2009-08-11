@@ -1,0 +1,11 @@
+FILE(REMOVE
+"client_test.pdb"
+"client_test"
+"CMakeFiles/client_test.dir/client_test_main.o"
+"CMakeFiles/client_test.dir/__/__/__/clientlib/Client.o"
+"CMakeFiles/client_test.dir/__/__/__/LocalRequestManager.o"
+"CMakeFiles/client_test.dir/__/__/__/LocalRequestManagerHandler.o"
+"CMakeFiles/client_test.dir/__/__/__/RequestQueue.o"
+"CMakeFiles/client_test.dir/__/__/__/kumonosu_server_types.o"
+"CMakeFiles/client_test.dir/ClientTest.o"
+)

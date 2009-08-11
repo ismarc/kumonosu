@@ -1,0 +1,10 @@
+FILE(REMOVE
+"libkumonosuclient.pdb"
+"libkumonosuclient.a"
+"libkumonosuclient.so"
+"CMakeFiles/kumonosuclient.dir/__/__/kumonosu_server_types.o"
+"CMakeFiles/kumonosuclient.dir/__/__/LocalRequestManager.o"
+"CMakeFiles/kumonosuclient.dir/Client.o"
+"CMakeFiles/kumonosuclient.dir/MessageProcessor.o"
+"CMakeFiles/kumonosuclient.dir/Callback.o"
+)

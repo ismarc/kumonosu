@@ -1,0 +1,11 @@
+FILE(REMOVE
+"remote_server_test.pdb"
+"remote_server_test"
+"CMakeFiles/remote_server_test.dir/remote_server_main.o"
+"CMakeFiles/remote_server_test.dir/__/__/RequestQueue.o"
+"CMakeFiles/remote_server_test.dir/__/__/RemoteRequestManagerHandler.o"
+"CMakeFiles/remote_server_test.dir/__/__/RemoteRequestManager.o"
+"CMakeFiles/remote_server_test.dir/__/__/kumonosu_server_types.o"
+"CMakeFiles/remote_server_test.dir/__/__/RemoteServer.o"
+"CMakeFiles/remote_server_test.dir/RemoteServerTest.o"
+)

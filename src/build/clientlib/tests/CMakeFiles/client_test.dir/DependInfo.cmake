@@ -1,0 +1,20 @@
+# The set of files whose dependency integrity should be checked:
+SET(CMAKE_DEPENDS_LANGUAGES
+  "CXX"
+  )
+SET(CMAKE_DEPENDS_CHECK_CXX
+  "/home/ismarc/kumonosu/core/src/RequestQueue.cpp"
+  "/home/ismarc/kumonosu/core/src/build/clientlib/tests/CMakeFiles/client_test.dir/__/__/__/RequestQueue.o"
+  "/home/ismarc/kumonosu/core/src/LocalRequestManagerHandler.cpp"
+  "/home/ismarc/kumonosu/core/src/build/clientlib/tests/CMakeFiles/client_test.dir/__/__/__/LocalRequestManagerHandler.o"
+  "/home/ismarc/kumonosu/core/src/kumonosu_server_types.cpp"
+  "/home/ismarc/kumonosu/core/src/build/clientlib/tests/CMakeFiles/client_test.dir/__/__/__/kumonosu_server_types.o"
+  "/home/ismarc/kumonosu/core/src/LocalRequestManager.cpp"
+  "/home/ismarc/kumonosu/core/src/build/clientlib/tests/CMakeFiles/client_test.dir/__/__/__/LocalRequestManager.o"
+  "/home/ismarc/kumonosu/core/src/clientlib/Client.cpp"
+  "/home/ismarc/kumonosu/core/src/build/clientlib/tests/CMakeFiles/client_test.dir/__/__/__/clientlib/Client.o"
+  "/home/ismarc/kumonosu/core/src/clientlib/tests/client_test_main.cpp"
+  "/home/ismarc/kumonosu/core/src/build/clientlib/tests/CMakeFiles/client_test.dir/client_test_main.o"
+  "/home/ismarc/kumonosu/core/src/clientlib/tests/ClientTest.cpp"
+  "/home/ismarc/kumonosu/core/src/build/clientlib/tests/CMakeFiles/client_test.dir/ClientTest.o"
+  )

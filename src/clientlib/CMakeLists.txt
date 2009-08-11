@@ -9,6 +9,8 @@ SET(kumonosu_client_library_SRCS
   ../kumonosu_server_types.cpp
   ../LocalRequestManager.cpp
   Client.cpp
+  MessageProcessor.cpp
+  Callback.cpp
 )
 
 IF (THRIFT_FOUND AND Boost_FOUND)

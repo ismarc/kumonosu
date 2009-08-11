@@ -1,0 +1,17 @@
+# CMake generated Testfile for 
+# Source directory: /home/ismarc/kumonosu/core/src/tests
+# Build directory: /home/ismarc/kumonosu/core/src/build/tests
+# 
+# This file replicates the SUBDIRS() and ADD_TEST() commands from the source
+# tree CMakeLists.txt file, skipping any SUBDIRS() or ADD_TEST() commands
+# that are excluded by CMake control structures, i.e. IF() commands.
+#
+# The next line is critical for Dart to work
+# Duh :-)
+
+ADD_TEST(request_queue_test "request_queue_test")
+ADD_TEST(rrmh_test "rrmh_test")
+ADD_TEST(lrmh_test "lrmh_test")
+ADD_TEST(remote_server_test "remote_server_test")
+ADD_TEST(imp_test "imp_test")
+ADD_TEST(outgoing_client_test "outgoing_client_test")
