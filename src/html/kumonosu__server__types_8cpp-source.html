@@ -967,8 +967,8 @@
 <a name="l00955"></a>00955   <span class="keywordflow">return</span> xfer;
 <a name="l00956"></a>00956 }
 <a name="l00957"></a>00957 
-<a name="l00958"></a>00958 <span class="keyword">const</span> <span class="keywordtype">char</span>* queueItemList::ascii_fingerprint = <span class="stringliteral">"CE8EE7F45C3F87D0529D38478F16B627"</span>;
-<a name="l00959"></a>00959 <span class="keyword">const</span> uint8_t queueItemList::binary_fingerprint[16] = {0xCE,0x8E,0xE7,0xF4,0x5C,0x3F,0x87,0xD0,0x52,0x9D,0x38,0x47,0x8F,0x16,0xB6,0x27};
+<a name="l00958"></a>00958 <span class="keyword">const</span> <span class="keywordtype">char</span>* queueItemList::ascii_fingerprint = <span class="stringliteral">"0F23088D4DE5581F3AE36B250AE0CCC2"</span>;
+<a name="l00959"></a>00959 <span class="keyword">const</span> uint8_t queueItemList::binary_fingerprint[16] = {0x0F,0x23,0x08,0x8D,0x4D,0xE5,0x58,0x1F,0x3A,0xE3,0x6B,0x25,0x0A,0xE0,0xCC,0xC2};
 <a name="l00960"></a>00960 
 <a name="l00961"></a>00961 uint32_t queueItemList::read(apache::thrift::protocol::TProtocol* iprot) {
 <a name="l00962"></a>00962 
@@ -1025,27 +1025,25 @@
 <a name="l01013"></a>01013 uint32_t queueItemList::write(apache::thrift::protocol::TProtocol* oprot)<span class="keyword"> const </span>{
 <a name="l01014"></a>01014   uint32_t xfer = 0;
 <a name="l01015"></a>01015   xfer += oprot-&gt;writeStructBegin(<span class="stringliteral">"queueItemList"</span>);
-<a name="l01016"></a>01016   <span class="keywordflow">if</span> (this-&gt;__isset.items) {
-<a name="l01017"></a>01017     xfer += oprot-&gt;writeFieldBegin(<span class="stringliteral">"items"</span>, apache::thrift::protocol::T_LIST, 1);
-<a name="l01018"></a>01018     {
-<a name="l01019"></a>01019       xfer += oprot-&gt;writeListBegin(apache::thrift::protocol::T_STRUCT, this-&gt;items.size());
-<a name="l01020"></a>01020       std::vector&lt;queueItem&gt; ::const_iterator _iter53;
-<a name="l01021"></a>01021       <span class="keywordflow">for</span> (_iter53 = this-&gt;items.begin(); _iter53 != this-&gt;items.end(); ++_iter53)
-<a name="l01022"></a>01022       {
-<a name="l01023"></a>01023         xfer += (*_iter53).write(oprot);
-<a name="l01024"></a>01024       }
-<a name="l01025"></a>01025       xfer += oprot-&gt;writeListEnd();
-<a name="l01026"></a>01026     }
-<a name="l01027"></a>01027     xfer += oprot-&gt;writeFieldEnd();
-<a name="l01028"></a>01028   }
-<a name="l01029"></a>01029   xfer += oprot-&gt;writeFieldStop();
-<a name="l01030"></a>01030   xfer += oprot-&gt;writeStructEnd();
-<a name="l01031"></a>01031   <span class="keywordflow">return</span> xfer;
-<a name="l01032"></a>01032 }
-<a name="l01033"></a>01033 
-<a name="l01034"></a>01034 } <span class="comment">// namespace</span>
+<a name="l01016"></a>01016   xfer += oprot-&gt;writeFieldBegin(<span class="stringliteral">"items"</span>, apache::thrift::protocol::T_LIST, 1);
+<a name="l01017"></a>01017   {
+<a name="l01018"></a>01018     xfer += oprot-&gt;writeListBegin(apache::thrift::protocol::T_STRUCT, this-&gt;items.size());
+<a name="l01019"></a>01019     std::vector&lt;queueItem&gt; ::const_iterator _iter53;
+<a name="l01020"></a>01020     <span class="keywordflow">for</span> (_iter53 = this-&gt;items.begin(); _iter53 != this-&gt;items.end(); ++_iter53)
+<a name="l01021"></a>01021     {
+<a name="l01022"></a>01022       xfer += (*_iter53).write(oprot);
+<a name="l01023"></a>01023     }
+<a name="l01024"></a>01024     xfer += oprot-&gt;writeListEnd();
+<a name="l01025"></a>01025   }
+<a name="l01026"></a>01026   xfer += oprot-&gt;writeFieldEnd();
+<a name="l01027"></a>01027   xfer += oprot-&gt;writeFieldStop();
+<a name="l01028"></a>01028   xfer += oprot-&gt;writeStructEnd();
+<a name="l01029"></a>01029   <span class="keywordflow">return</span> xfer;
+<a name="l01030"></a>01030 }
+<a name="l01031"></a>01031 
+<a name="l01032"></a>01032 } <span class="comment">// namespace</span>
 </pre></div></div>
-<hr size="1"><address style="text-align: right;"><small>Generated on Sun Aug 9 17:15:38 2009 by&nbsp;
+<hr size="1"><address style="text-align: right;"><small>Generated on Fri Aug 14 02:25:56 2009 by&nbsp;
 <a href="http://www.doxygen.org/index.html">
 <img src="doxygen.png" alt="doxygen" align="middle" border="0"></a> 1.5.5 </small></address>
 </body>

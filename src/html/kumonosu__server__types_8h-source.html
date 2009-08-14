@@ -496,8 +496,8 @@
 <a name="l00484"></a>00484 <span class="keyword">class </span>queueItemList {
 <a name="l00485"></a>00485  <span class="keyword">public</span>:
 <a name="l00486"></a>00486 
-<a name="l00487"></a>00487   <span class="keyword">static</span> <span class="keyword">const</span> <span class="keywordtype">char</span>* ascii_fingerprint; <span class="comment">// = "CE8EE7F45C3F87D0529D38478F16B627";</span>
-<a name="l00488"></a>00488   <span class="keyword">static</span> <span class="keyword">const</span> uint8_t binary_fingerprint[16]; <span class="comment">// = {0xCE,0x8E,0xE7,0xF4,0x5C,0x3F,0x87,0xD0,0x52,0x9D,0x38,0x47,0x8F,0x16,0xB6,0x27};</span>
+<a name="l00487"></a>00487   <span class="keyword">static</span> <span class="keyword">const</span> <span class="keywordtype">char</span>* ascii_fingerprint; <span class="comment">// = "0F23088D4DE5581F3AE36B250AE0CCC2";</span>
+<a name="l00488"></a>00488   <span class="keyword">static</span> <span class="keyword">const</span> uint8_t binary_fingerprint[16]; <span class="comment">// = {0x0F,0x23,0x08,0x8D,0x4D,0xE5,0x58,0x1F,0x3A,0xE3,0x6B,0x25,0x0A,0xE0,0xCC,0xC2};</span>
 <a name="l00489"></a>00489 
 <a name="l00490"></a>00490   queueItemList() {
 <a name="l00491"></a>00491   }
@@ -513,28 +513,26 @@
 <a name="l00501"></a>00501 
 <a name="l00502"></a>00502   <span class="keywordtype">bool</span> operator == (<span class="keyword">const</span> queueItemList &amp; rhs)<span class="keyword"> const</span>
 <a name="l00503"></a>00503 <span class="keyword">  </span>{
-<a name="l00504"></a>00504     <span class="keywordflow">if</span> (__isset.items != rhs.__isset.items)
+<a name="l00504"></a>00504     <span class="keywordflow">if</span> (!(items == rhs.items))
 <a name="l00505"></a>00505       <span class="keywordflow">return</span> <span class="keyword">false</span>;
-<a name="l00506"></a>00506     <span class="keywordflow">else</span> <span class="keywordflow">if</span> (__isset.items &amp;&amp; !(items == rhs.items))
-<a name="l00507"></a>00507       <span class="keywordflow">return</span> <span class="keyword">false</span>;
-<a name="l00508"></a>00508     <span class="keywordflow">return</span> <span class="keyword">true</span>;
-<a name="l00509"></a>00509   }
-<a name="l00510"></a>00510   <span class="keywordtype">bool</span> operator != (<span class="keyword">const</span> queueItemList &amp;rhs)<span class="keyword"> const </span>{
-<a name="l00511"></a>00511     <span class="keywordflow">return</span> !(*<span class="keyword">this</span> == rhs);
-<a name="l00512"></a>00512   }
+<a name="l00506"></a>00506     <span class="keywordflow">return</span> <span class="keyword">true</span>;
+<a name="l00507"></a>00507   }
+<a name="l00508"></a>00508   <span class="keywordtype">bool</span> operator != (<span class="keyword">const</span> queueItemList &amp;rhs)<span class="keyword"> const </span>{
+<a name="l00509"></a>00509     <span class="keywordflow">return</span> !(*<span class="keyword">this</span> == rhs);
+<a name="l00510"></a>00510   }
+<a name="l00511"></a>00511 
+<a name="l00512"></a>00512   <span class="keywordtype">bool</span> operator &lt; (<span class="keyword">const</span> queueItemList &amp; ) <span class="keyword">const</span>;
 <a name="l00513"></a>00513 
-<a name="l00514"></a>00514   <span class="keywordtype">bool</span> operator &lt; (<span class="keyword">const</span> queueItemList &amp; ) <span class="keyword">const</span>;
-<a name="l00515"></a>00515 
-<a name="l00516"></a>00516   uint32_t read(apache::thrift::protocol::TProtocol* iprot);
-<a name="l00517"></a>00517   uint32_t write(apache::thrift::protocol::TProtocol* oprot) <span class="keyword">const</span>;
+<a name="l00514"></a>00514   uint32_t read(apache::thrift::protocol::TProtocol* iprot);
+<a name="l00515"></a>00515   uint32_t write(apache::thrift::protocol::TProtocol* oprot) <span class="keyword">const</span>;
+<a name="l00516"></a>00516 
+<a name="l00517"></a>00517 };
 <a name="l00518"></a>00518 
-<a name="l00519"></a>00519 };
+<a name="l00519"></a>00519 } <span class="comment">// namespace</span>
 <a name="l00520"></a>00520 
-<a name="l00521"></a>00521 } <span class="comment">// namespace</span>
-<a name="l00522"></a>00522 
-<a name="l00523"></a>00523 <span class="preprocessor">#endif</span>
+<a name="l00521"></a>00521 <span class="preprocessor">#endif</span>
 </pre></div></div>
-<hr size="1"><address style="text-align: right;"><small>Generated on Sun Aug 9 17:15:38 2009 by&nbsp;
+<hr size="1"><address style="text-align: right;"><small>Generated on Fri Aug 14 02:25:56 2009 by&nbsp;
 <a href="http://www.doxygen.org/index.html">
 <img src="doxygen.png" alt="doxygen" align="middle" border="0"></a> 1.5.5 </small></address>
 </body>

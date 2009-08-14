@@ -51,13 +51,13 @@
 <a name="l00035"></a>00035 <span class="keywordtype">void</span>
 <a name="l00036"></a><a class="code" href="classkumonosu_1_1LocalRequestManagerHandler.html#5ad053e633be2d2b5b25902fce3d4b10">00036</a> <a class="code" href="classkumonosu_1_1LocalRequestManagerHandler.html#5ad053e633be2d2b5b25902fce3d4b10" title="RPC interface for retrieving an item for local calls.">LocalRequestManagerHandler::GetItem</a>(queueItem&amp; _return, <span class="keyword">const</span> int32_t serviceId)
 <a name="l00037"></a>00037 {
-<a name="l00038"></a>00038     <span class="comment">/*</span>
-<a name="l00039"></a>00039 <span class="comment">    queueItem* item = _incomingRequestQueue-&gt;getItem(serviceId);</span>
-<a name="l00040"></a>00040 <span class="comment">    _return.methodId = item-&gt;methodId;</span>
-<a name="l00041"></a>00041 <span class="comment">    _return.serverId = item-&gt;serverId;</span>
-<a name="l00042"></a>00042 <span class="comment">    _return.argList = item-&gt;argList;</span>
-<a name="l00043"></a>00043 <span class="comment">    */</span>
-<a name="l00044"></a>00044     
+<a name="l00038"></a>00038     queueItem* item = _incomingRequestQueue-&gt;<a class="code" href="classkumonosu_1_1RequestQueue.html#6a6c8f54e8f065c2cd43823aafb93e91" title="Retrieves the next item in the specified queue.">getItem</a>(serviceId);
+<a name="l00039"></a>00039 
+<a name="l00040"></a>00040     <span class="keywordflow">if</span> (item != NULL) {
+<a name="l00041"></a>00041         _return.methodId = item-&gt;methodId;
+<a name="l00042"></a>00042         _return.serverId = item-&gt;serverId;
+<a name="l00043"></a>00043         _return.argList = item-&gt;argList;
+<a name="l00044"></a>00044     }
 <a name="l00045"></a>00045 }
 <a name="l00046"></a>00046 
 <a name="l00047"></a>00047 <span class="keywordtype">void</span>
@@ -111,7 +111,7 @@
 <a name="l00095"></a>00095     _localRequestQueue = queue;
 <a name="l00096"></a>00096 }
 </pre></div></div>
-<hr size="1"><address style="text-align: right;"><small>Generated on Sun Aug 9 17:15:38 2009 by&nbsp;
+<hr size="1"><address style="text-align: right;"><small>Generated on Fri Aug 14 02:25:56 2009 by&nbsp;
 <a href="http://www.doxygen.org/index.html">
 <img src="doxygen.png" alt="doxygen" align="middle" border="0"></a> 1.5.5 </small></address>
 </body>
