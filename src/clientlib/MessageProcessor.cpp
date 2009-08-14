@@ -66,7 +66,7 @@ MessageProcessor::processPendingItems(int32_t max_count = -1)
     if (max_count == -1) {
         pending_items = _client->getPendingItems();
     } else {
-        pending_items = _client->getPendingItems();
+        pending_items = _client->getPendingItems(max_count);
     }
 
     for (std::vector<queueItem>::iterator it = pending_items.items.begin();
