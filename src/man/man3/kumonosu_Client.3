@@ -1,0 +1,257 @@
+.TH "kumonosu::Client" 3 "14 Aug 2009" "Doxygen" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+kumonosu::Client \- Provides an interface for a service to communicate.  
+
+.PP
+.SH SYNOPSIS
+.br
+.PP
+\fC#include <Client.h>\fP
+.PP
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "\fBClient\fP (int32_t serviceId)"
+.br
+.RI "\fIInitializes the client. \fP"
+.ti -1c
+.RI "\fBClient\fP (int32_t serviceId, int32_t serverPort)"
+.br
+.RI "\fIInitializes the client. \fP"
+.ti -1c
+.RI "\fBClient\fP (int32_t serviceId, std::string serverAddress, int32_t serverPort)"
+.br
+.RI "\fIInitializes the client. \fP"
+.ti -1c
+.RI "void \fBconnect\fP ()"
+.br
+.RI "\fIOpens a connection to the server. \fP"
+.ti -1c
+.RI "void \fBdisconnect\fP ()"
+.br
+.RI "\fICloses a connection to the server. \fP"
+.ti -1c
+.RI "void \fBsetServerAddress\fP (std::string serverAddress)"
+.br
+.RI "\fIAssigns the server IP or hostname to connect to. \fP"
+.ti -1c
+.RI "void \fBsetServerPort\fP (int32_t serverPort)"
+.br
+.RI "\fIAssigns the server port to connect to. \fP"
+.ti -1c
+.RI "bool \fBsendRequest\fP (int32_t serviceId, queueItem item)"
+.br
+.RI "\fISends a queue item request to the server. \fP"
+.ti -1c
+.RI "bool \fBsendLocalRequest\fP (queueItem item)"
+.br
+.RI "\fISends a queue item request destined for the local manager. \fP"
+.ti -1c
+.RI "queueItem \fBgetNextPendingItem\fP ()"
+.br
+.RI "\fIRetrieves the next item from the queue. \fP"
+.ti -1c
+.RI "queueItemList \fBgetPendingItems\fP ()"
+.br
+.RI "\fIRetrieves all outstanding items from the queue. \fP"
+.ti -1c
+.RI "queueItemList \fBgetPendingItems\fP (int32_t count)"
+.br
+.in -1c
+.SH "Detailed Description"
+.PP 
+Provides an interface for a service to communicate. 
+
+\fBClient\fP provides an interface for a service to communicate via a server with services running locally or remotely, transparent to the \fBClient\fP. A service can use \fBClient\fP directly, or can use a convenience class for handling message processing (see \fBMessageProcessor\fP).
+.PP
+\fBAuthor:\fP
+.RS 4
+Matt Brace 
+.RE
+.PP
+
+.PP
+Definition at line 40 of file Client.h.
+.SH "Constructor & Destructor Documentation"
+.PP 
+.SS "Client::Client (int32_t serviceId)"
+.PP
+Initializes the client. 
+.PP
+Initializes a client to process messages destined for the supplied service id. Uses localhost:9191 for the server. 
+.PP
+\fBParameters:\fP
+.RS 4
+\fIserviceId\fP the unique identifier for the service. 
+.RE
+.PP
+
+.PP
+Definition at line 9 of file Client.cpp.
+.SS "Client::Client (int32_t serviceId, int32_t serverPort)"
+.PP
+Initializes the client. 
+.PP
+Initializes a client to process messages destined for the supplied service id. Uses a hostname of localhost. 
+.PP
+\fBParameters:\fP
+.RS 4
+\fIserviceId\fP the unique identifier for the service. 
+.br
+\fIserverPort\fP the port on localhost to connect to. 
+.RE
+.PP
+
+.PP
+Definition at line 21 of file Client.cpp.
+.SS "Client::Client (int32_t serviceId, std::string serverAddress, int32_t serverPort)"
+.PP
+Initializes the client. 
+.PP
+Initializes a client to process messages destined for the supplied service id. 
+.PP
+\fBParameters:\fP
+.RS 4
+\fIserviceId\fP the unique identifier for the service. 
+.br
+\fIserverAddress\fP the IP or hostname of the server to connect to. 
+.br
+\fIserverPort\fP the port on the server to connect to. 
+.RE
+.PP
+
+.PP
+Definition at line 33 of file Client.cpp.
+.SH "Member Function Documentation"
+.PP 
+.SS "void Client::connect ()"
+.PP
+Opens a connection to the server. 
+.PP
+\fBClient\fP is intended to hold a connection open for extended periods of time (not on-demand for requests). \fBconnect()\fP establishes the connection. 
+.PP
+Definition at line 53 of file Client.cpp.
+.SS "void Client::disconnect ()"
+.PP
+Closes a connection to the server. 
+.PP
+Closes the connection to the server, used if the service needs to change details about the connection or close outgoing sockets. 
+.PP
+Definition at line 65 of file Client.cpp.
+.SS "void Client::setServerAddress (std::string serverAddress)"
+.PP
+Assigns the server IP or hostname to connect to. 
+.PP
+Closes the connection if open and assigns the specified server address. The connection is not reopened afterwards. 
+.PP
+\fBParameters:\fP
+.RS 4
+\fIserverAddress\fP the IP or hostname to connect to. 
+.RE
+.PP
+
+.PP
+Definition at line 77 of file Client.cpp.
+.SS "void Client::setServerPort (int32_t serverPort)"
+.PP
+Assigns the server port to connect to. 
+.PP
+Closes the connection if open and assigns the specified port to connect to. The connection is not reopened afterwards. 
+.PP
+\fBParameters:\fP
+.RS 4
+\fIserverPort\fP the port on the server to connect to. 
+.RE
+.PP
+
+.PP
+Definition at line 97 of file Client.cpp.
+.SS "bool Client::sendRequest (int32_t serviceId, queueItem item)"
+.PP
+Sends a queue item request to the server. 
+.PP
+Sends a queue item request to the assigned server for dispatching to another service (as defined by the local handler interface). 
+.PP
+\fBParameters:\fP
+.RS 4
+\fIserviceId\fP the unique identifier of the service to send the item to. 
+.br
+\fIitem\fP the queue item to the service. 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+true if successful, false otherwise. 
+.RE
+.PP
+
+.PP
+Definition at line 117 of file Client.cpp.
+.SS "bool Client::sendLocalRequest (queueItem item)"
+.PP
+Sends a queue item request destined for the local manager. 
+.PP
+Sends a request destined for the local manager to process. Note that this is not used for local services, this is intended for communication with the manager itself. 
+.PP
+\fBParameters:\fP
+.RS 4
+\fIitem\fP the queue item to the local server. 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+true if successful, false otherwise. 
+.RE
+.PP
+
+.PP
+Definition at line 138 of file Client.cpp.
+.SS "queueItem Client::getNextPendingItem ()"
+.PP
+Retrieves the next item from the queue. 
+.PP
+Retrieves the next item in the queue for the service id associated with this client. 
+.PP
+\fBReturns:\fP
+.RS 4
+the queueItem for the next item or NULL if no items are in the queue. 
+.RE
+.PP
+
+.PP
+Definition at line 159 of file Client.cpp.
+.SS "queueItemList Client::getPendingItems ()"
+.PP
+Retrieves all outstanding items from the queue. 
+.PP
+Retrieves all items pending in the queue for the service id associated with this client. 
+.PP
+\fBReturns:\fP
+.RS 4
+the queueItemList of pending items or an empty queueItemList. 
+.RE
+.PP
+
+.PP
+Definition at line 177 of file Client.cpp.
+.SS "queueItemList Client::getPendingItems (int32_t count)"
+.PP
+Retrieves a maximum number of outstanding items from the queue.
+.PP
+Retrieves a maximum of count items from the queue for the service id associated with this client. 
+.PP
+\fBReturns:\fP
+.RS 4
+the queueItemList of pending items or an empty queueItemList 
+.RE
+.PP
+
+.PP
+Definition at line 191 of file Client.cpp.
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen from the source code.

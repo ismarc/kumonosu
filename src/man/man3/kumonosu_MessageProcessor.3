@@ -1,0 +1,134 @@
+.TH "kumonosu::MessageProcessor" 3 "14 Aug 2009" "Doxygen" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+kumonosu::MessageProcessor \- Provides a convenience interface for managing pending items.  
+
+.PP
+.SH SYNOPSIS
+.br
+.PP
+\fC#include <MessageProcessor.h>\fP
+.PP
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "\fBMessageProcessor\fP (void *methodNotImplementedObject, void(*methodNotImplemented)(void *object, arguments argList))"
+.br
+.RI "\fIInitializes the \fBMessageProcessor\fP. \fP"
+.ti -1c
+.RI "void \fBsetClient\fP (\fBClient\fP *client)"
+.br
+.RI "\fIAssigns the supplied client. \fP"
+.ti -1c
+.RI "void \fBsetMethodCallback\fP (int32_t methodId, void *object, void(*FunctionPtr)(void *object, arguments argList))"
+.br
+.RI "\fIStores a callback function associated with a method id. \fP"
+.ti -1c
+.RI "void \fBremoveMethodCallback\fP (int32_t methodId)"
+.br
+.RI "\fIRemoves a \fBCallback\fP object from the method associations. \fP"
+.ti -1c
+.RI "void \fBprocessPendingItems\fP (int32_t max_count)"
+.br
+.RI "\fIProcesses outstanding items. \fP"
+.in -1c
+.SH "Detailed Description"
+.PP 
+Provides a convenience interface for managing pending items. 
+
+The message processor provides a convenience class for handling incoming queue items. A class (or classes) can be created to handle the different methods which are then provided to the message processor as callbacks. The service can then call the \fBMessageProcessor\fP to execute any outstanding items.
+.PP
+\fBAuthor:\fP
+.RS 4
+Matt Brace 
+.RE
+.PP
+
+.PP
+Definition at line 32 of file MessageProcessor.h.
+.SH "Constructor & Destructor Documentation"
+.PP 
+.SS "MessageProcessor::MessageProcessor (void * methodNotImplementedObject, void(*)(void *object, arguments argList) methodNotImplemented)"
+.PP
+Initializes the \fBMessageProcessor\fP. 
+.PP
+The constructor takes an object pointer and a function pointer for the callback that is called whenever a method callback has not been set for the received method id. 
+.PP
+\fBParameters:\fP
+.RS 4
+\fImethodNotImplementedObject\fP the object to supply in the callback when a request for an undefined method is received. 
+.br
+\fImethodNotImplemented\fP function pointer to the method to call when an undefined method is received. 
+.RE
+.PP
+
+.PP
+Definition at line 5 of file MessageProcessor.cpp.
+.SH "Member Function Documentation"
+.PP 
+.SS "void MessageProcessor::setClient (\fBClient\fP * client)"
+.PP
+Assigns the supplied client. 
+.PP
+To retreive requests, a client is necessary. It is the owning objects responsibility to initialize and supply the client. Once received, the \fBMessageProcessor\fP will have the client connect if necessary for further calls, but will never explicitly disconnect the client. 
+.PP
+\fBParameters:\fP
+.RS 4
+\fIclient\fP the client object to use for message retrieval. 
+.RE
+.PP
+
+.PP
+Definition at line 16 of file MessageProcessor.cpp.
+.SS "void MessageProcessor::setMethodCallback (int32_t methodId, void * object, void(*)(void *object, arguments argList) FunctionPtr)"
+.PP
+Stores a callback function associated with a method id. 
+.PP
+Creates a \fBCallback\fP object and associates it internally with the supplied method id. The callback will be called with there is an incoming request with the specified method id. 
+.PP
+\fBParameters:\fP
+.RS 4
+\fImethodId\fP the method id to associate the callback with. 
+.br
+\fIobject\fP the object to call with the function pointer 
+.br
+\fIFunctionPtr\fP the function pointer for the callback. 
+.RE
+.PP
+
+.PP
+Definition at line 22 of file MessageProcessor.cpp.
+.SS "void MessageProcessor::removeMethodCallback (int32_t methodId)"
+.PP
+Removes a \fBCallback\fP object from the method associations. 
+.PP
+Removes the \fBCallback\fP object that is associated with the method id. If further requests are processed with that method id, the methodNotImplemented callback will be used until a new callback has been set. 
+.PP
+\fBParameters:\fP
+.RS 4
+\fImethodId\fP the method id of the callback to remove. 
+.RE
+.PP
+
+.PP
+Definition at line 33 of file MessageProcessor.cpp.
+.SS "void MessageProcessor::processPendingItems (int32_t max_count = \fC-1\fP)"
+.PP
+Processes outstanding items. 
+.PP
+Retrieves up to max_count items and calls the associated callback method with the received method id for each item. The callbacks are called serially, in the order they are received based on the queue. 
+.PP
+\fBParameters:\fP
+.RS 4
+\fImax_count\fP the maximum number of items to process, use -1 to indicate all items. 
+.RE
+.PP
+
+.PP
+Definition at line 60 of file MessageProcessor.cpp.
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen from the source code.
