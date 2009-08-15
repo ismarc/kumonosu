@@ -45,6 +45,11 @@ InternalMessageProcessor::run()
 {
     int runfailed = -1;
     struct timespec check_timeout;
+    // Verify internal data state is sane
+    if (_internalQueue == NULL) {
+        return;
+    }
+
     clock_gettime(CLOCK_REALTIME, &check_timeout);
 
     runfailed = pthread_mutex_timedlock(&_runMutex, &check_timeout);
@@ -90,6 +95,12 @@ void
 InternalMessageProcessor::processReadyQueue()
 {
     std::queue<queueItem*> itemQueue;
+
+    // Verify internal data state is sane
+    if (_internalQueue == NULL) {
+        return;
+    }
+
     // All internal items are service id 0
     itemQueue = _internalQueue->getItemQueue(0);
 

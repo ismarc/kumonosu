@@ -12,5 +12,8 @@ Callback::Callback(void* object, void(*FunctionPtr)(void* object,
 void
 Callback::execute(arguments argList)
 {
-    _method(_methodObject, argList);
+    if (_methodObject != NULL &&
+        _method != NULL) {
+        _method(_methodObject, argList);
+    }
 }

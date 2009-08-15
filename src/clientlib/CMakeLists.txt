@@ -6,8 +6,6 @@ INCLUDE_DIRECTORIES(${CMAKE_SOURCE_DIR})
 # ######### Server build #########
 # Sources:
 SET(kumonosu_client_library_SRCS
-  ../kumonosu_server_types.cpp
-  ../LocalRequestManager.cpp
   Client.cpp
   MessageProcessor.cpp
   Callback.cpp
@@ -15,8 +13,13 @@ SET(kumonosu_client_library_SRCS
 
 IF (THRIFT_FOUND AND Boost_FOUND)
   INCLUDE_DIRECTORIES(${THRIFT_INCLUDE_DIR} ${Boost_INCLUDE_DIRS})
+  SET(client_library_list
+    ${THRIFT_LIBRARIES}
+    ${EVENT_LIBRARIES}
+    kumonosucore
+  )
   ADD_LIBRARY(kumonosuclient SHARED ${kumonosu_client_library_SRCS})
-  TARGET_LINK_LIBRARIES(kumonosuclient ${THRIFT_LIBRARIES})
+  TARGET_LINK_LIBRARIES(kumonosuclient ${client_library_list})
 ENDIF (THRIFT_FOUND AND Boost_FOUND)
 
 ADD_SUBDIRECTORY(tests/)

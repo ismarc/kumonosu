@@ -16,14 +16,18 @@ RemoteServer::RemoteServer(std::string serverAddress, int32_t serverPort) :
     _serverPort = serverPort;
 
     pthread_mutex_init(&_clientMutex, NULL);
-    _transport->open();
+
+    if (_transport != NULL) {
+        _transport->open();
+    }
 }
 
 RemoteServer::~RemoteServer()
 {
     pthread_mutex_lock(&_clientMutex);
 
-    if (_transport->isOpen()) {
+    if (_transport != NULL &&
+        _transport->isOpen()) {
         _transport->close();
     }
 
@@ -49,7 +53,8 @@ RemoteServer::sendRequest(int32_t serviceId, queueItem item)
 
     pthread_mutex_lock(&_clientMutex);
 
-    if (_transport->isOpen()) {
+    if (_transport != NULL &&
+        _transport->isOpen()) {
         _client.QueueItem(serviceId, item);
         result = true;
     }

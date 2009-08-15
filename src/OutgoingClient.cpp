@@ -24,6 +24,10 @@ OutgoingClient::addServer(int32_t serverId,
 {
     RemoteServer* server = new RemoteServer(serverAddress, serverPort);
 
+    if (server == NULL) {
+        return;
+    }
+
     _serverMap.insert(std::pair<int32_t, RemoteServer*>(serverId, server));
 
     for (int32_t i = 0; i < serviceIds.size(); i++) {
@@ -40,11 +44,11 @@ OutgoingClient::removeServer(int32_t serverId)
     if (server == NULL) {
         return;
     }
-    
+
     for (std::map<int32_t, RemoteServer*>::iterator it = _serviceMap.begin();
          it != _serviceMap.end();
          it++) {
-        if (server = it->second) {
+        if (server == it->second) {
             _serviceMap.erase(it);
         }
     }
@@ -62,6 +66,12 @@ OutgoingClient::run()
     // Check the run mutex, can only be running once
     int runfailed = -1;
     struct timespec check_timeout;
+
+    // Make sure our internal state is sane
+    if (_outgoingQueue == NULL) {
+        return;
+    }
+
     clock_gettime(CLOCK_REALTIME, &check_timeout);
 
     runfailed = pthread_mutex_timedlock(&_runMutex, &check_timeout);
@@ -102,6 +112,10 @@ OutgoingClient::shutdown()
 void
 OutgoingClient::processOutgoingQueue()
 {
+    if (_outgoingQueue == NULL) {
+        return;
+    }
+
     // Process all the known service ids that are pending being sent
     std::vector<int32_t> serviceIds = _outgoingQueue->getServiceIds();
 
@@ -109,10 +123,15 @@ OutgoingClient::processOutgoingQueue()
         if (_serviceMap.find(serviceIds[i]) != _serviceMap.end()) {
             RemoteServer* server = _serviceMap.find(serviceIds[i])->second;
             std::queue<queueItem*> items;
+
+            if (server == NULL) {
+                continue;
+            }
             
             items = _outgoingQueue->getItemQueue(serviceIds[i]);
 
-            while (!items.empty()) {
+            while (!items.empty() &&
+                   items.front() != NULL) {
                 queueItem item;
                 item.methodId = items.front()->methodId;
                 item.serverId = items.front()->serverId;
@@ -128,7 +147,8 @@ OutgoingClient::processOutgoingQueue()
     std::queue<queueItem*> serverItems;
     serverItems = _outgoingQueue->getItemQueue(0);
 
-    while (!serverItems.empty()) {
+    while (!serverItems.empty() &&
+           serverItems.front() != NULL) {
         queueItem item;
         item.methodId = serverItems.front()->methodId;
         item.serverId = serverItems.front()->serverId;
@@ -137,7 +157,9 @@ OutgoingClient::processOutgoingQueue()
         
         if (_serverMap.find(item.serverId) != _serverMap.end()) {
             RemoteServer* server = _serverMap.find(item.serverId)->second;
-            server->sendRequest(0, item);
+            if (server != NULL) {
+                server->sendRequest(0, item);
+            }
         }
     }
 }

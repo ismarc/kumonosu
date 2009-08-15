@@ -46,7 +46,6 @@ MessageProcessor::executeMethod(int32_t methodId,
     if (it != _callbackMap.end()) {
         it->second.execute(argList);
     } else {
-        arguments argList;
         i32Arg method;
         method.name = "methodId";
         method.value = methodId;
@@ -60,6 +59,10 @@ void
 MessageProcessor::processPendingItems(int32_t max_count = -1)
 {
     queueItemList pending_items;
+
+    if (_client == NULL) {
+        return;
+    }
     
     _client->connect();
 

@@ -16,6 +16,10 @@ RemoteRequestManagerHandler::setRequestQueue(RequestQueue *queue)
 void
 RemoteRequestManagerHandler::QueueItem(const int32_t serviceId, const queueItem& item)
 {
+    if (_incomingRequestQueue == NULL) {
+        return;
+    }
+
     queueItem *_item = new queueItem();
     _item->methodId = item.methodId;
     _item->serverId = item.serverId;

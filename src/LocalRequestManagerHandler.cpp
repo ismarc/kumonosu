@@ -16,25 +16,34 @@ LocalRequestManagerHandler::QueueItem(const int32_t serviceId,
                                       const queueItem& item)
 {
     queueItem* _item = new queueItem();
-    _item->methodId = item.methodId;
-    _item->serverId = item.serverId;
-    _item->argList = item.argList;
-    _outgoingRequestQueue->addItem(serviceId, _item);
+
+    if (_outgoingRequestQueue != NULL) {
+        _item->methodId = item.methodId;
+        _item->serverId = item.serverId;
+        _item->argList = item.argList;
+        _outgoingRequestQueue->addItem(serviceId, _item);
+    }
 }
 
 void
 LocalRequestManagerHandler::QueueInternalItem(const queueItem& item)
 {
     queueItem* _item = new queueItem();
-    _item->methodId = item.methodId;
-    _item->serverId = item.serverId;
-    _item->argList = item.argList;
-    _localRequestQueue->addItem(0, _item);
+    if (_localRequestQueue != NULL) {
+        _item->methodId = item.methodId;
+        _item->serverId = item.serverId;
+        _item->argList = item.argList;
+        _localRequestQueue->addItem(0, _item);
+    }
 }
 
 void
 LocalRequestManagerHandler::GetItem(queueItem& _return, const int32_t serviceId)
 {
+    if (_incomingRequestQueue == NULL) {
+        return;
+    }
+
     queueItem* item = _incomingRequestQueue->getItem(serviceId);
 
     if (item != NULL) {
@@ -48,9 +57,14 @@ void
 LocalRequestManagerHandler::GetItemList(queueItemList& _return,
                                         const int32_t serviceId)
 {
+    if (_incomingRequestQueue == NULL) {
+        return;
+    }
+
     std::queue<queueItem*> itemQueue = _incomingRequestQueue->getItemQueue(serviceId);
 
-    while (!itemQueue.empty()) {
+    while (!itemQueue.empty() &&
+           itemQueue.front() != NULL) {
         queueItem item;
         item.methodId = itemQueue.front()->methodId;
         item.serverId = itemQueue.front()->serverId;
@@ -65,9 +79,14 @@ LocalRequestManagerHandler::GetItemListByCount(queueItemList& _return,
                                                const int32_t serviceId,
                                                const int32_t count)
 {
+    if (_incomingRequestQueue == NULL) {
+        return;
+    }
+
     std::queue<queueItem*> itemQueue = _incomingRequestQueue->getItemQueue(serviceId, count);
 
-    while (!itemQueue.empty()) {
+    while (!itemQueue.empty() &&
+           itemQueue.front() != NULL) {
         queueItem item;
         item.methodId = itemQueue.front()->methodId;
         item.serverId = itemQueue.front()->serverId;

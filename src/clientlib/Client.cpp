@@ -54,7 +54,8 @@ Client::connect()
 {
     pthread_mutex_lock(&_clientMutex);
     
-    if (!_transport->isOpen()) {
+    if (_transport != NULL &&
+        !_transport->isOpen()) {
         _transport->open();
     }
 
@@ -66,7 +67,8 @@ Client::disconnect()
 {
     pthread_mutex_lock(&_clientMutex);
     
-    if (_transport->isOpen()) {
+    if (_transport != NULL &&
+        _transport->isOpen()) {
         _transport->close();
     }
 
@@ -117,6 +119,10 @@ bool
 Client::sendRequest(int32_t serviceId, queueItem item)
 {
     bool result = false;
+
+    if (_transport == NULL) {
+        return result;
+    }
     
     if (!_transport->isOpen()) {
         connect();
@@ -138,6 +144,10 @@ bool
 Client::sendLocalRequest(queueItem item)
 {
     bool result = false;
+
+    if (_transport == NULL) {
+        return result;
+    }
     
     if (!_transport->isOpen()) {
         connect();
@@ -159,6 +169,10 @@ queueItem
 Client::getNextPendingItem()
 {
     queueItem result_item;
+
+    if (_transport == NULL) {
+        return result_item;
+    }
     
     if (!_transport->isOpen()) {
         connect();
