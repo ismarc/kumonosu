@@ -60,6 +60,7 @@ kumonosu::Client \- Provides an interface for a service to communicate.
 .ti -1c
 .RI "queueItemList \fBgetPendingItems\fP (int32_t count)"
 .br
+.RI "\fIRetrieves a maximum number of outstanding items from the queue. \fP"
 .in -1c
 .SH "Detailed Description"
 .PP 
@@ -239,7 +240,7 @@ the queueItemList of pending items or an empty queueItemList.
 Definition at line 177 of file Client.cpp.
 .SS "queueItemList Client::getPendingItems (int32_t count)"
 .PP
-Retrieves a maximum number of outstanding items from the queue.
+Retrieves a maximum number of outstanding items from the queue. 
 .PP
 Retrieves a maximum of count items from the queue for the service id associated with this client. 
 .PP

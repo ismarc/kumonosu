@@ -134,8 +134,7 @@ namespace kumonosu {
          *  queueItemList.
          */
         queueItemList getPendingItems();
-        //! Retrieves a maximum number of outstanding items from the
-        //! queue.
+        //! Retrieves a maximum number of outstanding items from the queue.
         /*!
          *  Retrieves a maximum of count items from the queue for the
          *  service id associated with this client.
