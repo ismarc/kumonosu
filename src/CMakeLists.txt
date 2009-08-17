@@ -22,6 +22,7 @@ SET(kumonosu_core_library_SRCS
   RemoteRequestManagerHandler.cpp
   RemoteServer.cpp
   RequestQueue.cpp
+  Server.cpp
   kumonosu_server_constants.cpp
   kumonosu_server_types.cpp
 )
@@ -39,6 +40,7 @@ ENDIF (THRIFT_FOUND AND Boost_FOUND AND EVENT_FOUND)
 
 ADD_SUBDIRECTORY(server/)
 ADD_SUBDIRECTORY(clientlib/)
+ADD_SUBDIRECTORY(manager/)
 ADD_SUBDIRECTORY(tests/)
 # add install target:
 #INSTALL(TARGETS src DESTINATION bin)

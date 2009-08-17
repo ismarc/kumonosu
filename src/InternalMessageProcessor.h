@@ -5,7 +5,7 @@
 ** Login   <mbrace@godwin.lan>
 ** 
 ** Started on  Thu Jul 30 22:25:48 CDT 2009 Matthew Brace
-** Last update Sun Aug  2 17:37:01 CDT 2009 Matthew Brace
+** Last update Mon Aug 17 00:13:21 CDT 2009 Matthew Brace
 */
 
 #ifndef   	INTERNALMESSAGEPROCESSOR_H_
@@ -117,6 +117,8 @@ namespace kumonosu {
         void processQueueItem(queueItem* item);
         //! Internal only method, processes any ready queueItems.
         void processReadyQueue();
+
+        void getServerList(int32_t serviceId);
         
         RequestQueue* _internalQueue;
         RemoteRequestManagerHandler* _remoteHandler;

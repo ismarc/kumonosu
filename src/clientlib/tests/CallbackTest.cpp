@@ -6,7 +6,6 @@ using namespace kumonosu;
 
 class ExampleClass {
 public:
-public:
     ExampleClass() {}
     ~ExampleClass() {}
     void innerCallbackFunction(arguments testArgs) {}

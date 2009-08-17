@@ -100,6 +100,8 @@ OutgoingClient::run()
         }
     }
 
+    // Unlock the shutdown for restart
+    _shutdown = false;
     pthread_mutex_unlock(&_runMutex);
 }
 
@@ -107,6 +109,41 @@ void
 OutgoingClient::shutdown()
 {
     _shutdown = true;
+}
+
+std::vector<Server>
+OutgoingClient::getServerList()
+{
+    std::vector<Server> return_list;
+
+    // a single instance of each server is contained in _serverMap
+    for (std::map<int32_t, RemoteServer*>::iterator it = _serverMap.begin();
+         it != _serverMap.end();
+         it++) {
+        Server server;
+        std::vector<int32_t> serviceIds;
+
+        server.setServerId(it->first);
+
+        // iterate over the service ids to pull the list for this server
+        std::map<int32_t, RemoteServer*>::iterator service_it;
+
+        for (service_it = _serviceMap.begin();
+             service_it != _serviceMap.end();
+             service_it++) {
+            if (service_it->second == it->second) {
+                serviceIds.push_back(it->first);
+            }
+        }
+
+        server.setServiceIds(serviceIds);
+        server.setServerAddress(it->second->getServerAddress());
+        server.setServerPort(it->second->getServerPort());
+
+        return_list.push_back(server);
+    }
+
+    return return_list;
 }
 
 void

@@ -5,7 +5,7 @@
 ** Login   <mbrace@godwin.lan>
 ** 
 ** Started on  Fri Jul 31 01:05:35 CDT 2009 Matthew Brace
-** Last update Sun Aug  2 18:06:47 CDT 2009 Matthew Brace
+** Last update Sun Aug 16 23:20:52 CDT 2009 Matthew Brace
 */
 
 #ifndef   	OUTGOINGCLIENT_H_
@@ -13,6 +13,7 @@
 
 #include "RequestQueue.h"
 #include "RemoteServer.h"
+#include "Server.h"
 
 namespace kumonosu {
     //! Manages remote server connections and processes sending queueItems.
@@ -106,6 +107,17 @@ namespace kumonosu {
          *  requests will be processed prior to shutting down.
          */
         void shutdown();
+
+        //! Returns a list of all servers the client knows about.
+        /*!
+         *  Returns the list of servers (as Server objects) that the
+         *  client knows about.  The method currently iterates over
+         *  the list of service ids for each server, so a large number
+         *  of servers or service ids can impact performance.  This
+         *  should be optimized when it becomes an issue.
+         *  \return list of known servers
+         */
+        std::vector<Server> getServerList();
     private:
         //! Internal only method, processes outgoing queue items.
         void processOutgoingQueue();

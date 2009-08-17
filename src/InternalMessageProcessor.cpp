@@ -1,4 +1,6 @@
 #include "InternalMessageProcessor.h"
+#include "internal_method_map.h"
+#include "Server.h"
 
 using namespace kumonosu;
 
@@ -82,6 +84,8 @@ InternalMessageProcessor::run()
         }
     }
 
+    // Unlock the shutdown
+    _shutdown = false;
     pthread_mutex_unlock(&_runMutex);
 }
 
@@ -117,10 +121,88 @@ InternalMessageProcessor::processQueueItem(queueItem* item)
     int serverId = item->serverId;
     arguments argList = item->argList;
 
-    // Only know how to handle method id 1 (shutdown) now
-    if (methodId == 1) {
-        // shutdown the processor
+    switch (methodId) {
+    case INTERNAL_METHOD_SHUTDOWN:
         _shutdown = true;
+        break;
+    case INTERNAL_METHOD_GET_SERVER_LIST:
+        // Sends a GET_SERVER_RESPONSE method call 
+        // If returnService is set in the call, send the response to
+        // the contained service id
+        int32_t returnServiceId = 0;
+        for (int i = 0; i < argList.i32Args.size(); i++) {
+            if (argList.i32Args[i].name == "returnService") {
+                returnServiceId = argList.i32Args[i].value;
+                break;
+            }
+        }
+        getServerList(returnServiceId);
+        break;
     }
+
 }
     
+void
+InternalMessageProcessor::getServerList(int32_t serviceId)
+{
+    std::vector<Server> servers;
+    queueItem* item = new queueItem();
+    arguments args;
+
+    if (_internalQueue == NULL) {
+        return;
+    }
+
+    item->methodId = INTERNAL_METHOD_GET_SERVER_RESPONSE;
+
+    if (_client != NULL) {
+        servers = _client->getServerList();
+
+        // Build the queueItem from the list of servers
+        i32Arg count;
+        count.name = "serverCount";
+        count.value = servers.size();
+        args.i32Args.push_back(count);
+        // Add each server to the arguments
+        // The argument map is:
+        // i32Args: serverCount => count of servers
+        // stringArgs: serverName => server address
+        // i32Args: <servername>:port => server port
+        // i32Args: <servername>:serviceid => service id (multiple
+        // entries)
+        // i32Args: <servername>:serverid => server id
+        for (int i = 0; i < servers.size(); i++) {
+            // Add the server address
+            stringArg serverAddress;
+            serverAddress.name = "serverName";
+            serverAddress.value = servers[i].getServerAddress();
+            args.stringArgs.push_back(serverAddress);
+            // Add the server port
+            i32Arg port;
+            port.name = serverAddress.value + ":" + "port";
+            port.value = servers[i].getServerPort();
+            args.i32Args.push_back(port);
+            // Add the server id
+            i32Arg serverId;
+            serverId.name = serverAddress.value + ":" + "serverid";
+            serverId.value = servers[i].getServerId();
+            args.i32Args.push_back(serverId);
+
+            std::vector<int32_t> serviceIds = servers[i].getServiceIds();
+            // Add the service ids
+            for (int j = 0; j < serviceIds.size(); j++) {
+                i32Arg serviceId;
+                serviceId.name = serverAddress.value + ":" + "serviceid";
+                serviceId.value = serviceIds[j];
+                args.i32Args.push_back(serviceId);
+            }
+        }
+    } else {
+        i32Arg count;
+        count.name = "serverCount";
+        count.value = 0;
+        args.i32Args.push_back(count);
+    }
+
+    _internalQueue->addItem(serviceId, item);
+}
