@@ -28,7 +28,12 @@ namespace kumonosu {
             
             // Callback methods
             void methodNotFound(arguments argList);
+            void ping(arguments argList);
+            void pong(arguments argList);
+            void getServerList(arguments argList);
             void getServerListResponse(arguments argList);
+            void getServiceList(arguments argList);
+            void getServiceListResponse(arguments argList);
         private:
             void registerProcessorMethods();
             
@@ -38,6 +43,7 @@ namespace kumonosu {
             
             pthread_mutex_t _runMutex;
             pthread_mutex_t _processorLock;
+            pthread_mutex_t _serverListLock;
             bool _stop;
         };
     }

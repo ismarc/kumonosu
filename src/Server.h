@@ -19,6 +19,14 @@ namespace kumonosu {
         Server();
         ~Server() {}
 
+        bool operator==(Server server)
+        {
+            return (this->_serverAddress == server.getServerAddress() &&
+                    this->_serverPort == server.getServerPort() &&
+                    this->_serviceIds == server.getServiceIds() &&
+                    this->_serverId == server.getServerId());
+        }
+
         void setServerAddress(std::string serverAddress);
         std::string changeServerAddress(std::string serverAddress);
         void setServerPort(int32_t serverPort);

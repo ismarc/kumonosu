@@ -18,6 +18,7 @@ KumonosuManager::KumonosuManager()
 
     pthread_mutex_init(&_runMutex, NULL);
     pthread_mutex_init(&_processorLock, NULL);
+    pthread_mutex_init(&_serverListLock, NULL);
 }
 
 void
@@ -60,12 +61,25 @@ KumonosuManager::stop()
 void
 KumonosuManager::registerProcessorMethods()
 {
-    _processor->setMethodCallback(MethodHandler::MethodMap::PlaceholderMethod,
+    _processor->setMethodCallback(MethodHandler::MethodMap::GetServerList,
                                   this,
-                                  &MethodHandler::methodNotFound);
-    _processor->setMethodCallback(INTERNAL_METHOD_GET_SERVER_RESPONSE,
+                                  &MethodHandler::getServerList);
+    _processor->setMethodCallback(MethodHandler::MethodMap::GetServerResponse,
                                   this,
                                   &MethodHandler::getServerListResponse);
+    _processor->setMethodCallback(MethodHandler::MethodMap::Ping,
+                                  this,
+                                  &MethodHandler::ping);
+    _processor->setMethodCallback(MethodHandler::MethodMap::Pong,
+                                  this,
+                                  &MethodHandler::pong);
+    _processor->setMethodCallback(MethodHandler::MethodMap::GetServiceList,
+                                  this,
+                                  &MethodHandler::getServiceList);
+    _processor->setMethodCallback
+        (MethodHandler::MethodMap::GetServiceListResponse,
+         this,
+         &MethodHandler::getServiceListResponse);
 }
 
 /**
@@ -75,6 +89,24 @@ void
 KumonosuManager::methodNotFound(arguments argList)
 {
     // Should log or generate a response or something
+}
+
+void
+KumonosuManager::ping(arguments argList)
+{
+    // Should generate a pong call to the calling server
+}
+
+void
+KumonosuManager::pong(arguments argList)
+{
+    // Mark the caller as a successful status thingy
+}
+
+void
+KumonosuManager::getServerList(arguments argList)
+{
+    // Turn std::vector<Server> into arguments and send to the caller
 }
 
 void
@@ -111,5 +143,35 @@ KumonosuManager::getServerListResponse(arguments argList)
         }
     }
 
-    _serverList = newServerList;
+    // Protect via multiple accesses
+    pthread_mutex_lock(&_serverListLock);
+
+    // Now that we have the list of servers, merge it with the known
+    // list, not allowing for duplicates
+    for (int i = 0; i < _serverList.size(); i++) {
+        for (int j = 0; j < newServerList.size(); j++) {
+            if (newServerList[j] == _serverList[i]) {
+                newServerList.erase(newServerList.begin() + j);
+            }
+        }
+    }
+
+    for (int j = 0; j < newServerList.size(); j++) {
+        _serverList.push_back(newServerList[j]);
+    }
+
+    pthread_mutex_unlock(&_serverListLock);
+}
+
+void
+KumonosuManager::getServiceList(arguments argList)
+{
+    // Get a list of all local services and send a
+    // getServiceListResponse to the calling server
+}
+
+void
+KumonosuManager::getServiceListResponse(arguments argList)
+{
+    // Do something with the returned data
 }
