@@ -196,3 +196,40 @@ OutgoingClientTest::processOutgoingQueueTest()
     client->shutdown();
     delete testServer;
 }
+
+void
+OutgoingClientTest::getServerListTest()
+{
+    int port = 9090;
+    pthread_t serverThread;
+    RequestQueue* queue = new RequestQueue();
+
+    shared_ptr<RemoteRequestManagerHandler> handler(new RemoteRequestManagerHandler(queue));
+    shared_ptr<TProcessor> processor(new RemoteRequestManagerProcessor(handler));
+    shared_ptr<TServerTransport> transport(new TServerSocket(port));
+    shared_ptr<TTransportFactory> transportFactory(new TBufferedTransportFactory());
+    shared_ptr<TProtocolFactory> protocolFactory(new TBinaryProtocolFactory());
+
+    TSimpleServer *testServer = new TSimpleServer(processor,
+                                                  transport,
+                                                  transportFactory,
+                                                  protocolFactory);
+    pthread_create(&serverThread, NULL, runServer, (void *) testServer);
+    sleep(1);
+
+    OutgoingClient* client = new OutgoingClient(queue);
+    int32_t serverId = 1;
+    std::vector<int32_t> serviceIds;
+    serviceIds.push_back(2);
+    std::string serverAddress = "localhost";
+    int32_t serverPort = 9090;
+
+    client->addServer(serverId, serviceIds, serverAddress, serverPort);
+
+    std::vector<Server> serverList = client->getServerList();
+
+    CPPUNIT_ASSERT(serverList.size() == 1);
+
+    client->shutdown();
+    delete testServer;
+}

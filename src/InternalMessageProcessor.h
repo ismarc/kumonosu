@@ -112,13 +112,14 @@ namespace kumonosu {
          *  requests will be processed prior to shutting down.
          */
         void shutdown();
+        void getServerList(int32_t serviceId);
     private:
         //! Internal only method, executes the specified queueItem.
         void processQueueItem(queueItem* item);
         //! Internal only method, processes any ready queueItems.
         void processReadyQueue();
 
-        void getServerList(int32_t serviceId);
+
         
         RequestQueue* _internalQueue;
         RemoteRequestManagerHandler* _remoteHandler;

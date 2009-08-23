@@ -26,6 +26,7 @@ class OutgoingClientTest : public CPPUNIT_NS::TestCase {
     CPPUNIT_TEST(removeServerTest);
     CPPUNIT_TEST(runTest);
     CPPUNIT_TEST(processOutgoingQueueTest);
+    CPPUNIT_TEST(getServerListTest);
     CPPUNIT_TEST_SUITE_END();
 public:
     void setUp(void) {}
@@ -37,6 +38,7 @@ protected:
     void removeServerTest();
     void runTest();
     void processOutgoingQueueTest();
+    void getServerListTest();
 };
 
 

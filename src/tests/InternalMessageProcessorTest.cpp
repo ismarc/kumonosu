@@ -82,6 +82,19 @@ InternalMessageProcessorTest::processItemTest()
     // blocking here
 }
 
+void
+InternalMessageProcessorTest::getServerListTest()
+{
+    RequestQueue* queue = new RequestQueue();
+    InternalMessageProcessor* processor = new InternalMessageProcessor(queue,
+                                                                       NULL,
+                                                                       NULL,
+                                                                       NULL);
+    OutgoingClient* client = new OutgoingClient(queue);
+    processor->getServerList(1);
+    CPPUNIT_ASSERT(queue->getItemQueue(1).size() != 0);
+}
+
 void*
 runProcessor(void *arg)
 {

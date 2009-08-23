@@ -35,6 +35,7 @@ protected:
     void setInternalQueueTest();
     void runTest();
     void processItemTest();
+    void getServerListTest();
 };
 
 #endif 	    /* !INTERNALMESSAGEPROCESSORTEST_H_ */
