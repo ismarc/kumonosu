@@ -37,9 +37,9 @@ KumonosuManager::run()
 
     while (!_stop) {
         pthread_mutex_lock(&_processorLock);
-        
+
         _processor->processPendingItems(-1);
-        
+
         pthread_mutex_unlock(&_processorLock);
         sleep(1);
     }

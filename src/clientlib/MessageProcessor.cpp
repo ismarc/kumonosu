@@ -63,8 +63,13 @@ MessageProcessor::processPendingItems(int32_t max_count = -1)
     if (_client == NULL) {
         return;
     }
-    
-    _client->connect();
+
+    try {
+        _client->connect();
+    } catch (TTransportException e) {
+        // This is similar to NULL, client can't connect
+        return;
+    }
 
     if (max_count == -1) {
         pending_items = _client->getPendingItems();

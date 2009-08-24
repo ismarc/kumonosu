@@ -22,3 +22,5 @@ IF (THRIFT_FOUND AND Boost_FOUND)
   #ADD_EXECUTABLE(kumonosu_manager ${kumonosu_manager_SRCS})
   TARGET_LINK_LIBRARIES(kumonosu_manager ${kumonosu_manager_LIBS})
 ENDIF (THRIFT_FOUND AND Boost_FOUND)
+
+ADD_SUBDIRECTORY(tests/)
