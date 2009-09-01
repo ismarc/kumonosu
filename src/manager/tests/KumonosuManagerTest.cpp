@@ -1,5 +1,6 @@
 #include "KumonosuManagerTest.h"
 #include "manager/KumonosuManager.h"
+#include "manager/MethodHandler.h"
 
 #include "RequestQueue.h"
 #include "LocalRequestManagerHandler.h"
@@ -40,7 +41,7 @@ KumonosuManagerTest::constructorTest()
 {
     KumonosuManager* manager = new KumonosuManager();
 
-    CPPUNIT_ASSERT(manager != NULL);
+    CPPUNIT_ASSERT_MESSAGE("manager is NULL", manager != NULL);
 }
 
 void
@@ -55,12 +56,12 @@ KumonosuManagerTest::runTest()
     // Pause to let it actually run some
     sleep(1);
 
-    CPPUNIT_ASSERT(manager != NULL);
+    CPPUNIT_ASSERT_MESSAGE("manager is NULL", manager != NULL);
     
     // Shut down the manager
     manager->stop();
 
-    CPPUNIT_ASSERT(manager != NULL);
+    CPPUNIT_ASSERT_MESSAGE("manager is NULL after stop()",manager != NULL);
 }
 
 void
@@ -98,12 +99,12 @@ KumonosuManagerTest::runWithClientTest()
     // Pause to let it actually run some
     sleep(1);
 
-    CPPUNIT_ASSERT(manager != NULL);
+    CPPUNIT_ASSERT_MESSAGE("manager is NULL", manager != NULL);
 
     // Shut down the manager
     manager->stop();
 
-    CPPUNIT_ASSERT(manager != NULL);
+    CPPUNIT_ASSERT_MESSAGE("manager is NULL after stop()",manager != NULL);
 
     // Shut down the server
     testServer->stop();
@@ -122,7 +123,7 @@ KumonosuManagerTest::methodNotFoundTest()
         (new LocalRequestManagerHandler(iqueue, oqueue, imqueue));
     shared_ptr<TProcessor> serverProcessor
         (new LocalRequestManagerProcessor(handler));
-    shared_ptr<TServerTransport> transport(new TServerSocket(9191));
+    shared_ptr<TServerTransport> transport(new TServerSocket(9292));
     shared_ptr<TTransportFactory> transportFactory
         (new TBufferedTransportFactory());
     shared_ptr<TProtocolFactory> protocolFactory(new TBinaryProtocolFactory());
@@ -141,7 +142,7 @@ KumonosuManagerTest::methodNotFoundTest()
     iqueue->addItem(0, item);
 
     // Create the manager
-    KumonosuManager* manager = new KumonosuManager();
+    KumonosuManager* manager = new KumonosuManager("localhost", 9292);
 
     // Set the manager to run, invoking the methodNotFound call
     pthread_t managerThread;
@@ -151,6 +152,315 @@ KumonosuManagerTest::methodNotFoundTest()
     // Pause to let it run some
     sleep(4);
     manager->stop();
-    CPPUNIT_ASSERT(iqueue->getItemQueue(0).size() == 0);
+    CPPUNIT_ASSERT_MESSAGE("item queue size is not 0",
+                           iqueue->getItemQueue(0).size() == 0);
+
+    testServer->stop();
+}
+
+void
+KumonosuManagerTest::pingTest()
+{
+    pthread_t serverThread;
+    RequestQueue* iqueue = new RequestQueue();
+    RequestQueue* oqueue = new RequestQueue();
+    RequestQueue* imqueue = new RequestQueue();
+
+    shared_ptr<LocalRequestManagerHandler> handler
+        (new LocalRequestManagerHandler(iqueue, oqueue, imqueue));
+    shared_ptr<TProcessor> serverProcessor
+        (new LocalRequestManagerProcessor(handler));
+    shared_ptr<TServerTransport> transport(new TServerSocket(9393));
+    shared_ptr<TTransportFactory> transportFactory
+        (new TBufferedTransportFactory());
+    shared_ptr<TProtocolFactory> protocolFactory(new TBinaryProtocolFactory());
+
+    TSimpleServer *testServer = new TSimpleServer(serverProcessor,
+                                                  transport,
+                                                  transportFactory,
+                                                  protocolFactory);
+
+    pthread_create(&serverThread, NULL, runServer, (void*) testServer);
+    sleep(2);
+
+    queueItem* item = new queueItem();
+    item->methodId = MethodHandler::MethodMap::Ping;
+    // Ping takes several parameters:
+    // serviceId, serverAddress and serverPort
+    // These are used for the response location.
+    // Since we just care that the request is generated,
+    // use some bogus info
+    i32Arg serviceId;
+    serviceId.name = "serviceId";
+    serviceId.value = 0;
+    item->argList.i32Args.push_back(serviceId);
+    i32Arg serverPort;
+    serverPort.name = "port";
+    serverPort.value = 8989;
+    item->argList.i32Args.push_back(serverPort);
+    i32Arg pingId;
+    pingId.name = "pingId";
+    pingId.value = 1;
+    item->argList.i32Args.push_back(pingId);
+    stringArg serverAddress;
+    serverAddress.name = "serverAddress";
+    serverAddress.value = "a.badhostname.com";
+    item->argList.stringArgs.push_back(serverAddress);
+
+    iqueue->addItem(0, item);
+
+    KumonosuManager* manager = new KumonosuManager("localhost", 9393);
+
+    // Add the server that would correspond with the Ping response
+    // above
+    Server newServer;
+    newServer.setServerAddress("a.badhostname.com");
+    newServer.setServerPort(8989);
+    newServer.setServerId(24);
+
+    manager->addServer(newServer);
+
+    pthread_t managerThread;
+
+    pthread_create(&managerThread, NULL, runManager, (void*) manager);
+
+    sleep(4);
+    manager->stop();
+    testServer->stop();
+    CPPUNIT_ASSERT_MESSAGE("Incoming queue is not 0",
+                           iqueue->getItemQueue(0).size() == 0);
+
+    CPPUNIT_ASSERT_MESSAGE("Outgoing queue is not 1",
+                           oqueue->getItemQueue(0).size() != 0);
+}
+
+void
+KumonosuManagerTest::pongTest()
+{
+    pthread_t serverThread;
+    RequestQueue* iqueue = new RequestQueue();
+    RequestQueue* oqueue = new RequestQueue();
+    RequestQueue* imqueue = new RequestQueue();
+
+    shared_ptr<LocalRequestManagerHandler> handler
+        (new LocalRequestManagerHandler(iqueue, oqueue, imqueue));
+    shared_ptr<TProcessor> serverProcessor
+        (new LocalRequestManagerProcessor(handler));
+    shared_ptr<TServerTransport> transport(new TServerSocket(9494));
+    shared_ptr<TTransportFactory> transportFactory
+        (new TBufferedTransportFactory());
+    shared_ptr<TProtocolFactory> protocolFactory(new TBinaryProtocolFactory());
+
+    TSimpleServer *testServer = new TSimpleServer(serverProcessor,
+                                                  transport,
+                                                  transportFactory,
+                                                  protocolFactory);
+
+    pthread_create(&serverThread, NULL, runServer, (void*) testServer);
+    sleep(2);
+
+    queueItem* item = new queueItem();
+    item->methodId = MethodHandler::MethodMap::Pong;
+    iqueue->addItem(0, item);
+
+    KumonosuManager* manager = new KumonosuManager("localhost", 9494);
+
+    pthread_t managerThread;
+
+    pthread_create(&managerThread, NULL, runManager, (void*) manager);
+
+    sleep(4);
+    manager->stop();
+    CPPUNIT_ASSERT_MESSAGE("Incoming queue is not 0",
+                           iqueue->getItemQueue(0).size() == 0);
+
+    testServer->stop();
+}
+
+void
+KumonosuManagerTest::getServerListTest()
+{
+    pthread_t serverThread;
+    RequestQueue* iqueue = new RequestQueue();
+    RequestQueue* oqueue = new RequestQueue();
+    RequestQueue* imqueue = new RequestQueue();
+
+    shared_ptr<LocalRequestManagerHandler> handler
+        (new LocalRequestManagerHandler(iqueue, oqueue, imqueue));
+    shared_ptr<TProcessor> serverProcessor
+        (new LocalRequestManagerProcessor(handler));
+    shared_ptr<TServerTransport> transport(new TServerSocket(9595));
+    shared_ptr<TTransportFactory> transportFactory
+        (new TBufferedTransportFactory());
+    shared_ptr<TProtocolFactory> protocolFactory(new TBinaryProtocolFactory());
+
+    TSimpleServer *testServer = new TSimpleServer(serverProcessor,
+                                                  transport,
+                                                  transportFactory,
+                                                  protocolFactory);
+
+    pthread_create(&serverThread, NULL, runServer, (void*) testServer);
+    sleep(2);
+
+    queueItem* item = new queueItem();
+    item->methodId = MethodHandler::MethodMap::GetServerList;
+    i32Arg serverId;
+    serverId.name = "serverid";
+    serverId.value = 34;
+    item->argList.i32Args.push_back(serverId);
+    i32Arg serviceId;
+    serviceId.name = "serviceid";
+    serviceId.value = 0;
+    item->argList.i32Args.push_back(serviceId);
+    iqueue->addItem(0, item);
+
+    KumonosuManager* manager = new KumonosuManager("localhost", 9595);
+
+    pthread_t managerThread;
+
+    pthread_create(&managerThread, NULL, runManager, (void*) manager);
+
+    sleep(4);
+    manager->stop();
+    // getServerList should generate an outgoing message
+    CPPUNIT_ASSERT_MESSAGE("Incoming queue is not 0",
+                           iqueue->getItemQueue(0).size() == 0);
+
+    CPPUNIT_ASSERT_MESSAGE("Outgoing queue is not 1",
+                           oqueue->getItemQueue(0).size() == 1);
+
+    testServer->stop();
+}
+
+void
+KumonosuManagerTest::getServerListResponseTest()
+{
+    pthread_t serverThread;
+    RequestQueue* iqueue = new RequestQueue();
+    RequestQueue* oqueue = new RequestQueue();
+    RequestQueue* imqueue = new RequestQueue();
+
+    shared_ptr<LocalRequestManagerHandler> handler
+        (new LocalRequestManagerHandler(iqueue, oqueue, imqueue));
+    shared_ptr<TProcessor> serverProcessor
+        (new LocalRequestManagerProcessor(handler));
+    shared_ptr<TServerTransport> transport(new TServerSocket(9696));
+    shared_ptr<TTransportFactory> transportFactory
+        (new TBufferedTransportFactory());
+    shared_ptr<TProtocolFactory> protocolFactory(new TBinaryProtocolFactory());
+
+    TSimpleServer *testServer = new TSimpleServer(serverProcessor,
+                                                  transport,
+                                                  transportFactory,
+                                                  protocolFactory);
+
+    pthread_create(&serverThread, NULL, runServer, (void*) testServer);
+    sleep(2);
+
+    queueItem* item = new queueItem();
+    item->methodId = MethodHandler::MethodMap::GetServerResponse;
+    iqueue->addItem(0, item);
+
+    KumonosuManager* manager = new KumonosuManager("localhost", 9696);
+
+    pthread_t managerThread;
+
+    pthread_create(&managerThread, NULL, runManager, (void*) manager);
+
+    sleep(4);
+    manager->stop();
+    CPPUNIT_ASSERT_MESSAGE("Incoming queue is not 0",
+                           iqueue->getItemQueue(0).size() == 0);
+
+    testServer->stop();
+}
+
+void
+KumonosuManagerTest::getServiceListTest()
+{
+    pthread_t serverThread;
+    RequestQueue* iqueue = new RequestQueue();
+    RequestQueue* oqueue = new RequestQueue();
+    RequestQueue* imqueue = new RequestQueue();
+
+    shared_ptr<LocalRequestManagerHandler> handler
+        (new LocalRequestManagerHandler(iqueue, oqueue, imqueue));
+    shared_ptr<TProcessor> serverProcessor
+        (new LocalRequestManagerProcessor(handler));
+    shared_ptr<TServerTransport> transport(new TServerSocket(9797));
+    shared_ptr<TTransportFactory> transportFactory
+        (new TBufferedTransportFactory());
+    shared_ptr<TProtocolFactory> protocolFactory(new TBinaryProtocolFactory());
+
+    TSimpleServer *testServer = new TSimpleServer(serverProcessor,
+                                                  transport,
+                                                  transportFactory,
+                                                  protocolFactory);
+
+    pthread_create(&serverThread, NULL, runServer, (void*) testServer);
+    sleep(2);
+
+    queueItem* item = new queueItem();
+    item->methodId = MethodHandler::MethodMap::GetServiceList;
+    iqueue->addItem(0, item);
+
+    KumonosuManager* manager = new KumonosuManager("localhost", 9797);
+
+    pthread_t managerThread;
+
+    pthread_create(&managerThread, NULL, runManager, (void*) manager);
+
+    sleep(4);
+    manager->stop();
+    // getServerList should generate an outgoing message
+    CPPUNIT_ASSERT_MESSAGE("Incoming queue is not 0",
+                           iqueue->getItemQueue(0).size() == 0);
+
+    CPPUNIT_ASSERT_MESSAGE("Outgoing queue is not 1",
+                           oqueue->getItemQueue(0).size() == 1);
+
+    testServer->stop();
+}
+
+void
+KumonosuManagerTest::getServiceListResponseTest()
+{
+    pthread_t serverThread;
+    RequestQueue* iqueue = new RequestQueue();
+    RequestQueue* oqueue = new RequestQueue();
+    RequestQueue* imqueue = new RequestQueue();
+
+    shared_ptr<LocalRequestManagerHandler> handler
+        (new LocalRequestManagerHandler(iqueue, oqueue, imqueue));
+    shared_ptr<TProcessor> serverProcessor
+        (new LocalRequestManagerProcessor(handler));
+    shared_ptr<TServerTransport> transport(new TServerSocket(9898));
+    shared_ptr<TTransportFactory> transportFactory
+        (new TBufferedTransportFactory());
+    shared_ptr<TProtocolFactory> protocolFactory(new TBinaryProtocolFactory());
+
+    TSimpleServer *testServer = new TSimpleServer(serverProcessor,
+                                                  transport,
+                                                  transportFactory,
+                                                  protocolFactory);
+
+    pthread_create(&serverThread, NULL, runServer, (void*) testServer);
+    sleep(2);
+
+    queueItem* item = new queueItem();
+    item->methodId = MethodHandler::MethodMap::GetServiceListResponse;
+    iqueue->addItem(0, item);
+
+    KumonosuManager* manager = new KumonosuManager("localhost", 9898);
+
+    pthread_t managerThread;
+
+    pthread_create(&managerThread, NULL, runManager, (void*) manager);
+
+    sleep(4);
+    manager->stop();
+    CPPUNIT_ASSERT_MESSAGE("Incoming queue is not 0",
+                           iqueue->getItemQueue(0).size() == 0);
+
     testServer->stop();
 }

@@ -21,11 +21,14 @@ namespace kumonosu {
         class KumonosuManager {
         public:
             KumonosuManager();
+            KumonosuManager(std::string serverAddress, int32_t serverPort);
             ~KumonosuManager() {}
 
             void run();
             void stop();
-            
+
+            bool addServer(Server newServer);
+
             // Callback methods
             void methodNotFound(arguments argList);
             void ping(arguments argList);

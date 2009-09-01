@@ -7,8 +7,8 @@ int main(int ac, char **av)
     CPPUNIT_NS::TestResult controller;
     CPPUNIT_NS::TestResultCollector result;
     controller.addListener(&result);
-    CPPUNIT_NS::BriefTestProgressListener progress;
-    controller.addListener(&progress);
+    CPPUNIT_NS::BriefTestProgressListener briefProgress;
+    controller.addListener(&briefProgress);
     CPPUNIT_NS::TestRunner runner;
     runner.addTest(CPPUNIT_NS::TestFactoryRegistry::getRegistry().makeTest());
     runner.run(controller);

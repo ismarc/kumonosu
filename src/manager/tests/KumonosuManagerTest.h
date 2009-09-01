@@ -24,6 +24,12 @@ class KumonosuManagerTest : public CPPUNIT_NS::TestCase {
     CPPUNIT_TEST(runTest);
     CPPUNIT_TEST(runWithClientTest);
     CPPUNIT_TEST(methodNotFoundTest);
+    CPPUNIT_TEST(pingTest);
+    CPPUNIT_TEST(pongTest);
+    CPPUNIT_TEST(getServerListTest);
+    CPPUNIT_TEST(getServerListResponseTest);
+    CPPUNIT_TEST(getServiceListTest);
+    CPPUNIT_TEST(getServiceListResponseTest);
     CPPUNIT_TEST_SUITE_END();
 public:
     void setUp(void) {}
@@ -33,6 +39,12 @@ protected:
     void runTest();
     void runWithClientTest();
     void methodNotFoundTest();
+    void pingTest();
+    void pongTest();
+    void getServerListTest();
+    void getServerListResponseTest();
+    void getServiceListTest();
+    void getServiceListResponseTest();
 };
 
 

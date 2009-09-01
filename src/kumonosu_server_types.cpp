@@ -462,8 +462,8 @@ uint32_t stringArg::write(apache::thrift::protocol::TProtocol* oprot) const {
   return xfer;
 }
 
-const char* arguments::ascii_fingerprint = "F3CBDDE3929F8070971B6C66009E4E9E";
-const uint8_t arguments::binary_fingerprint[16] = {0xF3,0xCB,0xDD,0xE3,0x92,0x9F,0x80,0x70,0x97,0x1B,0x6C,0x66,0x00,0x9E,0x4E,0x9E};
+const char* arguments::ascii_fingerprint = "5FE74C86BE910B05C2783D68AB1F95EF";
+const uint8_t arguments::binary_fingerprint[16] = {0x5F,0xE7,0x4C,0x86,0xBE,0x91,0x0B,0x05,0xC2,0x78,0x3D,0x68,0xAB,0x1F,0x95,0xEF};
 
 uint32_t arguments::read(apache::thrift::protocol::TProtocol* iprot) {
 
@@ -679,19 +679,17 @@ uint32_t arguments::write(apache::thrift::protocol::TProtocol* oprot) const {
     }
     xfer += oprot->writeFieldEnd();
   }
-  if (this->__isset.i32Args) {
-    xfer += oprot->writeFieldBegin("i32Args", apache::thrift::protocol::T_LIST, 4);
+  xfer += oprot->writeFieldBegin("i32Args", apache::thrift::protocol::T_LIST, 4);
+  {
+    xfer += oprot->writeListBegin(apache::thrift::protocol::T_STRUCT, this->i32Args.size());
+    std::vector<i32Arg> ::const_iterator _iter38;
+    for (_iter38 = this->i32Args.begin(); _iter38 != this->i32Args.end(); ++_iter38)
     {
-      xfer += oprot->writeListBegin(apache::thrift::protocol::T_STRUCT, this->i32Args.size());
-      std::vector<i32Arg> ::const_iterator _iter38;
-      for (_iter38 = this->i32Args.begin(); _iter38 != this->i32Args.end(); ++_iter38)
-      {
-        xfer += (*_iter38).write(oprot);
-      }
-      xfer += oprot->writeListEnd();
+      xfer += (*_iter38).write(oprot);
     }
-    xfer += oprot->writeFieldEnd();
+    xfer += oprot->writeListEnd();
   }
+  xfer += oprot->writeFieldEnd();
   if (this->__isset.i64Args) {
     xfer += oprot->writeFieldBegin("i64Args", apache::thrift::protocol::T_LIST, 5);
     {
@@ -718,19 +716,17 @@ uint32_t arguments::write(apache::thrift::protocol::TProtocol* oprot) const {
     }
     xfer += oprot->writeFieldEnd();
   }
-  if (this->__isset.stringArgs) {
-    xfer += oprot->writeFieldBegin("stringArgs", apache::thrift::protocol::T_LIST, 7);
+  xfer += oprot->writeFieldBegin("stringArgs", apache::thrift::protocol::T_LIST, 7);
+  {
+    xfer += oprot->writeListBegin(apache::thrift::protocol::T_STRUCT, this->stringArgs.size());
+    std::vector<stringArg> ::const_iterator _iter41;
+    for (_iter41 = this->stringArgs.begin(); _iter41 != this->stringArgs.end(); ++_iter41)
     {
-      xfer += oprot->writeListBegin(apache::thrift::protocol::T_STRUCT, this->stringArgs.size());
-      std::vector<stringArg> ::const_iterator _iter41;
-      for (_iter41 = this->stringArgs.begin(); _iter41 != this->stringArgs.end(); ++_iter41)
-      {
-        xfer += (*_iter41).write(oprot);
-      }
-      xfer += oprot->writeListEnd();
+      xfer += (*_iter41).write(oprot);
     }
-    xfer += oprot->writeFieldEnd();
+    xfer += oprot->writeListEnd();
   }
+  xfer += oprot->writeFieldEnd();
   xfer += oprot->writeFieldStop();
   xfer += oprot->writeStructEnd();
   return xfer;
@@ -875,8 +871,8 @@ uint32_t serviceList::write(apache::thrift::protocol::TProtocol* oprot) const {
   return xfer;
 }
 
-const char* queueItem::ascii_fingerprint = "A104D01649E132F2B265364F05B91078";
-const uint8_t queueItem::binary_fingerprint[16] = {0xA1,0x04,0xD0,0x16,0x49,0xE1,0x32,0xF2,0xB2,0x65,0x36,0x4F,0x05,0xB9,0x10,0x78};
+const char* queueItem::ascii_fingerprint = "423E5C0930758A8A22D51D1BFA50AE4A";
+const uint8_t queueItem::binary_fingerprint[16] = {0x42,0x3E,0x5C,0x09,0x30,0x75,0x8A,0x8A,0x22,0xD5,0x1D,0x1B,0xFA,0x50,0xAE,0x4A};
 
 uint32_t queueItem::read(apache::thrift::protocol::TProtocol* iprot) {
 
@@ -940,23 +936,19 @@ uint32_t queueItem::write(apache::thrift::protocol::TProtocol* oprot) const {
   xfer += oprot->writeFieldBegin("methodId", apache::thrift::protocol::T_I64, 1);
   xfer += oprot->writeI64(this->methodId);
   xfer += oprot->writeFieldEnd();
-  if (this->__isset.serverId) {
-    xfer += oprot->writeFieldBegin("serverId", apache::thrift::protocol::T_I64, 2);
-    xfer += oprot->writeI64(this->serverId);
-    xfer += oprot->writeFieldEnd();
-  }
-  if (this->__isset.argList) {
-    xfer += oprot->writeFieldBegin("argList", apache::thrift::protocol::T_STRUCT, 3);
-    xfer += this->argList.write(oprot);
-    xfer += oprot->writeFieldEnd();
-  }
+  xfer += oprot->writeFieldBegin("serverId", apache::thrift::protocol::T_I64, 2);
+  xfer += oprot->writeI64(this->serverId);
+  xfer += oprot->writeFieldEnd();
+  xfer += oprot->writeFieldBegin("argList", apache::thrift::protocol::T_STRUCT, 3);
+  xfer += this->argList.write(oprot);
+  xfer += oprot->writeFieldEnd();
   xfer += oprot->writeFieldStop();
   xfer += oprot->writeStructEnd();
   return xfer;
 }
 
-const char* queueItemList::ascii_fingerprint = "0F23088D4DE5581F3AE36B250AE0CCC2";
-const uint8_t queueItemList::binary_fingerprint[16] = {0x0F,0x23,0x08,0x8D,0x4D,0xE5,0x58,0x1F,0x3A,0xE3,0x6B,0x25,0x0A,0xE0,0xCC,0xC2};
+const char* queueItemList::ascii_fingerprint = "47299E266D53FC38B6A0F5B44E352F87";
+const uint8_t queueItemList::binary_fingerprint[16] = {0x47,0x29,0x9E,0x26,0x6D,0x53,0xFC,0x38,0xB6,0xA0,0xF5,0xB4,0x4E,0x35,0x2F,0x87};
 
 uint32_t queueItemList::read(apache::thrift::protocol::TProtocol* iprot) {
 
