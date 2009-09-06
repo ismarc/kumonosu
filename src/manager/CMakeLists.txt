@@ -7,6 +7,9 @@ INCLUDE_DIRECTORIES(${CMAKE_SOURCE_DIR})
 # Sources:
 SET(kumonosu_manager_SRCS
   MethodHandler.cpp
+  ProcedureArguments.cpp
+  PingArguments.cpp
+  ServerListArguments.cpp
   KumonosuManager.cpp
 )
 

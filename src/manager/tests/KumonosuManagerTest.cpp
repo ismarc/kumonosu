@@ -1,6 +1,7 @@
 #include "KumonosuManagerTest.h"
 #include "manager/KumonosuManager.h"
 #include "manager/MethodHandler.h"
+#include "manager/PingArguments.h"
 
 #include "RequestQueue.h"
 #include "LocalRequestManagerHandler.h"
@@ -185,27 +186,9 @@ KumonosuManagerTest::pingTest()
 
     queueItem* item = new queueItem();
     item->methodId = MethodHandler::MethodMap::Ping;
-    // Ping takes several parameters:
-    // serviceId, serverAddress and serverPort
-    // These are used for the response location.
-    // Since we just care that the request is generated,
-    // use some bogus info
-    i32Arg serviceId;
-    serviceId.name = "serviceId";
-    serviceId.value = 0;
-    item->argList.i32Args.push_back(serviceId);
-    i32Arg serverPort;
-    serverPort.name = "port";
-    serverPort.value = 8989;
-    item->argList.i32Args.push_back(serverPort);
-    i32Arg pingId;
-    pingId.name = "pingId";
-    pingId.value = 1;
-    item->argList.i32Args.push_back(pingId);
-    stringArg serverAddress;
-    serverAddress.name = "serverAddress";
-    serverAddress.value = "a.badhostname.com";
-    item->argList.stringArgs.push_back(serverAddress);
+
+    PingArguments pingItem("a.badhostname.com", 8989, 0, 1);
+    pingItem.addToArguments(&item->argList);
 
     iqueue->addItem(0, item);
 

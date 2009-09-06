@@ -1,5 +1,7 @@
 #include "KumonosuManager.h"
 #include "MethodHandler.h"
+#include "PingArguments.h"
+#include "ServerListArguments.h"
 #include "clientlib/Client.h"
 #include "clientlib/MessageProcessor.h"
 #include "internal_method_map.h"
@@ -126,43 +128,15 @@ KumonosuManager::methodNotFound(arguments argList)
 void
 KumonosuManager::ping(arguments argList)
 {
-    std::string serverAddress;
-    int32_t port;
-    int32_t serviceId = -1;
-    int32_t serverId = -1;
+    PingArguments pingItem;
+    pingItem.loadFromArguments(argList);
+    pingItem.loadServerId(_serverList);
+
+    int32_t serverId = pingItem.getServerId();
+    int32_t serviceId = pingItem.getServiceId();
     i32Arg pingId;
     pingId.name = "pingId";
-    pingId.value = -1;
-
-    // ping should contain the server address, port and service id
-    // Extract the server address
-    for (int it = 0; it < argList.stringArgs.size(); it++) {
-        if (argList.stringArgs[it].name == "serverAddress") {
-            serverAddress = argList.stringArgs[it].value;
-        }
-    }
-
-    // Extract the port and server id information
-    for (int it = 0; it < argList.i32Args.size(); it++) {
-        if (argList.i32Args[it].name == "port") {
-            port = argList.i32Args[it].value;
-        }
-        if (argList.i32Args[it].name == "serviceId") {
-            serviceId = argList.i32Args[it].value;
-        }
-        if (argList.i32Args[it].name == "pingId") {
-            pingId.value = argList.i32Args[it].value;
-        }
-    }
-
-    // Find the associated server
-    for (int it = 0; it < _serverList.size(); it++) {
-        if (_serverList[it].getServerAddress() == serverAddress &&
-            _serverList[it].getServerPort() == port) {
-            serverId = _serverList[it].getServerId();
-            break;
-        }
-    }
+    pingId.value = pingItem.getPingId();
 
     // Build the response
     queueItem item;
@@ -194,9 +168,6 @@ KumonosuManager::getServerList(arguments argList)
         }
     }
 
-    // FIXME: Should really build in a serialize/deserialize feature
-    // to Server so that it generates the arguments (ie, no code
-    // duplication).  Goes for a couple of other spots, too.
     queueItem item;
     item.methodId = MethodHandler::MethodMap::GetServerResponse;
     item.serverId = destServerId;
@@ -206,40 +177,8 @@ KumonosuManager::getServerList(arguments argList)
     count.value = _serverList.size();
     item.argList.i32Args.push_back(count);
 
-    // The argument map is:
-    // i32Args: serverCount => count of servers
-    // stringArgs: serverName => server address
-    // i32Args: <servername>:port => server port
-    // i32Args: <servername>:serviceid => service id (multiple
-    // entries)
-    // i32Args: <servername>:serverid => server id
-
-    for (int i = 0; i < _serverList.size(); i++) {
-        // Add the server address
-        stringArg serverAddress;
-        serverAddress.name = "serverName";
-        serverAddress.value = _serverList[i].getServerAddress();
-        item.argList.stringArgs.push_back(serverAddress);
-        // add the server port
-        i32Arg port;
-        port.name = serverAddress.value + ":" + "port";
-        port.value = _serverList[i].getServerPort();
-        item.argList.i32Args.push_back(port);
-        // Add the server id
-        i32Arg serverId;
-        serverId.name = serverAddress.value + ":" + "serverid";
-        serverId.value = _serverList[i].getServerId();
-        item.argList.i32Args.push_back(serverId);
-
-        std::vector<int32_t> serviceIds = _serverList[i].getServiceIds();
-        // Add the service ids
-        for (int j = 0; j < serviceIds.size(); j++) {
-            i32Arg serviceId;
-            serviceId.name = serverAddress.value + ":" + "serviceid";
-            serviceId.value = serviceIds[j];
-            item.argList.i32Args.push_back(serviceId);
-        }
-    }
+    ServerListArguments serverItem(_serverList);
+    serverItem.addToArguments(&item.argList);
 
     _client->sendRequest(destServiceId, item);
 }
@@ -249,34 +188,9 @@ KumonosuManager::getServerListResponse(arguments argList)
 {
     std::vector<Server> newServerList;
 
-    for (int it = 0; it < argList.stringArgs.size(); it++) {
-        // This indicates the address of a server
-        if (argList.stringArgs[it].name == "serverName") {
-            Server server;
-            std::string serverAddress = argList.stringArgs[it].value;
-            int32_t serverPort = -1;
-            int32_t serverId = -1;
-            std::vector<int32_t> serviceIds;
-            
-            // Find the server id, port and service ids
-            for (int i = 0; i < argList.i32Args.size(); i++) {
-                if (argList.i32Args[i].name == serverAddress + ":serverid") {
-                    server.setServerId(argList.i32Args[i].value);
-                } else if (argList.i32Args[i].name == serverAddress + ":port") {
-                    server.setServerPort(argList.i32Args[i].value);
-                } else if (argList.i32Args[i].name ==
-                           serverAddress + ":serviceid") {
-                    serviceIds.push_back(argList.i32Args[i].value);
-                }
-            }
-
-            // Fill out the server object
-            server.setServerAddress(serverAddress);
-            server.setServerPort(serverPort);
-            server.setServerId(serverId);
-            server.setServiceIds(serviceIds);
-        }
-    }
+    ServerListArguments serverArgs;
+    serverArgs.loadFromArguments(argList);
+    newServerList = serverArgs.getServerList();
 
     // Protect via multiple accesses
     pthread_mutex_lock(&_serverListLock);

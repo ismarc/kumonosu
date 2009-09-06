@@ -8,6 +8,9 @@ INCLUDE_DIRECTORIES(${CMAKE_SOURCE_DIR})
 SET(manager_test_SRCS
   manager_test_main.cpp
   ../MethodHandler.cpp
+  ../ProcedureArguments.cpp
+  ../PingArguments.cpp
+  ../ServerListArguments.cpp
   ../KumonosuManager.cpp
   KumonosuManagerTest.cpp
 )
