@@ -385,6 +385,15 @@ KumonosuManagerTest::getServiceListTest()
 
     queueItem* item = new queueItem();
     item->methodId = MethodHandler::MethodMap::GetServiceList;
+    i32Arg serverId;
+    serverId.name = "serverid";
+    serverId.value = 34;
+    item->argList.i32Args.push_back(serverId);
+    i32Arg serviceId;
+    serviceId.name = "serviceid";
+    serviceId.value = 0;
+    item->argList.i32Args.push_back(serviceId);
+
     iqueue->addItem(0, item);
 
     KumonosuManager* manager = new KumonosuManager("localhost", 9797);

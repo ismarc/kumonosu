@@ -28,6 +28,8 @@ namespace kumonosu {
             void stop();
 
             bool addServer(Server newServer);
+            void addService(int32_t serviceId);
+            void removeService(int32_t serviceId);
 
             // Callback methods
             void methodNotFound(arguments argList);
@@ -43,6 +45,7 @@ namespace kumonosu {
             Client* _client;
             MessageProcessor* _processor;
             std::vector<Server> _serverList;
+            std::vector<int32_t> _localServices;
             
             pthread_mutex_t _runMutex;
             pthread_mutex_t _processorLock;

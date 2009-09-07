@@ -11,6 +11,7 @@ SET(manager_test_SRCS
   ../ProcedureArguments.cpp
   ../PingArguments.cpp
   ../ServerListArguments.cpp
+  ../ServiceListArguments.cpp
   ../KumonosuManager.cpp
   KumonosuManagerTest.cpp
 )

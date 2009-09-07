@@ -10,6 +10,7 @@ SET(kumonosu_manager_SRCS
   ProcedureArguments.cpp
   PingArguments.cpp
   ServerListArguments.cpp
+  ServiceListArguments.cpp
   KumonosuManager.cpp
 )
 

@@ -2,6 +2,7 @@
 #include "MethodHandler.h"
 #include "PingArguments.h"
 #include "ServerListArguments.h"
+#include "ServiceListArguments.h"
 #include "clientlib/Client.h"
 #include "clientlib/MessageProcessor.h"
 #include "internal_method_map.h"
@@ -116,6 +117,35 @@ KumonosuManager::registerProcessorMethods()
          &MethodHandler::getServiceListResponse);
 }
 
+void
+KumonosuManager::addService(int32_t serviceId)
+{
+    // Don't allow duplicates
+    bool add_id = true;
+
+    for (int i = 0; i < _localServices.size(); i++) {
+        if (_localServices[i] == serviceId) {
+            add_id = false;
+            break;
+        }
+    }
+
+    if (add_id) {
+        _localServices.push_back(serviceId);
+    }
+}
+
+void
+KumonosuManager::removeService(int32_t serviceId)
+{
+    for (int i = 0; i < _localServices.size(); i++) {
+        if (_localServices[i] == serviceId) {
+            _localServices.erase(_localServices.begin() + i);
+            break;
+        }
+    }
+}
+
 /**
  *  Callback methods for handling message processing
  */
@@ -217,6 +247,31 @@ KumonosuManager::getServiceList(arguments argList)
 {
     // Get a list of all local services and send a
     // getServiceListResponse to the calling server
+
+    int32_t destServerId = -1;
+    int32_t destServiceId = -1;
+    for (int i = 0; i < argList.i32Args.size(); i++) {
+        if (argList.i32Args[i].name == "serverid") {
+            destServerId = argList.i32Args[i].value;
+        }
+        if (argList.i32Args[i].name == "serviceid") {
+            destServiceId = argList.i32Args[i].value;
+        }
+    }
+
+    queueItem item;
+    item.methodId = MethodHandler::MethodMap::GetServiceListResponse;
+    item.serverId = destServerId;
+
+    i32Arg count;
+    count.name = "serviceCount";
+    count.value = _localServices.size();
+    item.argList.i32Args.push_back(count);
+
+    ServiceListArguments serviceItem(_localServices);
+    serviceItem.addToArguments(&item.argList);
+
+    _client->sendRequest(destServiceId, item);
 }
 
 void
