@@ -1,4 +1,4 @@
-.TH "kumonosu::Client" 3 "14 Aug 2009" "Doxygen" \" -*- nroff -*-
+.TH "kumonosu::Client" 3 "9 Sep 2009" "Doxygen" \" -*- nroff -*-
 .ad l
 .nh
 .SH NAME
@@ -141,7 +141,7 @@ Closes a connection to the server.
 .PP
 Closes the connection to the server, used if the service needs to change details about the connection or close outgoing sockets. 
 .PP
-Definition at line 65 of file Client.cpp.
+Definition at line 66 of file Client.cpp.
 .SS "void Client::setServerAddress (std::string serverAddress)"
 .PP
 Assigns the server IP or hostname to connect to. 
@@ -155,7 +155,7 @@ Closes the connection if open and assigns the specified server address. The conn
 .PP
 
 .PP
-Definition at line 77 of file Client.cpp.
+Definition at line 79 of file Client.cpp.
 .SS "void Client::setServerPort (int32_t serverPort)"
 .PP
 Assigns the server port to connect to. 
@@ -169,7 +169,7 @@ Closes the connection if open and assigns the specified port to connect to. The 
 .PP
 
 .PP
-Definition at line 97 of file Client.cpp.
+Definition at line 99 of file Client.cpp.
 .SS "bool Client::sendRequest (int32_t serviceId, queueItem item)"
 .PP
 Sends a queue item request to the server. 
@@ -190,7 +190,7 @@ true if successful, false otherwise.
 .PP
 
 .PP
-Definition at line 117 of file Client.cpp.
+Definition at line 119 of file Client.cpp.
 .SS "bool Client::sendLocalRequest (queueItem item)"
 .PP
 Sends a queue item request destined for the local manager. 
@@ -209,7 +209,7 @@ true if successful, false otherwise.
 .PP
 
 .PP
-Definition at line 138 of file Client.cpp.
+Definition at line 144 of file Client.cpp.
 .SS "queueItem Client::getNextPendingItem ()"
 .PP
 Retrieves the next item from the queue. 
@@ -223,7 +223,7 @@ the queueItem for the next item or NULL if no items are in the queue.
 .PP
 
 .PP
-Definition at line 159 of file Client.cpp.
+Definition at line 169 of file Client.cpp.
 .SS "queueItemList Client::getPendingItems ()"
 .PP
 Retrieves all outstanding items from the queue. 
@@ -237,7 +237,7 @@ the queueItemList of pending items or an empty queueItemList.
 .PP
 
 .PP
-Definition at line 177 of file Client.cpp.
+Definition at line 191 of file Client.cpp.
 .SS "queueItemList Client::getPendingItems (int32_t count)"
 .PP
 Retrieves a maximum number of outstanding items from the queue. 
@@ -251,7 +251,7 @@ the queueItemList of pending items or an empty queueItemList
 .PP
 
 .PP
-Definition at line 191 of file Client.cpp.
+Definition at line 205 of file Client.cpp.
 
 .SH "Author"
 .PP 

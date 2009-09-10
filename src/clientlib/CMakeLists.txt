@@ -7,7 +7,6 @@ INCLUDE_DIRECTORIES(${CMAKE_SOURCE_DIR})
 # Sources:
 SET(kumonosu_client_library_SRCS
   Client.cpp
-  MessageProcessor.cpp
   Callback.cpp
 )
 

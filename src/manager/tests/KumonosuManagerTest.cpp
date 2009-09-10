@@ -1,7 +1,7 @@
 #include "KumonosuManagerTest.h"
 #include "manager/KumonosuManager.h"
-#include "manager/MethodHandler.h"
 #include "manager/PingArguments.h"
+#include "manager/ManagerMethodMap.h"
 
 #include "RequestQueue.h"
 #include "LocalRequestManagerHandler.h"
@@ -185,7 +185,7 @@ KumonosuManagerTest::pingTest()
     sleep(2);
 
     queueItem* item = new queueItem();
-    item->methodId = MethodHandler::MethodMap::Ping;
+    item->methodId = ManagerMethodMap::Ping;
 
     PingArguments pingItem("a.badhostname.com", 8989, 0, 1);
     pingItem.addToArguments(&item->argList);
@@ -243,7 +243,7 @@ KumonosuManagerTest::pongTest()
     sleep(2);
 
     queueItem* item = new queueItem();
-    item->methodId = MethodHandler::MethodMap::Pong;
+    item->methodId = ManagerMethodMap::Pong;
     iqueue->addItem(0, item);
 
     KumonosuManager* manager = new KumonosuManager("localhost", 9494);
@@ -286,7 +286,7 @@ KumonosuManagerTest::getServerListTest()
     sleep(2);
 
     queueItem* item = new queueItem();
-    item->methodId = MethodHandler::MethodMap::GetServerList;
+    item->methodId = ManagerMethodMap::IMGetServerList;
     i32Arg serverId;
     serverId.name = "serverid";
     serverId.value = 34;
@@ -341,7 +341,7 @@ KumonosuManagerTest::getServerListResponseTest()
     sleep(2);
 
     queueItem* item = new queueItem();
-    item->methodId = MethodHandler::MethodMap::GetServerResponse;
+    item->methodId = ManagerMethodMap::IMGetServerResponse;
     iqueue->addItem(0, item);
 
     KumonosuManager* manager = new KumonosuManager("localhost", 9696);
@@ -384,7 +384,7 @@ KumonosuManagerTest::getServiceListTest()
     sleep(2);
 
     queueItem* item = new queueItem();
-    item->methodId = MethodHandler::MethodMap::GetServiceList;
+    item->methodId = ManagerMethodMap::GetServiceList;
     i32Arg serverId;
     serverId.name = "serverid";
     serverId.value = 34;
@@ -440,7 +440,7 @@ KumonosuManagerTest::getServiceListResponseTest()
     sleep(2);
 
     queueItem* item = new queueItem();
-    item->methodId = MethodHandler::MethodMap::GetServiceListResponse;
+    item->methodId = ManagerMethodMap::GetServiceListResponse;
     iqueue->addItem(0, item);
 
     KumonosuManager* manager = new KumonosuManager("localhost", 9898);

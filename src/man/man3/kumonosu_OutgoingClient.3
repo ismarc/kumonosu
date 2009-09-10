@@ -1,4 +1,4 @@
-.TH "kumonosu::OutgoingClient" 3 "14 Aug 2009" "Doxygen" \" -*- nroff -*-
+.TH "kumonosu::OutgoingClient" 3 "9 Sep 2009" "Doxygen" \" -*- nroff -*-
 .ad l
 .nh
 .SH NAME
@@ -37,6 +37,10 @@ kumonosu::OutgoingClient \- Manages remote server connections and processes send
 .RI "void \fBshutdown\fP ()"
 .br
 .RI "\fIStops processing of outgoing requests. \fP"
+.ti -1c
+.RI "std::vector< Server > \fBgetServerList\fP ()"
+.br
+.RI "\fIReturns a list of all servers the client knows about. \fP"
 .in -1c
 .SH "Detailed Description"
 .PP 
@@ -51,7 +55,7 @@ Matt Brace
 .PP
 
 .PP
-Definition at line 36 of file OutgoingClient.h.
+Definition at line 37 of file OutgoingClient.h.
 .SH "Constructor & Destructor Documentation"
 .PP 
 .SS "OutgoingClient::OutgoingClient (\fBRequestQueue\fP * queue)"
@@ -110,21 +114,35 @@ Removes a server from the associations.
 .PP
 Removes a server from association with the server id and service ids. The server object is then destroyed, closing and freeing the connection. 
 .PP
-Definition at line 35 of file OutgoingClient.cpp.
+Definition at line 39 of file OutgoingClient.cpp.
 .SS "void OutgoingClient::run ()"
 .PP
 Starts processing of outgoing requests. 
 .PP
 Initiates a loop that processes all outgoing requests for service ids that have an associated \fBRemoteServer\fP and all requests for a service id of 0 (using the supplied server id). The \fBOutgoingClient\fP does not provide any multi-threading on its own, however, it includes protections that make it thread safe. A mutex is used so that once \fBrun()\fP is called, any subsequent calls have no effect. \fBRequestQueue\fP notification locks are used for blocking behavior so that the \fBOutgoingClient\fP doesn't need to use an explicit wait or sleep to prevent spinning. a pthread_mutex_timedlock of 10 seconds is used so that shutdown commands can break the loop from processing. Once started, the \fBOutgoingClient\fP will run until \fBshutdown()\fP is called. 
 .PP
-Definition at line 60 of file OutgoingClient.cpp.
+Definition at line 64 of file OutgoingClient.cpp.
 .SS "void OutgoingClient::shutdown ()"
 .PP
 Stops processing of outgoing requests. 
 .PP
 Sets the flag that indicates that processing should stop. Due to the architecture of the \fBrun()\fP loop, any outstanding requests will be processed prior to shutting down. 
 .PP
-Definition at line 97 of file OutgoingClient.cpp.
+Definition at line 109 of file OutgoingClient.cpp.
+.SS "std::vector< Server > OutgoingClient::getServerList ()"
+.PP
+Returns a list of all servers the client knows about. 
+.PP
+Returns the list of servers (as Server objects) that the client knows about. The method currently iterates over the list of service ids for each server, so a large number of servers or service ids can impact performance. This should be optimized when it becomes an issue. 
+.PP
+\fBReturns:\fP
+.RS 4
+list of known servers 
+.RE
+.PP
+
+.PP
+Definition at line 115 of file OutgoingClient.cpp.
 
 .SH "Author"
 .PP 

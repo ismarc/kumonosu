@@ -28,43 +28,85 @@
 <a name="l00012"></a>00012 <span class="preprocessor"></span><span class="preprocessor">#define         MESSAGEPROCESSOR_H_</span>
 <a name="l00013"></a>00013 <span class="preprocessor"></span>
 <a name="l00014"></a>00014 <span class="preprocessor">#include "kumonosu_server_types.h"</span>
-<a name="l00015"></a>00015 <span class="preprocessor">#include "Client.h"</span>
-<a name="l00016"></a>00016 <span class="preprocessor">#include "Callback.h"</span>
-<a name="l00017"></a>00017 
-<a name="l00018"></a>00018 <span class="keyword">namespace </span>kumonosu {
-<a name="l00020"></a>00020 
-<a name="l00032"></a><a class="code" href="classkumonosu_1_1MessageProcessor.html">00032</a>     <span class="keyword">class </span><a class="code" href="classkumonosu_1_1MessageProcessor.html" title="Provides a convenience interface for managing pending items.">MessageProcessor</a> {
-<a name="l00033"></a>00033     <span class="keyword">public</span>:
-<a name="l00035"></a>00035 
-<a name="l00045"></a>00045         <span class="comment">// Should really typedef this to look better</span>
-<a name="l00046"></a>00046         <a class="code" href="classkumonosu_1_1MessageProcessor.html#54f1d41c92e56d5177d1b920838e5ae9" title="Initializes the MessageProcessor.">MessageProcessor</a>(<span class="keywordtype">void</span>* methodNotImplementedObject,
-<a name="l00047"></a>00047                          <span class="keywordtype">void</span> (*methodNotImplemented)(<span class="keywordtype">void</span>* <span class="keywordtype">object</span>,
-<a name="l00048"></a>00048                                                       arguments argList));
-<a name="l00049"></a>00049         ~<a class="code" href="classkumonosu_1_1MessageProcessor.html" title="Provides a convenience interface for managing pending items.">MessageProcessor</a>() {};
-<a name="l00050"></a>00050 
-<a name="l00052"></a>00052 
-<a name="l00060"></a>00060         <span class="keywordtype">void</span> <a class="code" href="classkumonosu_1_1MessageProcessor.html#acf49759696cdc0879d6eca29b913841" title="Assigns the supplied client.">setClient</a>(<a class="code" href="classkumonosu_1_1Client.html" title="Provides an interface for a service to communicate.">Client</a>* client);
+<a name="l00015"></a>00015 <span class="preprocessor">#include "clientlib/Client.h"</span>
+<a name="l00016"></a>00016 <span class="preprocessor">#include "clientlib/MethodHandler.h"</span>
+<a name="l00017"></a>00017 <span class="preprocessor">#include "Callback.h"</span>
+<a name="l00018"></a>00018 
+<a name="l00019"></a>00019 <span class="keyword">namespace </span>kumonosu {
+<a name="l00020"></a>00020     <span class="keyword">template</span> &lt;<span class="keyword">class</span> T&gt;
+<a name="l00021"></a>00021     <span class="keyword">class </span>MethodHandler;
+<a name="l00022"></a>00022 
+<a name="l00024"></a>00024 
+<a name="l00036"></a>00036     <span class="keyword">template</span> &lt;<span class="keyword">class</span> T&gt;
+<a name="l00037"></a><a class="code" href="classkumonosu_1_1MessageProcessor.html">00037</a>     <span class="keyword">class </span><a class="code" href="classkumonosu_1_1MessageProcessor.html" title="Provides a convenience interface for managing pending items.">MessageProcessor</a> {
+<a name="l00038"></a>00038     <span class="keyword">public</span>:
+<a name="l00039"></a>00039         <span class="keyword">typedef</span> void (T::*CallbackFn)(arguments argList);
+<a name="l00041"></a>00041 
+<a name="l00051"></a><a class="code" href="classkumonosu_1_1MessageProcessor.html#cd153a34261fb6d5a23b4856eb3651cb">00051</a>         <a class="code" href="classkumonosu_1_1MessageProcessor.html#cd153a34261fb6d5a23b4856eb3651cb" title="Initializes the MessageProcessor.">MessageProcessor</a>(T* <span class="keywordtype">object</span>,
+<a name="l00052"></a>00052                          CallbackFn methodNotImplemented) :
+<a name="l00053"></a>00053             _callbackObject(object),
+<a name="l00054"></a>00054             _handler(_callbackObject)
+<a name="l00055"></a>00055         {
+<a name="l00056"></a>00056             _handler.addMethodNotFound(methodNotImplemented);
+<a name="l00057"></a>00057         }
+<a name="l00058"></a>00058 
+<a name="l00059"></a>00059         ~<a class="code" href="classkumonosu_1_1MessageProcessor.html" title="Provides a convenience interface for managing pending items.">MessageProcessor</a>() {}
+<a name="l00060"></a>00060 
 <a name="l00062"></a>00062 
-<a name="l00072"></a>00072         <span class="keywordtype">void</span> <a class="code" href="classkumonosu_1_1MessageProcessor.html#0e7ef911154799c0907144b2e69be2dc" title="Stores a callback function associated with a method id.">setMethodCallback</a>(int32_t methodId, <span class="keywordtype">void</span>* <span class="keywordtype">object</span>,
-<a name="l00073"></a>00073                                <span class="keywordtype">void</span>(*FunctionPtr)
-<a name="l00074"></a>00074                                (<span class="keywordtype">void</span>* <span class="keywordtype">object</span>,
-<a name="l00075"></a>00075                                 arguments argList));
-<a name="l00077"></a>00077 
-<a name="l00084"></a>00084         <span class="keywordtype">void</span> <a class="code" href="classkumonosu_1_1MessageProcessor.html#62da7baf1a4a502feac8dc035e3bf796" title="Removes a Callback object from the method associations.">removeMethodCallback</a>(int32_t methodId);
-<a name="l00086"></a>00086 
-<a name="l00094"></a>00094         <span class="keywordtype">void</span> <a class="code" href="classkumonosu_1_1MessageProcessor.html#3452268a0f4c76b19af4a49ee1326a74" title="Processes outstanding items.">processPendingItems</a>(int32_t max_count);
-<a name="l00095"></a>00095     <span class="keyword">private</span>:
-<a name="l00096"></a>00096         <span class="keywordtype">void</span> executeMethod(int32_t methodId, arguments argList);
-<a name="l00097"></a>00097 
-<a name="l00098"></a>00098         <a class="code" href="classkumonosu_1_1Client.html" title="Provides an interface for a service to communicate.">Client</a>* _client;
-<a name="l00099"></a>00099         <a class="code" href="classkumonosu_1_1Callback.html" title="Provides a simple wrapper for callback functions.">Callback</a> _methodNotImplemented;
-<a name="l00100"></a>00100         std::map&lt;int32_t, Callback&gt; _callbackMap;
-<a name="l00101"></a>00101     };
-<a name="l00102"></a>00102 }
+<a name="l00070"></a><a class="code" href="classkumonosu_1_1MessageProcessor.html#9496cbc40f5880339420f2dfa3400414">00070</a>         <span class="keywordtype">void</span> <a class="code" href="classkumonosu_1_1MessageProcessor.html#9496cbc40f5880339420f2dfa3400414" title="Assigns the supplied client.">setClient</a>(<a class="code" href="classkumonosu_1_1Client.html" title="Provides an interface for a service to communicate.">Client</a>* client) {
+<a name="l00071"></a>00071             _client = client;
+<a name="l00072"></a>00072         }
+<a name="l00073"></a>00073 
+<a name="l00075"></a>00075 
+<a name="l00085"></a><a class="code" href="classkumonosu_1_1MessageProcessor.html#85bcd49eea5f6dc02d90ec1005279ccc">00085</a>         <span class="keywordtype">void</span> <a class="code" href="classkumonosu_1_1MessageProcessor.html#85bcd49eea5f6dc02d90ec1005279ccc" title="Stores a callback function associated with a method id.">setMethodCallback</a>(int32_t methodId,
+<a name="l00086"></a>00086                                CallbackFn function) {
+<a name="l00087"></a>00087             _handler.addMethod(methodId, function);
+<a name="l00088"></a>00088         }
+<a name="l00089"></a>00089 
+<a name="l00091"></a>00091 
+<a name="l00098"></a><a class="code" href="classkumonosu_1_1MessageProcessor.html#657a8b20329382dae289ee5a067b533a">00098</a>         <span class="keywordtype">void</span> <a class="code" href="classkumonosu_1_1MessageProcessor.html#657a8b20329382dae289ee5a067b533a" title="Removes a Callback object from the method associations.">removeMethodCallback</a>(int32_t methodId) {
+<a name="l00099"></a>00099             _handler.removeMethod(methodId);
+<a name="l00100"></a>00100         }
+<a name="l00101"></a>00101 
 <a name="l00103"></a>00103 
-<a name="l00104"></a>00104 <span class="preprocessor">#endif      </span><span class="comment">/* !MESSAGEPROCESSOR_H_ */</span>
+<a name="l00111"></a><a class="code" href="classkumonosu_1_1MessageProcessor.html#5e5890036f4ac193fffe2a1cf0145a1c">00111</a>         <span class="keywordtype">void</span> <a class="code" href="classkumonosu_1_1MessageProcessor.html#5e5890036f4ac193fffe2a1cf0145a1c" title="Processes outstanding items.">processPendingItems</a>(int32_t max_count) {
+<a name="l00112"></a>00112             queueItemList pending_items;
+<a name="l00113"></a>00113 
+<a name="l00114"></a>00114             <span class="keywordflow">if</span> (_client == NULL) {
+<a name="l00115"></a>00115                 <span class="keywordflow">return</span>;
+<a name="l00116"></a>00116             }
+<a name="l00117"></a>00117 
+<a name="l00118"></a>00118             <span class="keywordflow">try</span> {
+<a name="l00119"></a>00119                 _client-&gt;<a class="code" href="classkumonosu_1_1Client.html#c8dbe9e1012e2721e65290d3967ec636" title="Opens a connection to the server.">connect</a>();
+<a name="l00120"></a>00120             } <span class="keywordflow">catch</span> (TTransportException e) {
+<a name="l00121"></a>00121                 <span class="comment">// This is similar to NULL, client can't connect;</span>
+<a name="l00122"></a>00122                 <span class="keywordflow">return</span>;
+<a name="l00123"></a>00123             }
+<a name="l00124"></a>00124 
+<a name="l00125"></a>00125             <span class="keywordflow">if</span> (max_count == -1) {
+<a name="l00126"></a>00126                 pending_items = _client-&gt;<a class="code" href="classkumonosu_1_1Client.html#073a483392198994a16da2956d49e735" title="Retrieves all outstanding items from the queue.">getPendingItems</a>();
+<a name="l00127"></a>00127             } <span class="keywordflow">else</span> {
+<a name="l00128"></a>00128                 pending_items = _client-&gt;<a class="code" href="classkumonosu_1_1Client.html#073a483392198994a16da2956d49e735" title="Retrieves all outstanding items from the queue.">getPendingItems</a>(max_count);
+<a name="l00129"></a>00129             }
+<a name="l00130"></a>00130 
+<a name="l00131"></a>00131             <span class="keywordflow">for</span> (std::vector&lt;queueItem&gt;::iterator it =
+<a name="l00132"></a>00132                      pending_items.items.begin();
+<a name="l00133"></a>00133                  it != pending_items.items.end();
+<a name="l00134"></a>00134                  it++) {
+<a name="l00135"></a>00135                 _handler.executeMethod((*it).methodId, (*it).argList);
+<a name="l00136"></a>00136             }
+<a name="l00137"></a>00137         }
+<a name="l00138"></a>00138 
+<a name="l00139"></a>00139     <span class="keyword">private</span>:
+<a name="l00140"></a>00140         T* _callbackObject;
+<a name="l00141"></a>00141         <a class="code" href="classkumonosu_1_1Client.html" title="Provides an interface for a service to communicate.">Client</a>* _client;
+<a name="l00142"></a>00142         <a class="code" href="classkumonosu_1_1MethodHandler.html" title="Provides a templated system for managing callbacks at run-time.">MethodHandler&lt;T&gt;</a> _handler;
+<a name="l00143"></a>00143     };
+<a name="l00144"></a>00144 }
+<a name="l00145"></a>00145 
+<a name="l00146"></a>00146 <span class="preprocessor">#endif      </span><span class="comment">/* !MESSAGEPROCESSOR_H_ */</span>
 </pre></div></div>
-<hr size="1"><address style="text-align: right;"><small>Generated on Fri Aug 14 23:14:00 2009 by&nbsp;
+<hr size="1"><address style="text-align: right;"><small>Generated on Wed Sep 9 19:34:38 2009 by&nbsp;
 <a href="http://www.doxygen.org/index.html">
 <img src="doxygen.png" alt="doxygen" align="middle" border="0"></a> 1.5.5 </small></address>
 </body>

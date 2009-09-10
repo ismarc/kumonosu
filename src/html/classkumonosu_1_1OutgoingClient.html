@@ -17,6 +17,7 @@
   <div class="tabs">
     <ul>
       <li><a href="annotated.html"><span>Class&nbsp;List</span></a></li>
+      <li><a href="hierarchy.html"><span>Class&nbsp;Hierarchy</span></a></li>
       <li><a href="functions.html"><span>Class&nbsp;Members</span></a></li>
     </ul>
   </div>
@@ -52,6 +53,9 @@
 <tr><td class="memItemLeft" nowrap align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classkumonosu_1_1OutgoingClient.html#1a2d55524e5a5d91aed897a2f315ba2c">shutdown</a> ()</td></tr>
 
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Stops processing of outgoing requests.  <a href="#1a2d55524e5a5d91aed897a2f315ba2c"></a><br></td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">std::vector&lt; Server &gt;&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classkumonosu_1_1OutgoingClient.html#a41f4bc53073db71348badfdf6224b0f">getServerList</a> ()</td></tr>
+
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Returns a list of all servers the client knows about.  <a href="#a41f4bc53073db71348badfdf6224b0f"></a><br></td></tr>
 </table>
 <hr><a name="_details"></a><h2>Detailed Description</h2>
 Manages remote server connections and processes sending queueItems. 
@@ -59,7 +63,7 @@ Manages remote server connections and processes sending queueItems.
 <a class="el" href="classkumonosu_1_1OutgoingClient.html" title="Manages remote server connections and processes sending queueItems.">OutgoingClient</a> is a service for processing the actual sending of requests to remote servers. It processes items in the outgoing queue and sends them to the appropriate servers. Items are not processed or sent until <a class="el" href="classkumonosu_1_1OutgoingClient.html#da2c9009eade4ea095eb4ad7482ee87f" title="Starts processing of outgoing requests.">run()</a> is called. Once called, the system will loop over checking for items in the outgoing queue and sending them until <a class="el" href="classkumonosu_1_1OutgoingClient.html#1a2d55524e5a5d91aed897a2f315ba2c" title="Stops processing of outgoing requests.">shutdown()</a> is called. Once <a class="el" href="classkumonosu_1_1OutgoingClient.html#1a2d55524e5a5d91aed897a2f315ba2c" title="Stops processing of outgoing requests.">shutdown()</a> is called, the object is still valid and subsequent calls to <a class="el" href="classkumonosu_1_1OutgoingClient.html#da2c9009eade4ea095eb4ad7482ee87f" title="Starts processing of outgoing requests.">run()</a> will start sending objects again. Note that queueItems destined for a service id of 0 must have a remote server id specified or they will be consumed and discarded.<p>
 <dl class="author" compact><dt><b>Author:</b></dt><dd>Matt Brace </dd></dl>
 
-<p>Definition at line <a class="el" href="OutgoingClient_8h-source.html#l00036">36</a> of file <a class="el" href="OutgoingClient_8h-source.html">OutgoingClient.h</a>.</p>
+<p>Definition at line <a class="el" href="OutgoingClient_8h-source.html#l00037">37</a> of file <a class="el" href="OutgoingClient_8h-source.html">OutgoingClient.h</a>.</p>
 <hr><h2>Constructor &amp; Destructor Documentation</h2>
 <a class="anchor" name="28a921574e9fc10a92cc4330292fdc5d"></a><!-- doxytag: member="kumonosu::OutgoingClient::OutgoingClient" ref="28a921574e9fc10a92cc4330292fdc5d" args="(RequestQueue *queue)" -->
 <div class="memitem">
@@ -193,7 +197,7 @@ Creates a <a class="el" href="classkumonosu_1_1RemoteServer.html" title="Represe
 Removes a server from the associations. 
 <p>
 Removes a server from association with the server id and service ids. The server object is then destroyed, closing and freeing the connection. 
-<p>Definition at line <a class="el" href="OutgoingClient_8cpp-source.html#l00035">35</a> of file <a class="el" href="OutgoingClient_8cpp-source.html">OutgoingClient.cpp</a>.</p>
+<p>Definition at line <a class="el" href="OutgoingClient_8cpp-source.html#l00039">39</a> of file <a class="el" href="OutgoingClient_8cpp-source.html">OutgoingClient.cpp</a>.</p>
 
 </div>
 </div><p>
@@ -216,7 +220,7 @@ Removes a server from association with the server id and service ids. The server
 Starts processing of outgoing requests. 
 <p>
 Initiates a loop that processes all outgoing requests for service ids that have an associated <a class="el" href="classkumonosu_1_1RemoteServer.html" title="Represents a connection to a remote server for sending requests.">RemoteServer</a> and all requests for a service id of 0 (using the supplied server id). The <a class="el" href="classkumonosu_1_1OutgoingClient.html" title="Manages remote server connections and processes sending queueItems.">OutgoingClient</a> does not provide any multi-threading on its own, however, it includes protections that make it thread safe. A mutex is used so that once <a class="el" href="classkumonosu_1_1OutgoingClient.html#da2c9009eade4ea095eb4ad7482ee87f" title="Starts processing of outgoing requests.">run()</a> is called, any subsequent calls have no effect. <a class="el" href="classkumonosu_1_1RequestQueue.html" title="Provides management of std::queue&#39;s for multiple destination services.">RequestQueue</a> notification locks are used for blocking behavior so that the <a class="el" href="classkumonosu_1_1OutgoingClient.html" title="Manages remote server connections and processes sending queueItems.">OutgoingClient</a> doesn't need to use an explicit wait or sleep to prevent spinning. a pthread_mutex_timedlock of 10 seconds is used so that shutdown commands can break the loop from processing. Once started, the <a class="el" href="classkumonosu_1_1OutgoingClient.html" title="Manages remote server connections and processes sending queueItems.">OutgoingClient</a> will run until <a class="el" href="classkumonosu_1_1OutgoingClient.html#1a2d55524e5a5d91aed897a2f315ba2c" title="Stops processing of outgoing requests.">shutdown()</a> is called. 
-<p>Definition at line <a class="el" href="OutgoingClient_8cpp-source.html#l00060">60</a> of file <a class="el" href="OutgoingClient_8cpp-source.html">OutgoingClient.cpp</a>.</p>
+<p>Definition at line <a class="el" href="OutgoingClient_8cpp-source.html#l00064">64</a> of file <a class="el" href="OutgoingClient_8cpp-source.html">OutgoingClient.cpp</a>.</p>
 
 </div>
 </div><p>
@@ -239,14 +243,38 @@ Initiates a loop that processes all outgoing requests for service ids that have 
 Stops processing of outgoing requests. 
 <p>
 Sets the flag that indicates that processing should stop. Due to the architecture of the <a class="el" href="classkumonosu_1_1OutgoingClient.html#da2c9009eade4ea095eb4ad7482ee87f" title="Starts processing of outgoing requests.">run()</a> loop, any outstanding requests will be processed prior to shutting down. 
-<p>Definition at line <a class="el" href="OutgoingClient_8cpp-source.html#l00097">97</a> of file <a class="el" href="OutgoingClient_8cpp-source.html">OutgoingClient.cpp</a>.</p>
+<p>Definition at line <a class="el" href="OutgoingClient_8cpp-source.html#l00109">109</a> of file <a class="el" href="OutgoingClient_8cpp-source.html">OutgoingClient.cpp</a>.</p>
+
+</div>
+</div><p>
+<a class="anchor" name="a41f4bc53073db71348badfdf6224b0f"></a><!-- doxytag: member="kumonosu::OutgoingClient::getServerList" ref="a41f4bc53073db71348badfdf6224b0f" args="()" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::vector&lt; Server &gt; OutgoingClient::getServerList           </td>
+          <td>(</td>
+          <td class="paramname">          </td>
+          <td>&nbsp;)&nbsp;</td>
+          <td width="100%"></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>
+Returns a list of all servers the client knows about. 
+<p>
+Returns the list of servers (as Server objects) that the client knows about. The method currently iterates over the list of service ids for each server, so a large number of servers or service ids can impact performance. This should be optimized when it becomes an issue. <dl class="return" compact><dt><b>Returns:</b></dt><dd>list of known servers </dd></dl>
+
+<p>Definition at line <a class="el" href="OutgoingClient_8cpp-source.html#l00115">115</a> of file <a class="el" href="OutgoingClient_8cpp-source.html">OutgoingClient.cpp</a>.</p>
 
 </div>
 </div><p>
 <hr>The documentation for this class was generated from the following files:<ul>
 <li><a class="el" href="OutgoingClient_8h-source.html">OutgoingClient.h</a><li><a class="el" href="OutgoingClient_8cpp-source.html">OutgoingClient.cpp</a></ul>
 </div>
-<hr size="1"><address style="text-align: right;"><small>Generated on Fri Aug 14 23:14:01 2009 by&nbsp;
+<hr size="1"><address style="text-align: right;"><small>Generated on Wed Sep 9 19:34:38 2009 by&nbsp;
 <a href="http://www.doxygen.org/index.html">
 <img src="doxygen.png" alt="doxygen" align="middle" border="0"></a> 1.5.5 </small></address>
 </body>

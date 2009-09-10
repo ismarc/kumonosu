@@ -15,11 +15,21 @@
 
 namespace kumonosu {
     namespace manager {
+        //! Abstract base class for classes for serializing arguments.
+        /*!
+         *  \class ProcedureArguments
+         *
+         *  The current model doesn't use this very well.  It needs to
+         *  be rethought out to provide a reasonable interface to take
+         *  advantage of the potential features.
+         *
+         *  \author Matt Brace
+         */
         class ProcedureArguments {
         public:
             ProcedureArguments();
             virtual ~ProcedureArguments();
-            
+
             virtual void addToArguments(arguments* args) = 0;
             virtual void loadFromArguments(arguments args) = 0;
         };

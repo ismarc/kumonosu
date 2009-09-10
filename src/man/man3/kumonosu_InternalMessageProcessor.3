@@ -1,4 +1,4 @@
-.TH "kumonosu::InternalMessageProcessor" 3 "14 Aug 2009" "Doxygen" \" -*- nroff -*-
+.TH "kumonosu::InternalMessageProcessor" 3 "9 Sep 2009" "Doxygen" \" -*- nroff -*-
 .ad l
 .nh
 .SH NAME
@@ -41,6 +41,10 @@ kumonosu::InternalMessageProcessor \- Processes items destined for the local ser
 .RI "void \fBshutdown\fP ()"
 .br
 .RI "\fIStops processing of internal requests. \fP"
+.ti -1c
+.RI "void \fBgetServerList\fP (int32_t serviceId)"
+.br
+.RI "\fIInternal method for retrieving a list of servers. \fP"
 .in -1c
 .SH "Detailed Description"
 .PP 
@@ -77,7 +81,7 @@ Initializes internal data objects and prepares the system for a call to \fBrun()
 .PP
 
 .PP
-Definition at line 5 of file InternalMessageProcessor.cpp.
+Definition at line 7 of file InternalMessageProcessor.cpp.
 .SH "Member Function Documentation"
 .PP 
 .SS "void InternalMessageProcessor::setInternalQueue (\fBRequestQueue\fP * internalQueue)"
@@ -93,7 +97,7 @@ Assigns the specified \fBRequestQueue\fP for processing requests.
 .PP
 
 .PP
-Definition at line 20 of file InternalMessageProcessor.cpp.
+Definition at line 22 of file InternalMessageProcessor.cpp.
 .SS "void InternalMessageProcessor::setRemoteHandler (\fBRemoteRequestManagerHandler\fP * handler)"
 .PP
 Sets the \fBRemoteRequestManagerHandler\fP. 
@@ -107,7 +111,7 @@ Sets the \fBRemoteRequestManagerHandler\fP. It is not invoked directly, but is c
 .PP
 
 .PP
-Definition at line 26 of file InternalMessageProcessor.cpp.
+Definition at line 28 of file InternalMessageProcessor.cpp.
 .SS "void InternalMessageProcessor::setLocalHandler (\fBLocalRequestManagerHandler\fP * handler)"
 .PP
 Sets the \fBLocalRequestManagerHandler\fP. 
@@ -121,7 +125,7 @@ Sets the \fBLocalRequestManagerHandler\fP. It is not invoked directly, but is co
 .PP
 
 .PP
-Definition at line 32 of file InternalMessageProcessor.cpp.
+Definition at line 34 of file InternalMessageProcessor.cpp.
 .SS "void InternalMessageProcessor::setOutgoingClient (\fBOutgoingClient\fP * client)"
 .PP
 Sets the \fBOutgoingClient\fP. 
@@ -135,21 +139,28 @@ Sets the \fBOutgoingClient\fP. It is not invoked directly, but is contained in t
 .PP
 
 .PP
-Definition at line 38 of file InternalMessageProcessor.cpp.
+Definition at line 40 of file InternalMessageProcessor.cpp.
 .SS "void InternalMessageProcessor::run ()"
 .PP
 Starts processing of internal requests. 
 .PP
 Intiates a loop that includes processing of all internal requests to be handled by the \fBInternalMessageProcessor\fP. The \fBInternalMessageProcessor\fP does not perform any multi-threading on its own, however, it includes protections that make it thread safe. A mutex is used so that once \fBrun()\fP is called, any subsequent calls have no effect. \fBRequestQueue\fP notification locks are used for blocking behavior so that the \fBInternalMessageProcessor\fP doesn't need to use an explicit wait or sleep to prevent spinning. A pthread_mutex_timedlock of 10 seconds is used so that shutdown commands can break the loop from processing. Once started, the \fBInternalMessageProcessor\fP will run until \fBshutdown()\fP is called. 
 .PP
-Definition at line 44 of file InternalMessageProcessor.cpp.
+Definition at line 46 of file InternalMessageProcessor.cpp.
 .SS "void InternalMessageProcessor::shutdown ()"
 .PP
 Stops processing of internal requests. 
 .PP
 Sets the flag that indicates that processing should stop. Due to the architecture of the \fBrun()\fP loop, any outstanding requests will be processed prior to shutting down. 
 .PP
-Definition at line 84 of file InternalMessageProcessor.cpp.
+Definition at line 93 of file InternalMessageProcessor.cpp.
+.SS "void InternalMessageProcessor::getServerList (int32_t serviceId)"
+.PP
+Internal method for retrieving a list of servers. 
+.PP
+Retrieves the list of servers from the client and sends the response to the specified return service if specified. 
+.PP
+Definition at line 146 of file InternalMessageProcessor.cpp.
 
 .SH "Author"
 .PP 

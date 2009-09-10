@@ -1,6 +1,6 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
-<title>kumonosu::MessageProcessor Class Reference</title>
+<title>kumonosu::MessageProcessor&lt; T &gt; Class Template Reference</title>
 <link href="doxygen.css" rel="stylesheet" type="text/css">
 <link href="tabs.css" rel="stylesheet" type="text/css">
 </head><body>
@@ -17,6 +17,7 @@
   <div class="tabs">
     <ul>
       <li><a href="annotated.html"><span>Class&nbsp;List</span></a></li>
+      <li><a href="hierarchy.html"><span>Class&nbsp;Hierarchy</span></a></li>
       <li><a href="functions.html"><span>Class&nbsp;Members</span></a></li>
     </ul>
   </div>
@@ -24,7 +25,7 @@
   </div>
 </div>
 <div class="contents">
-<h1>kumonosu::MessageProcessor Class Reference</h1><!-- doxytag: class="kumonosu::MessageProcessor" -->Provides a convenience interface for managing pending items.  
+<h1>kumonosu::MessageProcessor&lt; T &gt; Class Template Reference</h1><!-- doxytag: class="kumonosu::MessageProcessor" -->Provides a convenience interface for managing pending items.  
 <a href="#_details">More...</a>
 <p>
 <code>#include &lt;<a class="el" href="MessageProcessor_8h-source.html">MessageProcessor.h</a>&gt;</code>
@@ -33,51 +34,60 @@
 <p>
 <a href="classkumonosu_1_1MessageProcessor-members.html">List of all members.</a><table border="0" cellpadding="0" cellspacing="0">
 <tr><td></td></tr>
+<tr><td colspan="2"><br><h2>Public Types</h2></td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top"><a class="anchor" name="b1e7f14b81fb92961b80ade23aec894f"></a><!-- doxytag: member="kumonosu::MessageProcessor::CallbackFn" ref="b1e7f14b81fb92961b80ade23aec894f" args=")(arguments argList)" -->
+typedef void(T::*&nbsp;</td><td class="memItemRight" valign="bottom"><b>CallbackFn</b> )(arguments argList)</td></tr>
+
 <tr><td colspan="2"><br><h2>Public Member Functions</h2></td></tr>
-<tr><td class="memItemLeft" nowrap align="right" valign="top">&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classkumonosu_1_1MessageProcessor.html#54f1d41c92e56d5177d1b920838e5ae9">MessageProcessor</a> (void *methodNotImplementedObject, void(*methodNotImplemented)(void *object, arguments argList))</td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classkumonosu_1_1MessageProcessor.html#cd153a34261fb6d5a23b4856eb3651cb">MessageProcessor</a> (T *object, CallbackFn methodNotImplemented)</td></tr>
 
-<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Initializes the <a class="el" href="classkumonosu_1_1MessageProcessor.html" title="Provides a convenience interface for managing pending items.">MessageProcessor</a>.  <a href="#54f1d41c92e56d5177d1b920838e5ae9"></a><br></td></tr>
-<tr><td class="memItemLeft" nowrap align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classkumonosu_1_1MessageProcessor.html#acf49759696cdc0879d6eca29b913841">setClient</a> (<a class="el" href="classkumonosu_1_1Client.html">Client</a> *client)</td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Initializes the <a class="el" href="classkumonosu_1_1MessageProcessor.html" title="Provides a convenience interface for managing pending items.">MessageProcessor</a>.  <a href="#cd153a34261fb6d5a23b4856eb3651cb"></a><br></td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classkumonosu_1_1MessageProcessor.html#9496cbc40f5880339420f2dfa3400414">setClient</a> (<a class="el" href="classkumonosu_1_1Client.html">Client</a> *client)</td></tr>
 
-<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Assigns the supplied client.  <a href="#acf49759696cdc0879d6eca29b913841"></a><br></td></tr>
-<tr><td class="memItemLeft" nowrap align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classkumonosu_1_1MessageProcessor.html#0e7ef911154799c0907144b2e69be2dc">setMethodCallback</a> (int32_t methodId, void *object, void(*FunctionPtr)(void *object, arguments argList))</td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Assigns the supplied client.  <a href="#9496cbc40f5880339420f2dfa3400414"></a><br></td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classkumonosu_1_1MessageProcessor.html#85bcd49eea5f6dc02d90ec1005279ccc">setMethodCallback</a> (int32_t methodId, CallbackFn function)</td></tr>
 
-<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Stores a callback function associated with a method id.  <a href="#0e7ef911154799c0907144b2e69be2dc"></a><br></td></tr>
-<tr><td class="memItemLeft" nowrap align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classkumonosu_1_1MessageProcessor.html#62da7baf1a4a502feac8dc035e3bf796">removeMethodCallback</a> (int32_t methodId)</td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Stores a callback function associated with a method id.  <a href="#85bcd49eea5f6dc02d90ec1005279ccc"></a><br></td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classkumonosu_1_1MessageProcessor.html#657a8b20329382dae289ee5a067b533a">removeMethodCallback</a> (int32_t methodId)</td></tr>
 
-<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Removes a <a class="el" href="classkumonosu_1_1Callback.html" title="Provides a simple wrapper for callback functions.">Callback</a> object from the method associations.  <a href="#62da7baf1a4a502feac8dc035e3bf796"></a><br></td></tr>
-<tr><td class="memItemLeft" nowrap align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classkumonosu_1_1MessageProcessor.html#3452268a0f4c76b19af4a49ee1326a74">processPendingItems</a> (int32_t max_count)</td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Removes a Callback object from the method associations.  <a href="#657a8b20329382dae289ee5a067b533a"></a><br></td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classkumonosu_1_1MessageProcessor.html#5e5890036f4ac193fffe2a1cf0145a1c">processPendingItems</a> (int32_t max_count)</td></tr>
 
-<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Processes outstanding items.  <a href="#3452268a0f4c76b19af4a49ee1326a74"></a><br></td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Processes outstanding items.  <a href="#5e5890036f4ac193fffe2a1cf0145a1c"></a><br></td></tr>
 </table>
 <hr><a name="_details"></a><h2>Detailed Description</h2>
+<h3>template&lt;class T&gt;<br>
+ class kumonosu::MessageProcessor&lt; T &gt;</h3>
+
 Provides a convenience interface for managing pending items. 
 <p>
 The message processor provides a convenience class for handling incoming queue items. A class (or classes) can be created to handle the different methods which are then provided to the message processor as callbacks. The service can then call the <a class="el" href="classkumonosu_1_1MessageProcessor.html" title="Provides a convenience interface for managing pending items.">MessageProcessor</a> to execute any outstanding items.<p>
 <dl class="author" compact><dt><b>Author:</b></dt><dd>Matt Brace </dd></dl>
 
-<p>Definition at line <a class="el" href="MessageProcessor_8h-source.html#l00032">32</a> of file <a class="el" href="MessageProcessor_8h-source.html">MessageProcessor.h</a>.</p>
+<p>Definition at line <a class="el" href="MessageProcessor_8h-source.html#l00037">37</a> of file <a class="el" href="MessageProcessor_8h-source.html">MessageProcessor.h</a>.</p>
 <hr><h2>Constructor &amp; Destructor Documentation</h2>
-<a class="anchor" name="54f1d41c92e56d5177d1b920838e5ae9"></a><!-- doxytag: member="kumonosu::MessageProcessor::MessageProcessor" ref="54f1d41c92e56d5177d1b920838e5ae9" args="(void *methodNotImplementedObject, void(*methodNotImplemented)(void *object, arguments argList))" -->
+<a class="anchor" name="cd153a34261fb6d5a23b4856eb3651cb"></a><!-- doxytag: member="kumonosu::MessageProcessor::MessageProcessor" ref="cd153a34261fb6d5a23b4856eb3651cb" args="(T *object, CallbackFn methodNotImplemented)" -->
 <div class="memitem">
 <div class="memproto">
+<div class="memtemplate">
+template&lt;class T&gt; </div>
       <table class="memname">
         <tr>
-          <td class="memname">MessageProcessor::MessageProcessor           </td>
+          <td class="memname"><a class="el" href="classkumonosu_1_1MessageProcessor.html">kumonosu::MessageProcessor</a>&lt; T &gt;::<a class="el" href="classkumonosu_1_1MessageProcessor.html">MessageProcessor</a>           </td>
           <td>(</td>
-          <td class="paramtype">void *&nbsp;</td>
-          <td class="paramname"> <em>methodNotImplementedObject</em>, </td>
+          <td class="paramtype">T *&nbsp;</td>
+          <td class="paramname"> <em>object</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">void(*)(void *object, arguments argList)&nbsp;</td>
+          <td class="paramtype">CallbackFn&nbsp;</td>
           <td class="paramname"> <em>methodNotImplemented</em></td><td>&nbsp;</td>
         </tr>
         <tr>
           <td></td>
           <td>)</td>
-          <td></td><td></td><td width="100%"></td>
+          <td></td><td></td><td width="100%"><code> [inline]</code></td>
         </tr>
       </table>
 </div>
@@ -93,22 +103,24 @@ The constructor takes an object pointer and a function pointer for the callback 
   </table>
 </dl>
 
-<p>Definition at line <a class="el" href="MessageProcessor_8cpp-source.html#l00005">5</a> of file <a class="el" href="MessageProcessor_8cpp-source.html">MessageProcessor.cpp</a>.</p>
+<p>Definition at line <a class="el" href="MessageProcessor_8h-source.html#l00051">51</a> of file <a class="el" href="MessageProcessor_8h-source.html">MessageProcessor.h</a>.</p>
 
 </div>
 </div><p>
 <hr><h2>Member Function Documentation</h2>
-<a class="anchor" name="acf49759696cdc0879d6eca29b913841"></a><!-- doxytag: member="kumonosu::MessageProcessor::setClient" ref="acf49759696cdc0879d6eca29b913841" args="(Client *client)" -->
+<a class="anchor" name="9496cbc40f5880339420f2dfa3400414"></a><!-- doxytag: member="kumonosu::MessageProcessor::setClient" ref="9496cbc40f5880339420f2dfa3400414" args="(Client *client)" -->
 <div class="memitem">
 <div class="memproto">
+<div class="memtemplate">
+template&lt;class T&gt; </div>
       <table class="memname">
         <tr>
-          <td class="memname">void MessageProcessor::setClient           </td>
+          <td class="memname">void <a class="el" href="classkumonosu_1_1MessageProcessor.html">kumonosu::MessageProcessor</a>&lt; T &gt;::setClient           </td>
           <td>(</td>
           <td class="paramtype"><a class="el" href="classkumonosu_1_1Client.html">Client</a> *&nbsp;</td>
           <td class="paramname"> <em>client</em>          </td>
           <td>&nbsp;)&nbsp;</td>
-          <td width="100%"></td>
+          <td width="100%"><code> [inline]</code></td>
         </tr>
       </table>
 </div>
@@ -123,16 +135,18 @@ To retreive requests, a client is necessary. It is the owning objects responsibi
   </table>
 </dl>
 
-<p>Definition at line <a class="el" href="MessageProcessor_8cpp-source.html#l00016">16</a> of file <a class="el" href="MessageProcessor_8cpp-source.html">MessageProcessor.cpp</a>.</p>
+<p>Definition at line <a class="el" href="MessageProcessor_8h-source.html#l00070">70</a> of file <a class="el" href="MessageProcessor_8h-source.html">MessageProcessor.h</a>.</p>
 
 </div>
 </div><p>
-<a class="anchor" name="0e7ef911154799c0907144b2e69be2dc"></a><!-- doxytag: member="kumonosu::MessageProcessor::setMethodCallback" ref="0e7ef911154799c0907144b2e69be2dc" args="(int32_t methodId, void *object, void(*FunctionPtr)(void *object, arguments argList))" -->
+<a class="anchor" name="85bcd49eea5f6dc02d90ec1005279ccc"></a><!-- doxytag: member="kumonosu::MessageProcessor::setMethodCallback" ref="85bcd49eea5f6dc02d90ec1005279ccc" args="(int32_t methodId, CallbackFn function)" -->
 <div class="memitem">
 <div class="memproto">
+<div class="memtemplate">
+template&lt;class T&gt; </div>
       <table class="memname">
         <tr>
-          <td class="memname">void MessageProcessor::setMethodCallback           </td>
+          <td class="memname">void <a class="el" href="classkumonosu_1_1MessageProcessor.html">kumonosu::MessageProcessor</a>&lt; T &gt;::setMethodCallback           </td>
           <td>(</td>
           <td class="paramtype">int32_t&nbsp;</td>
           <td class="paramname"> <em>methodId</em>, </td>
@@ -140,19 +154,13 @@ To retreive requests, a client is necessary. It is the owning objects responsibi
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">void *&nbsp;</td>
-          <td class="paramname"> <em>object</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">void(*)(void *object, arguments argList)&nbsp;</td>
-          <td class="paramname"> <em>FunctionPtr</em></td><td>&nbsp;</td>
+          <td class="paramtype">CallbackFn&nbsp;</td>
+          <td class="paramname"> <em>function</em></td><td>&nbsp;</td>
         </tr>
         <tr>
           <td></td>
           <td>)</td>
-          <td></td><td></td><td width="100%"></td>
+          <td></td><td></td><td width="100%"><code> [inline]</code></td>
         </tr>
       </table>
 </div>
@@ -161,7 +169,7 @@ To retreive requests, a client is necessary. It is the owning objects responsibi
 <p>
 Stores a callback function associated with a method id. 
 <p>
-Creates a <a class="el" href="classkumonosu_1_1Callback.html" title="Provides a simple wrapper for callback functions.">Callback</a> object and associates it internally with the supplied method id. The callback will be called with there is an incoming request with the specified method id. <dl compact><dt><b>Parameters:</b></dt><dd>
+Creates a Callback object and associates it internally with the supplied method id. The callback will be called with there is an incoming request with the specified method id. <dl compact><dt><b>Parameters:</b></dt><dd>
   <table border="0" cellspacing="2" cellpadding="0">
     <tr><td valign="top"></td><td valign="top"><em>methodId</em>&nbsp;</td><td>the method id to associate the callback with. </td></tr>
     <tr><td valign="top"></td><td valign="top"><em>object</em>&nbsp;</td><td>the object to call with the function pointer </td></tr>
@@ -169,50 +177,54 @@ Creates a <a class="el" href="classkumonosu_1_1Callback.html" title="Provides a 
   </table>
 </dl>
 
-<p>Definition at line <a class="el" href="MessageProcessor_8cpp-source.html#l00022">22</a> of file <a class="el" href="MessageProcessor_8cpp-source.html">MessageProcessor.cpp</a>.</p>
+<p>Definition at line <a class="el" href="MessageProcessor_8h-source.html#l00085">85</a> of file <a class="el" href="MessageProcessor_8h-source.html">MessageProcessor.h</a>.</p>
 
 </div>
 </div><p>
-<a class="anchor" name="62da7baf1a4a502feac8dc035e3bf796"></a><!-- doxytag: member="kumonosu::MessageProcessor::removeMethodCallback" ref="62da7baf1a4a502feac8dc035e3bf796" args="(int32_t methodId)" -->
+<a class="anchor" name="657a8b20329382dae289ee5a067b533a"></a><!-- doxytag: member="kumonosu::MessageProcessor::removeMethodCallback" ref="657a8b20329382dae289ee5a067b533a" args="(int32_t methodId)" -->
 <div class="memitem">
 <div class="memproto">
+<div class="memtemplate">
+template&lt;class T&gt; </div>
       <table class="memname">
         <tr>
-          <td class="memname">void MessageProcessor::removeMethodCallback           </td>
+          <td class="memname">void <a class="el" href="classkumonosu_1_1MessageProcessor.html">kumonosu::MessageProcessor</a>&lt; T &gt;::removeMethodCallback           </td>
           <td>(</td>
           <td class="paramtype">int32_t&nbsp;</td>
           <td class="paramname"> <em>methodId</em>          </td>
           <td>&nbsp;)&nbsp;</td>
-          <td width="100%"></td>
+          <td width="100%"><code> [inline]</code></td>
         </tr>
       </table>
 </div>
 <div class="memdoc">
 
 <p>
-Removes a <a class="el" href="classkumonosu_1_1Callback.html" title="Provides a simple wrapper for callback functions.">Callback</a> object from the method associations. 
+Removes a Callback object from the method associations. 
 <p>
-Removes the <a class="el" href="classkumonosu_1_1Callback.html" title="Provides a simple wrapper for callback functions.">Callback</a> object that is associated with the method id. If further requests are processed with that method id, the methodNotImplemented callback will be used until a new callback has been set. <dl compact><dt><b>Parameters:</b></dt><dd>
+Removes the Callback object that is associated with the method id. If further requests are processed with that method id, the methodNotImplemented callback will be used until a new callback has been set. <dl compact><dt><b>Parameters:</b></dt><dd>
   <table border="0" cellspacing="2" cellpadding="0">
     <tr><td valign="top"></td><td valign="top"><em>methodId</em>&nbsp;</td><td>the method id of the callback to remove. </td></tr>
   </table>
 </dl>
 
-<p>Definition at line <a class="el" href="MessageProcessor_8cpp-source.html#l00033">33</a> of file <a class="el" href="MessageProcessor_8cpp-source.html">MessageProcessor.cpp</a>.</p>
+<p>Definition at line <a class="el" href="MessageProcessor_8h-source.html#l00098">98</a> of file <a class="el" href="MessageProcessor_8h-source.html">MessageProcessor.h</a>.</p>
 
 </div>
 </div><p>
-<a class="anchor" name="3452268a0f4c76b19af4a49ee1326a74"></a><!-- doxytag: member="kumonosu::MessageProcessor::processPendingItems" ref="3452268a0f4c76b19af4a49ee1326a74" args="(int32_t max_count)" -->
+<a class="anchor" name="5e5890036f4ac193fffe2a1cf0145a1c"></a><!-- doxytag: member="kumonosu::MessageProcessor::processPendingItems" ref="5e5890036f4ac193fffe2a1cf0145a1c" args="(int32_t max_count)" -->
 <div class="memitem">
 <div class="memproto">
+<div class="memtemplate">
+template&lt;class T&gt; </div>
       <table class="memname">
         <tr>
-          <td class="memname">void MessageProcessor::processPendingItems           </td>
+          <td class="memname">void <a class="el" href="classkumonosu_1_1MessageProcessor.html">kumonosu::MessageProcessor</a>&lt; T &gt;::processPendingItems           </td>
           <td>(</td>
           <td class="paramtype">int32_t&nbsp;</td>
-          <td class="paramname"> <em>max_count</em> = <code>-1</code>          </td>
+          <td class="paramname"> <em>max_count</em>          </td>
           <td>&nbsp;)&nbsp;</td>
-          <td width="100%"></td>
+          <td width="100%"><code> [inline]</code></td>
         </tr>
       </table>
 </div>
@@ -227,14 +239,14 @@ Retrieves up to max_count items and calls the associated callback method with th
   </table>
 </dl>
 
-<p>Definition at line <a class="el" href="MessageProcessor_8cpp-source.html#l00060">60</a> of file <a class="el" href="MessageProcessor_8cpp-source.html">MessageProcessor.cpp</a>.</p>
+<p>Definition at line <a class="el" href="MessageProcessor_8h-source.html#l00111">111</a> of file <a class="el" href="MessageProcessor_8h-source.html">MessageProcessor.h</a>.</p>
 
 </div>
 </div><p>
-<hr>The documentation for this class was generated from the following files:<ul>
-<li>clientlib/<a class="el" href="MessageProcessor_8h-source.html">MessageProcessor.h</a><li>clientlib/<a class="el" href="MessageProcessor_8cpp-source.html">MessageProcessor.cpp</a></ul>
+<hr>The documentation for this class was generated from the following file:<ul>
+<li>clientlib/<a class="el" href="MessageProcessor_8h-source.html">MessageProcessor.h</a></ul>
 </div>
-<hr size="1"><address style="text-align: right;"><small>Generated on Fri Aug 14 23:14:01 2009 by&nbsp;
+<hr size="1"><address style="text-align: right;"><small>Generated on Wed Sep 9 19:34:38 2009 by&nbsp;
 <a href="http://www.doxygen.org/index.html">
 <img src="doxygen.png" alt="doxygen" align="middle" border="0"></a> 1.5.5 </small></address>
 </body>

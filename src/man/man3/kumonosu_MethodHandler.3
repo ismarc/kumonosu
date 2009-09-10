@@ -1,0 +1,137 @@
+.TH "kumonosu::MethodHandler" 3 "9 Sep 2009" "Doxygen" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+kumonosu::MethodHandler \- Provides a templated system for managing callbacks at run-time.  
+
+.PP
+.SH SYNOPSIS
+.br
+.PP
+\fC#include <MethodHandler.h>\fP
+.PP
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "\fBMethodHandler\fP (T *object)"
+.br
+.RI "\fIConstructor, uses the provided object for all callbacks. \fP"
+.ti -1c
+.RI "void \fBaddMethod\fP (int32_t methodId, CallbackFn function)"
+.br
+.RI "\fIAdds a function pointer to the call map. \fP"
+.ti -1c
+.RI "void \fBaddMethodNotFound\fP (CallbackFn function)"
+.br
+.RI "\fIAdds a function pointer to call when a method is not found. \fP"
+.ti -1c
+.RI "void \fBremoveMethod\fP (int32_t methodId)"
+.br
+.RI "\fIRemoves a function pointer for the associated method id. \fP"
+.ti -1c
+.RI "void \fBexecuteMethod\fP (int32_t methodId, arguments args)"
+.br
+.RI "\fIExecutes the function associated with the method id. \fP"
+.in -1c
+.SH "Detailed Description"
+.PP 
+
+.SS "template<class T> class kumonosu::MethodHandler< T >"
+Provides a templated system for managing callbacks at run-time. 
+
+\fBMethodHandler\fP provides a templated interface for managing callbacks to handle methods indexed by id. This greatly simplifies the logic necessary in the \fBMessageProcessor\fP and class that implements the callback functions. The class stores a map of method id to member function of the associated object.
+.PP
+\fBAuthor:\fP
+.RS 4
+Matt Brace 
+.RE
+.PP
+
+.PP
+Definition at line 34 of file MethodHandler.h.
+.SH "Constructor & Destructor Documentation"
+.PP 
+.SS "template<class T> \fBkumonosu::MethodHandler\fP< T >::\fBMethodHandler\fP (T * object)\fC [inline]\fP"
+.PP
+Constructor, uses the provided object for all callbacks. 
+.PP
+\fBParameters:\fP
+.RS 4
+\fIobject\fP the object to use for callbacks associated with the \fBMethodHandler\fP. 
+.RE
+.PP
+
+.PP
+Definition at line 42 of file MethodHandler.h.
+.SH "Member Function Documentation"
+.PP 
+.SS "template<class T> void \fBkumonosu::MethodHandler\fP< T >::addMethod (int32_t methodId, CallbackFn function)\fC [inline]\fP"
+.PP
+Adds a function pointer to the call map. 
+.PP
+Assigns the supplied function pointer to the associated method id. For method ids that have not been assigned, the function pointer associated with method not found is called. 
+.PP
+\fBSee also:\fP
+.RS 4
+\fBaddMethodNotFound\fP 
+.RE
+.PP
+\fBParameters:\fP
+.RS 4
+\fImethodId\fP the index to associate with the function. 
+.br
+\fIfunction\fP the function pointer to call when the appropriate method id should be invoked. 
+.RE
+.PP
+
+.PP
+Definition at line 57 of file MethodHandler.h.
+.SS "template<class T> void \fBkumonosu::MethodHandler\fP< T >::addMethodNotFound (CallbackFn function)\fC [inline]\fP"
+.PP
+Adds a function pointer to call when a method is not found. 
+.PP
+The function pointed to by the supplied pointer is invoked whenever a method id is supplied that doesn't have an associated function pointer. 
+.PP
+\fBParameters:\fP
+.RS 4
+\fIfunction\fP the function to invoke. 
+.RE
+.PP
+
+.PP
+Definition at line 75 of file MethodHandler.h.
+.SS "template<class T> void \fBkumonosu::MethodHandler\fP< T >::removeMethod (int32_t methodId)\fC [inline]\fP"
+.PP
+Removes a function pointer for the associated method id. 
+.PP
+The function pointer associated with the supplied method id is removed from the map if it was set. 
+.PP
+\fBParameters:\fP
+.RS 4
+\fImethodId\fP the id of the method to remove. 
+.RE
+.PP
+
+.PP
+Definition at line 85 of file MethodHandler.h.
+.SS "template<class T> void \fBkumonosu::MethodHandler\fP< T >::executeMethod (int32_t methodId, arguments args)\fC [inline]\fP"
+.PP
+Executes the function associated with the method id. 
+.PP
+The function associated with the method id is executed if it exists. The method not found function is executed if there is no associated function with the method id. 
+.PP
+\fBParameters:\fP
+.RS 4
+\fImethodId\fP the id of the function to execute. 
+.br
+\fIargs\fP the arguments to call the function with. 
+.RE
+.PP
+
+.PP
+Definition at line 101 of file MethodHandler.h.
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen from the source code.

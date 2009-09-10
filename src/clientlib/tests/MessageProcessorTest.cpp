@@ -48,9 +48,9 @@ void
 MessageProcessorTest::constructorTest()
 {
     ExampleClass* example = new ExampleClass();
-    MessageProcessor* processor = new MessageProcessor((void *)example,
-                                                       &ExampleClass::
-                                                       callbackFunction);
+    MessageProcessor<ExampleClass>* processor =
+        new MessageProcessor<ExampleClass>(example,
+                                           &ExampleClass::innerCallbackFunction);
 
     CPPUNIT_ASSERT(processor != NULL);
 }
@@ -59,9 +59,9 @@ void
 MessageProcessorTest::setClientTest()
 {
     ExampleClass* example = new ExampleClass();
-    MessageProcessor* processor = new MessageProcessor((void *)example,
-                                                       &ExampleClass::
-                                                       callbackFunction);
+    MessageProcessor<ExampleClass>* processor =
+        new MessageProcessor<ExampleClass>(example,
+                                           &ExampleClass::innerCallbackFunction);
 
     Client* client = new Client(1);
     processor->setClient(client);
@@ -74,12 +74,11 @@ void
 MessageProcessorTest::setMethodCallbackTest()
 {
     ExampleClass* example = new ExampleClass();
-    MessageProcessor* processor = new MessageProcessor((void *)example,
-                                                       &ExampleClass::
-                                                       callbackFunction);
+    MessageProcessor<ExampleClass>* processor =
+        new MessageProcessor<ExampleClass>(example,
+                                           &ExampleClass::innerCallbackFunction);
     processor->setMethodCallback(1,
-                                 (void *)example,
-                                 &ExampleClass::callbackFunctionTwo);
+                                 &ExampleClass::innerCallbackFunctionTwo);
     CPPUNIT_ASSERT(processor != NULL);
 }
 
@@ -87,12 +86,12 @@ void
 MessageProcessorTest::removeMethodCallbackTest()
 {
     ExampleClass* example = new ExampleClass();
-    MessageProcessor* processor = new MessageProcessor((void *)example,
-                                                       &ExampleClass::
-                                                       callbackFunction);
+    MessageProcessor<ExampleClass>* processor =
+        new MessageProcessor<ExampleClass>(example,
+                                           &ExampleClass::innerCallbackFunction);
+
     processor->setMethodCallback(1,
-                                 (void *)example,
-                                 &ExampleClass::callbackFunctionTwo);
+                                 &ExampleClass::innerCallbackFunctionTwo);
 
     processor->removeMethodCallback(1);
 
@@ -103,12 +102,12 @@ void
 MessageProcessorTest::processPendingItemsTest()
 {
     ExampleClass* example = new ExampleClass();
-    MessageProcessor* processor = new MessageProcessor((void *)example,
-                                                       &ExampleClass::
-                                                       callbackFunction);
+    MessageProcessor<ExampleClass>* processor =
+        new MessageProcessor<ExampleClass>(example,
+                                           &ExampleClass::innerCallbackFunction);
+
     processor->setMethodCallback(1,
-                                 (void *)example,
-                                 &ExampleClass::callbackFunctionTwo);
+                                 &ExampleClass::innerCallbackFunctionTwo);
     Client* client = new Client(1);
     processor->setClient(client);
 

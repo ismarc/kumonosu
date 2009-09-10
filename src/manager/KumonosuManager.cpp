@@ -1,10 +1,11 @@
 #include "KumonosuManager.h"
-#include "MethodHandler.h"
 #include "PingArguments.h"
 #include "ServerListArguments.h"
 #include "ServiceListArguments.h"
 #include "clientlib/Client.h"
 #include "clientlib/MessageProcessor.h"
+#include "clientlib/MethodHandler.h"
+#include "ManagerMethodMap.h"
 #include "internal_method_map.h"
 
 using namespace kumonosu;
@@ -14,7 +15,8 @@ KumonosuManager::KumonosuManager(std::string serverAddress,
                                  int32_t serverPort)
 {
     _client = new Client(0, serverAddress, serverPort);
-    _processor = new MessageProcessor(this, &MethodHandler::methodNotFound);
+    _processor = new MessageProcessor<KumonosuManager>
+        (this, &KumonosuManager::methodNotFound);
 
     _processor->setClient(_client);
     registerProcessorMethods();
@@ -28,7 +30,8 @@ KumonosuManager::KumonosuManager()
 {
     // The manager is service id 0
     _client = new Client(0);
-    _processor = new MessageProcessor(this, &MethodHandler::methodNotFound);
+    _processor = new MessageProcessor<KumonosuManager>
+        (this, &KumonosuManager::methodNotFound);
 
     _processor->setClient(_client);
     registerProcessorMethods();
@@ -96,25 +99,19 @@ KumonosuManager::addServer(Server newServer)
 void
 KumonosuManager::registerProcessorMethods()
 {
-    _processor->setMethodCallback(MethodHandler::MethodMap::GetServerList,
-                                  this,
-                                  &MethodHandler::getServerList);
-    _processor->setMethodCallback(MethodHandler::MethodMap::GetServerResponse,
-                                  this,
-                                  &MethodHandler::getServerListResponse);
-    _processor->setMethodCallback(MethodHandler::MethodMap::Ping,
-                                  this,
-                                  &MethodHandler::ping);
-    _processor->setMethodCallback(MethodHandler::MethodMap::Pong,
-                                  this,
-                                  &MethodHandler::pong);
-    _processor->setMethodCallback(MethodHandler::MethodMap::GetServiceList,
-                                  this,
-                                  &MethodHandler::getServiceList);
+    _processor->setMethodCallback(ManagerMethodMap::IMGetServerList,
+                                  &KumonosuManager::getServerList);
+    _processor->setMethodCallback(ManagerMethodMap::IMGetServerResponse,
+                                  &KumonosuManager::getServerListResponse);
+    _processor->setMethodCallback(ManagerMethodMap::Ping,
+                                  &KumonosuManager::ping);
+    _processor->setMethodCallback(ManagerMethodMap::Pong,
+                                  &KumonosuManager::pong);
+    _processor->setMethodCallback(ManagerMethodMap::GetServiceList,
+                                  &KumonosuManager::getServiceList);
     _processor->setMethodCallback
-        (MethodHandler::MethodMap::GetServiceListResponse,
-         this,
-         &MethodHandler::getServiceListResponse);
+        (ManagerMethodMap::GetServiceListResponse,
+         &KumonosuManager::getServiceListResponse);
 }
 
 void
@@ -170,7 +167,7 @@ KumonosuManager::ping(arguments argList)
 
     // Build the response
     queueItem item;
-    item.methodId = MethodHandler::MethodMap::Pong;
+    item.methodId = ManagerMethodMap::Pong;
     item.serverId = serverId;
     item.argList.i32Args.push_back(pingId);
     _client->sendRequest(serviceId, item);
@@ -199,7 +196,7 @@ KumonosuManager::getServerList(arguments argList)
     }
 
     queueItem item;
-    item.methodId = MethodHandler::MethodMap::GetServerResponse;
+    item.methodId = ManagerMethodMap::IMGetServerResponse;
     item.serverId = destServerId;
 
     i32Arg count;
@@ -260,7 +257,7 @@ KumonosuManager::getServiceList(arguments argList)
     }
 
     queueItem item;
-    item.methodId = MethodHandler::MethodMap::GetServiceListResponse;
+    item.methodId = ManagerMethodMap::GetServiceListResponse;
     item.serverId = destServerId;
 
     i32Arg count;

@@ -15,9 +15,13 @@
 #include "kumonosu_server_types.h"
 #include "clientlib/Client.h"
 #include "clientlib/MessageProcessor.h"
+#include "clientlib/MethodHandler.h"
+
 
 namespace kumonosu {
     namespace manager {
+        class KumonosuManager;
+
         class KumonosuManager {
         public:
             KumonosuManager();
@@ -43,7 +47,7 @@ namespace kumonosu {
             void registerProcessorMethods();
             
             Client* _client;
-            MessageProcessor* _processor;
+            MessageProcessor<KumonosuManager>* _processor;
             std::vector<Server> _serverList;
             std::vector<int32_t> _localServices;
             

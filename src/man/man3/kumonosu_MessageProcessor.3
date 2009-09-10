@@ -1,4 +1,4 @@
-.TH "kumonosu::MessageProcessor" 3 "14 Aug 2009" "Doxygen" \" -*- nroff -*-
+.TH "kumonosu::MessageProcessor" 3 "9 Sep 2009" "Doxygen" \" -*- nroff -*-
 .ad l
 .nh
 .SH NAME
@@ -10,11 +10,18 @@ kumonosu::MessageProcessor \- Provides a convenience interface for managing pend
 .PP
 \fC#include <MessageProcessor.h>\fP
 .PP
+.SS "Public Types"
+
+.in +1c
+.ti -1c
+.RI "typedef void(T::* \fBCallbackFn\fP )(arguments argList)"
+.br
+.in -1c
 .SS "Public Member Functions"
 
 .in +1c
 .ti -1c
-.RI "\fBMessageProcessor\fP (void *methodNotImplementedObject, void(*methodNotImplemented)(void *object, arguments argList))"
+.RI "\fBMessageProcessor\fP (T *object, CallbackFn methodNotImplemented)"
 .br
 .RI "\fIInitializes the \fBMessageProcessor\fP. \fP"
 .ti -1c
@@ -22,13 +29,13 @@ kumonosu::MessageProcessor \- Provides a convenience interface for managing pend
 .br
 .RI "\fIAssigns the supplied client. \fP"
 .ti -1c
-.RI "void \fBsetMethodCallback\fP (int32_t methodId, void *object, void(*FunctionPtr)(void *object, arguments argList))"
+.RI "void \fBsetMethodCallback\fP (int32_t methodId, CallbackFn function)"
 .br
 .RI "\fIStores a callback function associated with a method id. \fP"
 .ti -1c
 .RI "void \fBremoveMethodCallback\fP (int32_t methodId)"
 .br
-.RI "\fIRemoves a \fBCallback\fP object from the method associations. \fP"
+.RI "\fIRemoves a Callback object from the method associations. \fP"
 .ti -1c
 .RI "void \fBprocessPendingItems\fP (int32_t max_count)"
 .br
@@ -36,6 +43,8 @@ kumonosu::MessageProcessor \- Provides a convenience interface for managing pend
 .in -1c
 .SH "Detailed Description"
 .PP 
+
+.SS "template<class T> class kumonosu::MessageProcessor< T >"
 Provides a convenience interface for managing pending items. 
 
 The message processor provides a convenience class for handling incoming queue items. A class (or classes) can be created to handle the different methods which are then provided to the message processor as callbacks. The service can then call the \fBMessageProcessor\fP to execute any outstanding items.
@@ -47,10 +56,10 @@ Matt Brace
 .PP
 
 .PP
-Definition at line 32 of file MessageProcessor.h.
+Definition at line 37 of file MessageProcessor.h.
 .SH "Constructor & Destructor Documentation"
 .PP 
-.SS "MessageProcessor::MessageProcessor (void * methodNotImplementedObject, void(*)(void *object, arguments argList) methodNotImplemented)"
+.SS "template<class T> \fBkumonosu::MessageProcessor\fP< T >::\fBMessageProcessor\fP (T * object, CallbackFn methodNotImplemented)\fC [inline]\fP"
 .PP
 Initializes the \fBMessageProcessor\fP. 
 .PP
@@ -65,10 +74,10 @@ The constructor takes an object pointer and a function pointer for the callback 
 .PP
 
 .PP
-Definition at line 5 of file MessageProcessor.cpp.
+Definition at line 51 of file MessageProcessor.h.
 .SH "Member Function Documentation"
 .PP 
-.SS "void MessageProcessor::setClient (\fBClient\fP * client)"
+.SS "template<class T> void \fBkumonosu::MessageProcessor\fP< T >::setClient (\fBClient\fP * client)\fC [inline]\fP"
 .PP
 Assigns the supplied client. 
 .PP
@@ -81,12 +90,12 @@ To retreive requests, a client is necessary. It is the owning objects responsibi
 .PP
 
 .PP
-Definition at line 16 of file MessageProcessor.cpp.
-.SS "void MessageProcessor::setMethodCallback (int32_t methodId, void * object, void(*)(void *object, arguments argList) FunctionPtr)"
+Definition at line 70 of file MessageProcessor.h.
+.SS "template<class T> void \fBkumonosu::MessageProcessor\fP< T >::setMethodCallback (int32_t methodId, CallbackFn function)\fC [inline]\fP"
 .PP
 Stores a callback function associated with a method id. 
 .PP
-Creates a \fBCallback\fP object and associates it internally with the supplied method id. The callback will be called with there is an incoming request with the specified method id. 
+Creates a Callback object and associates it internally with the supplied method id. The callback will be called with there is an incoming request with the specified method id. 
 .PP
 \fBParameters:\fP
 .RS 4
@@ -99,12 +108,12 @@ Creates a \fBCallback\fP object and associates it internally with the supplied m
 .PP
 
 .PP
-Definition at line 22 of file MessageProcessor.cpp.
-.SS "void MessageProcessor::removeMethodCallback (int32_t methodId)"
+Definition at line 85 of file MessageProcessor.h.
+.SS "template<class T> void \fBkumonosu::MessageProcessor\fP< T >::removeMethodCallback (int32_t methodId)\fC [inline]\fP"
 .PP
-Removes a \fBCallback\fP object from the method associations. 
+Removes a Callback object from the method associations. 
 .PP
-Removes the \fBCallback\fP object that is associated with the method id. If further requests are processed with that method id, the methodNotImplemented callback will be used until a new callback has been set. 
+Removes the Callback object that is associated with the method id. If further requests are processed with that method id, the methodNotImplemented callback will be used until a new callback has been set. 
 .PP
 \fBParameters:\fP
 .RS 4
@@ -113,8 +122,8 @@ Removes the \fBCallback\fP object that is associated with the method id. If furt
 .PP
 
 .PP
-Definition at line 33 of file MessageProcessor.cpp.
-.SS "void MessageProcessor::processPendingItems (int32_t max_count = \fC-1\fP)"
+Definition at line 98 of file MessageProcessor.h.
+.SS "template<class T> void \fBkumonosu::MessageProcessor\fP< T >::processPendingItems (int32_t max_count)\fC [inline]\fP"
 .PP
 Processes outstanding items. 
 .PP
@@ -127,7 +136,7 @@ Retrieves up to max_count items and calls the associated callback method with th
 .PP
 
 .PP
-Definition at line 60 of file MessageProcessor.cpp.
+Definition at line 111 of file MessageProcessor.h.
 
 .SH "Author"
 .PP 

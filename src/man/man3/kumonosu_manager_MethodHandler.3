@@ -1,0 +1,70 @@
+.TH "kumonosu::manager::MethodHandler" 3 "8 Sep 2009" "Doxygen" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+kumonosu::manager::MethodHandler \- Provides an interface for callbacks for the KumonosuManager.  
+
+.PP
+.SH SYNOPSIS
+.br
+.PP
+\fC#include <MethodHandler.h>\fP
+.PP
+.SS "Static Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "static void \fBmethodNotFound\fP (void *object, arguments argList)"
+.br
+.RI "\fIImplements the callback for any non-registered method ids. \fP"
+.ti -1c
+.RI "static void \fBping\fP (void *object, arguments argList)"
+.br
+.RI "\fIImplements the callback for method id 1000. \fP"
+.ti -1c
+.RI "static void \fBpong\fP (void *object, arguments argList)"
+.br
+.RI "\fIImplements the callback for method id 1001. \fP"
+.ti -1c
+.RI "static void \fBgetServerList\fP (void *object, arguments argList)"
+.br
+.RI "\fIImplements the callback for method id INTERNAL_METHOD_GET_SERVER_LIST. \fP"
+.ti -1c
+.RI "static void \fBgetServerListResponse\fP (void *object, arguments argList)"
+.br
+.RI "\fIImplements the callback for method id INTERNAL_METHOD_GET_SERVER_RESPONSE. \fP"
+.ti -1c
+.RI "static void \fBgetServiceList\fP (void *object, arguments argList)"
+.br
+.RI "\fIImplements the callback for method id 1002. \fP"
+.ti -1c
+.RI "static void \fBgetServiceListResponse\fP (void *object, arguments argList)"
+.br
+.RI "\fIImplements the callback for method id 1003. \fP"
+.in -1c
+.SS "Classes"
+
+.in +1c
+.ti -1c
+.RI "class \fBMethodMap\fP"
+.br
+.RI "\fIProvides a reference for method ids handled by the KumonosuManager. \fP"
+.in -1c
+.SH "Detailed Description"
+.PP 
+Provides an interface for callbacks for the KumonosuManager. 
+
+Provides an interface for receiving and forwarding callbacks to the KumonosuManager. Static methods are used and the requests are dispatched via the supplied KumonosuManager object.
+.PP
+\fBAuthor:\fP
+.RS 4
+Matt Brace 
+.RE
+.PP
+
+.PP
+Definition at line 30 of file MethodHandler.h.
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen from the source code.

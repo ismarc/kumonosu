@@ -112,6 +112,12 @@ namespace kumonosu {
          *  requests will be processed prior to shutting down.
          */
         void shutdown();
+
+        //! Internal method for retrieving a list of servers.
+        /*!
+         *  Retrieves the list of servers from the client and sends
+         *  the response to the specified return service if specified.
+         */
         void getServerList(int32_t serviceId);
     private:
         //! Internal only method, executes the specified queueItem.

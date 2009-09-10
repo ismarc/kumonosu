@@ -1,0 +1,42 @@
+.TH "kumonosu::manager::ProcedureArguments" 3 "9 Sep 2009" "Doxygen" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+kumonosu::manager::ProcedureArguments \- Abstract base class for classes for serializing arguments.  
+
+.PP
+.SH SYNOPSIS
+.br
+.PP
+\fC#include <ProcedureArguments.h>\fP
+.PP
+Inherited by kumonosu::manager::PingArguments, kumonosu::manager::ServerListArguments, and kumonosu::manager::ServiceListArguments.
+.PP
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "virtual void \fBaddToArguments\fP (arguments *args)=0"
+.br
+.ti -1c
+.RI "virtual void \fBloadFromArguments\fP (arguments args)=0"
+.br
+.in -1c
+.SH "Detailed Description"
+.PP 
+Abstract base class for classes for serializing arguments. 
+
+The current model doesn't use this very well. It needs to be rethought out to provide a reasonable interface to take advantage of the potential features.
+.PP
+\fBAuthor:\fP
+.RS 4
+Matt Brace 
+.RE
+.PP
+
+.PP
+Definition at line 28 of file ProcedureArguments.h.
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen from the source code.

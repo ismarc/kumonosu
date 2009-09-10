@@ -474,8 +474,8 @@
 <a name="l00462"></a>00462   <span class="keywordflow">return</span> xfer;
 <a name="l00463"></a>00463 }
 <a name="l00464"></a>00464 
-<a name="l00465"></a>00465 <span class="keyword">const</span> <span class="keywordtype">char</span>* arguments::ascii_fingerprint = <span class="stringliteral">"F3CBDDE3929F8070971B6C66009E4E9E"</span>;
-<a name="l00466"></a>00466 <span class="keyword">const</span> uint8_t arguments::binary_fingerprint[16] = {0xF3,0xCB,0xDD,0xE3,0x92,0x9F,0x80,0x70,0x97,0x1B,0x6C,0x66,0x00,0x9E,0x4E,0x9E};
+<a name="l00465"></a>00465 <span class="keyword">const</span> <span class="keywordtype">char</span>* arguments::ascii_fingerprint = <span class="stringliteral">"5FE74C86BE910B05C2783D68AB1F95EF"</span>;
+<a name="l00466"></a>00466 <span class="keyword">const</span> uint8_t arguments::binary_fingerprint[16] = {0x5F,0xE7,0x4C,0x86,0xBE,0x91,0x0B,0x05,0xC2,0x78,0x3D,0x68,0xAB,0x1F,0x95,0xEF};
 <a name="l00467"></a>00467 
 <a name="l00468"></a>00468 uint32_t arguments::read(apache::thrift::protocol::TProtocol* iprot) {
 <a name="l00469"></a>00469 
@@ -691,359 +691,351 @@
 <a name="l00679"></a>00679     }
 <a name="l00680"></a>00680     xfer += oprot-&gt;writeFieldEnd();
 <a name="l00681"></a>00681   }
-<a name="l00682"></a>00682   <span class="keywordflow">if</span> (this-&gt;__isset.i32Args) {
-<a name="l00683"></a>00683     xfer += oprot-&gt;writeFieldBegin(<span class="stringliteral">"i32Args"</span>, apache::thrift::protocol::T_LIST, 4);
-<a name="l00684"></a>00684     {
-<a name="l00685"></a>00685       xfer += oprot-&gt;writeListBegin(apache::thrift::protocol::T_STRUCT, this-&gt;i32Args.size());
-<a name="l00686"></a>00686       std::vector&lt;i32Arg&gt; ::const_iterator _iter38;
-<a name="l00687"></a>00687       <span class="keywordflow">for</span> (_iter38 = this-&gt;i32Args.begin(); _iter38 != this-&gt;i32Args.end(); ++_iter38)
-<a name="l00688"></a>00688       {
-<a name="l00689"></a>00689         xfer += (*_iter38).write(oprot);
-<a name="l00690"></a>00690       }
-<a name="l00691"></a>00691       xfer += oprot-&gt;writeListEnd();
-<a name="l00692"></a>00692     }
-<a name="l00693"></a>00693     xfer += oprot-&gt;writeFieldEnd();
-<a name="l00694"></a>00694   }
-<a name="l00695"></a>00695   <span class="keywordflow">if</span> (this-&gt;__isset.i64Args) {
-<a name="l00696"></a>00696     xfer += oprot-&gt;writeFieldBegin(<span class="stringliteral">"i64Args"</span>, apache::thrift::protocol::T_LIST, 5);
-<a name="l00697"></a>00697     {
-<a name="l00698"></a>00698       xfer += oprot-&gt;writeListBegin(apache::thrift::protocol::T_STRUCT, this-&gt;i64Args.size());
-<a name="l00699"></a>00699       std::vector&lt;i64Arg&gt; ::const_iterator _iter39;
-<a name="l00700"></a>00700       <span class="keywordflow">for</span> (_iter39 = this-&gt;i64Args.begin(); _iter39 != this-&gt;i64Args.end(); ++_iter39)
-<a name="l00701"></a>00701       {
-<a name="l00702"></a>00702         xfer += (*_iter39).write(oprot);
-<a name="l00703"></a>00703       }
-<a name="l00704"></a>00704       xfer += oprot-&gt;writeListEnd();
-<a name="l00705"></a>00705     }
-<a name="l00706"></a>00706     xfer += oprot-&gt;writeFieldEnd();
-<a name="l00707"></a>00707   }
-<a name="l00708"></a>00708   <span class="keywordflow">if</span> (this-&gt;__isset.doubleArgs) {
-<a name="l00709"></a>00709     xfer += oprot-&gt;writeFieldBegin(<span class="stringliteral">"doubleArgs"</span>, apache::thrift::protocol::T_LIST, 6);
-<a name="l00710"></a>00710     {
-<a name="l00711"></a>00711       xfer += oprot-&gt;writeListBegin(apache::thrift::protocol::T_STRUCT, this-&gt;doubleArgs.size());
-<a name="l00712"></a>00712       std::vector&lt;doubleArg&gt; ::const_iterator _iter40;
-<a name="l00713"></a>00713       <span class="keywordflow">for</span> (_iter40 = this-&gt;doubleArgs.begin(); _iter40 != this-&gt;doubleArgs.end(); ++_iter40)
-<a name="l00714"></a>00714       {
-<a name="l00715"></a>00715         xfer += (*_iter40).write(oprot);
-<a name="l00716"></a>00716       }
-<a name="l00717"></a>00717       xfer += oprot-&gt;writeListEnd();
-<a name="l00718"></a>00718     }
-<a name="l00719"></a>00719     xfer += oprot-&gt;writeFieldEnd();
-<a name="l00720"></a>00720   }
-<a name="l00721"></a>00721   <span class="keywordflow">if</span> (this-&gt;__isset.stringArgs) {
-<a name="l00722"></a>00722     xfer += oprot-&gt;writeFieldBegin(<span class="stringliteral">"stringArgs"</span>, apache::thrift::protocol::T_LIST, 7);
-<a name="l00723"></a>00723     {
-<a name="l00724"></a>00724       xfer += oprot-&gt;writeListBegin(apache::thrift::protocol::T_STRUCT, this-&gt;stringArgs.size());
-<a name="l00725"></a>00725       std::vector&lt;stringArg&gt; ::const_iterator _iter41;
-<a name="l00726"></a>00726       <span class="keywordflow">for</span> (_iter41 = this-&gt;stringArgs.begin(); _iter41 != this-&gt;stringArgs.end(); ++_iter41)
-<a name="l00727"></a>00727       {
-<a name="l00728"></a>00728         xfer += (*_iter41).write(oprot);
-<a name="l00729"></a>00729       }
-<a name="l00730"></a>00730       xfer += oprot-&gt;writeListEnd();
-<a name="l00731"></a>00731     }
-<a name="l00732"></a>00732     xfer += oprot-&gt;writeFieldEnd();
-<a name="l00733"></a>00733   }
-<a name="l00734"></a>00734   xfer += oprot-&gt;writeFieldStop();
-<a name="l00735"></a>00735   xfer += oprot-&gt;writeStructEnd();
-<a name="l00736"></a>00736   <span class="keywordflow">return</span> xfer;
-<a name="l00737"></a>00737 }
-<a name="l00738"></a>00738 
-<a name="l00739"></a>00739 <span class="keyword">const</span> <span class="keywordtype">char</span>* serverService::ascii_fingerprint = <span class="stringliteral">"AFAFBCDB9822F9D1AA4E44188E720B47"</span>;
-<a name="l00740"></a>00740 <span class="keyword">const</span> uint8_t serverService::binary_fingerprint[16] = {0xAF,0xAF,0xBC,0xDB,0x98,0x22,0xF9,0xD1,0xAA,0x4E,0x44,0x18,0x8E,0x72,0x0B,0x47};
-<a name="l00741"></a>00741 
-<a name="l00742"></a>00742 uint32_t serverService::read(apache::thrift::protocol::TProtocol* iprot) {
-<a name="l00743"></a>00743 
-<a name="l00744"></a>00744   uint32_t xfer = 0;
-<a name="l00745"></a>00745   std::string fname;
-<a name="l00746"></a>00746   apache::thrift::protocol::TType ftype;
-<a name="l00747"></a>00747   int16_t fid;
+<a name="l00682"></a>00682   xfer += oprot-&gt;writeFieldBegin(<span class="stringliteral">"i32Args"</span>, apache::thrift::protocol::T_LIST, 4);
+<a name="l00683"></a>00683   {
+<a name="l00684"></a>00684     xfer += oprot-&gt;writeListBegin(apache::thrift::protocol::T_STRUCT, this-&gt;i32Args.size());
+<a name="l00685"></a>00685     std::vector&lt;i32Arg&gt; ::const_iterator _iter38;
+<a name="l00686"></a>00686     <span class="keywordflow">for</span> (_iter38 = this-&gt;i32Args.begin(); _iter38 != this-&gt;i32Args.end(); ++_iter38)
+<a name="l00687"></a>00687     {
+<a name="l00688"></a>00688       xfer += (*_iter38).write(oprot);
+<a name="l00689"></a>00689     }
+<a name="l00690"></a>00690     xfer += oprot-&gt;writeListEnd();
+<a name="l00691"></a>00691   }
+<a name="l00692"></a>00692   xfer += oprot-&gt;writeFieldEnd();
+<a name="l00693"></a>00693   <span class="keywordflow">if</span> (this-&gt;__isset.i64Args) {
+<a name="l00694"></a>00694     xfer += oprot-&gt;writeFieldBegin(<span class="stringliteral">"i64Args"</span>, apache::thrift::protocol::T_LIST, 5);
+<a name="l00695"></a>00695     {
+<a name="l00696"></a>00696       xfer += oprot-&gt;writeListBegin(apache::thrift::protocol::T_STRUCT, this-&gt;i64Args.size());
+<a name="l00697"></a>00697       std::vector&lt;i64Arg&gt; ::const_iterator _iter39;
+<a name="l00698"></a>00698       <span class="keywordflow">for</span> (_iter39 = this-&gt;i64Args.begin(); _iter39 != this-&gt;i64Args.end(); ++_iter39)
+<a name="l00699"></a>00699       {
+<a name="l00700"></a>00700         xfer += (*_iter39).write(oprot);
+<a name="l00701"></a>00701       }
+<a name="l00702"></a>00702       xfer += oprot-&gt;writeListEnd();
+<a name="l00703"></a>00703     }
+<a name="l00704"></a>00704     xfer += oprot-&gt;writeFieldEnd();
+<a name="l00705"></a>00705   }
+<a name="l00706"></a>00706   <span class="keywordflow">if</span> (this-&gt;__isset.doubleArgs) {
+<a name="l00707"></a>00707     xfer += oprot-&gt;writeFieldBegin(<span class="stringliteral">"doubleArgs"</span>, apache::thrift::protocol::T_LIST, 6);
+<a name="l00708"></a>00708     {
+<a name="l00709"></a>00709       xfer += oprot-&gt;writeListBegin(apache::thrift::protocol::T_STRUCT, this-&gt;doubleArgs.size());
+<a name="l00710"></a>00710       std::vector&lt;doubleArg&gt; ::const_iterator _iter40;
+<a name="l00711"></a>00711       <span class="keywordflow">for</span> (_iter40 = this-&gt;doubleArgs.begin(); _iter40 != this-&gt;doubleArgs.end(); ++_iter40)
+<a name="l00712"></a>00712       {
+<a name="l00713"></a>00713         xfer += (*_iter40).write(oprot);
+<a name="l00714"></a>00714       }
+<a name="l00715"></a>00715       xfer += oprot-&gt;writeListEnd();
+<a name="l00716"></a>00716     }
+<a name="l00717"></a>00717     xfer += oprot-&gt;writeFieldEnd();
+<a name="l00718"></a>00718   }
+<a name="l00719"></a>00719   xfer += oprot-&gt;writeFieldBegin(<span class="stringliteral">"stringArgs"</span>, apache::thrift::protocol::T_LIST, 7);
+<a name="l00720"></a>00720   {
+<a name="l00721"></a>00721     xfer += oprot-&gt;writeListBegin(apache::thrift::protocol::T_STRUCT, this-&gt;stringArgs.size());
+<a name="l00722"></a>00722     std::vector&lt;stringArg&gt; ::const_iterator _iter41;
+<a name="l00723"></a>00723     <span class="keywordflow">for</span> (_iter41 = this-&gt;stringArgs.begin(); _iter41 != this-&gt;stringArgs.end(); ++_iter41)
+<a name="l00724"></a>00724     {
+<a name="l00725"></a>00725       xfer += (*_iter41).write(oprot);
+<a name="l00726"></a>00726     }
+<a name="l00727"></a>00727     xfer += oprot-&gt;writeListEnd();
+<a name="l00728"></a>00728   }
+<a name="l00729"></a>00729   xfer += oprot-&gt;writeFieldEnd();
+<a name="l00730"></a>00730   xfer += oprot-&gt;writeFieldStop();
+<a name="l00731"></a>00731   xfer += oprot-&gt;writeStructEnd();
+<a name="l00732"></a>00732   <span class="keywordflow">return</span> xfer;
+<a name="l00733"></a>00733 }
+<a name="l00734"></a>00734 
+<a name="l00735"></a>00735 <span class="keyword">const</span> <span class="keywordtype">char</span>* serverService::ascii_fingerprint = <span class="stringliteral">"AFAFBCDB9822F9D1AA4E44188E720B47"</span>;
+<a name="l00736"></a>00736 <span class="keyword">const</span> uint8_t serverService::binary_fingerprint[16] = {0xAF,0xAF,0xBC,0xDB,0x98,0x22,0xF9,0xD1,0xAA,0x4E,0x44,0x18,0x8E,0x72,0x0B,0x47};
+<a name="l00737"></a>00737 
+<a name="l00738"></a>00738 uint32_t serverService::read(apache::thrift::protocol::TProtocol* iprot) {
+<a name="l00739"></a>00739 
+<a name="l00740"></a>00740   uint32_t xfer = 0;
+<a name="l00741"></a>00741   std::string fname;
+<a name="l00742"></a>00742   apache::thrift::protocol::TType ftype;
+<a name="l00743"></a>00743   int16_t fid;
+<a name="l00744"></a>00744 
+<a name="l00745"></a>00745   xfer += iprot-&gt;readStructBegin(fname);
+<a name="l00746"></a>00746 
+<a name="l00747"></a>00747   <span class="keyword">using</span> apache::thrift::protocol::TProtocolException;
 <a name="l00748"></a>00748 
-<a name="l00749"></a>00749   xfer += iprot-&gt;readStructBegin(fname);
-<a name="l00750"></a>00750 
-<a name="l00751"></a>00751   <span class="keyword">using</span> apache::thrift::protocol::TProtocolException;
-<a name="l00752"></a>00752 
-<a name="l00753"></a>00753 
-<a name="l00754"></a>00754   <span class="keywordflow">while</span> (<span class="keyword">true</span>)
-<a name="l00755"></a>00755   {
-<a name="l00756"></a>00756     xfer += iprot-&gt;readFieldBegin(fname, ftype, fid);
-<a name="l00757"></a>00757     <span class="keywordflow">if</span> (ftype == apache::thrift::protocol::T_STOP) {
-<a name="l00758"></a>00758       <span class="keywordflow">break</span>;
-<a name="l00759"></a>00759     }
-<a name="l00760"></a>00760     <span class="keywordflow">switch</span> (fid)
-<a name="l00761"></a>00761     {
-<a name="l00762"></a>00762       <span class="keywordflow">case</span> 1:
-<a name="l00763"></a>00763         <span class="keywordflow">if</span> (ftype == apache::thrift::protocol::T_I64) {
-<a name="l00764"></a>00764           xfer += iprot-&gt;readI64(this-&gt;serviceType);
-<a name="l00765"></a>00765           this-&gt;__isset.serviceType = <span class="keyword">true</span>;
-<a name="l00766"></a>00766         } <span class="keywordflow">else</span> {
-<a name="l00767"></a>00767           xfer += iprot-&gt;skip(ftype);
-<a name="l00768"></a>00768         }
-<a name="l00769"></a>00769         <span class="keywordflow">break</span>;
-<a name="l00770"></a>00770       <span class="keywordflow">case</span> 2:
-<a name="l00771"></a>00771         <span class="keywordflow">if</span> (ftype == apache::thrift::protocol::T_I32) {
-<a name="l00772"></a>00772           xfer += iprot-&gt;readI32(this-&gt;serviceId);
-<a name="l00773"></a>00773           this-&gt;__isset.serviceId = <span class="keyword">true</span>;
-<a name="l00774"></a>00774         } <span class="keywordflow">else</span> {
-<a name="l00775"></a>00775           xfer += iprot-&gt;skip(ftype);
-<a name="l00776"></a>00776         }
-<a name="l00777"></a>00777         <span class="keywordflow">break</span>;
-<a name="l00778"></a>00778       <span class="keywordflow">default</span>:
-<a name="l00779"></a>00779         xfer += iprot-&gt;skip(ftype);
-<a name="l00780"></a>00780         <span class="keywordflow">break</span>;
-<a name="l00781"></a>00781     }
-<a name="l00782"></a>00782     xfer += iprot-&gt;readFieldEnd();
-<a name="l00783"></a>00783   }
-<a name="l00784"></a>00784 
-<a name="l00785"></a>00785   xfer += iprot-&gt;readStructEnd();
-<a name="l00786"></a>00786 
-<a name="l00787"></a>00787   <span class="keywordflow">return</span> xfer;
-<a name="l00788"></a>00788 }
-<a name="l00789"></a>00789 
-<a name="l00790"></a>00790 uint32_t serverService::write(apache::thrift::protocol::TProtocol* oprot)<span class="keyword"> const </span>{
-<a name="l00791"></a>00791   uint32_t xfer = 0;
-<a name="l00792"></a>00792   xfer += oprot-&gt;writeStructBegin(<span class="stringliteral">"serverService"</span>);
-<a name="l00793"></a>00793   xfer += oprot-&gt;writeFieldBegin(<span class="stringliteral">"serviceType"</span>, apache::thrift::protocol::T_I64, 1);
-<a name="l00794"></a>00794   xfer += oprot-&gt;writeI64(this-&gt;serviceType);
-<a name="l00795"></a>00795   xfer += oprot-&gt;writeFieldEnd();
-<a name="l00796"></a>00796   xfer += oprot-&gt;writeFieldBegin(<span class="stringliteral">"serviceId"</span>, apache::thrift::protocol::T_I32, 2);
-<a name="l00797"></a>00797   xfer += oprot-&gt;writeI32(this-&gt;serviceId);
-<a name="l00798"></a>00798   xfer += oprot-&gt;writeFieldEnd();
-<a name="l00799"></a>00799   xfer += oprot-&gt;writeFieldStop();
-<a name="l00800"></a>00800   xfer += oprot-&gt;writeStructEnd();
-<a name="l00801"></a>00801   <span class="keywordflow">return</span> xfer;
-<a name="l00802"></a>00802 }
-<a name="l00803"></a>00803 
-<a name="l00804"></a>00804 <span class="keyword">const</span> <span class="keywordtype">char</span>* serviceList::ascii_fingerprint = <span class="stringliteral">"BCF39F88A624931BC2D417E380B6FE94"</span>;
-<a name="l00805"></a>00805 <span class="keyword">const</span> uint8_t serviceList::binary_fingerprint[16] = {0xBC,0xF3,0x9F,0x88,0xA6,0x24,0x93,0x1B,0xC2,0xD4,0x17,0xE3,0x80,0xB6,0xFE,0x94};
-<a name="l00806"></a>00806 
-<a name="l00807"></a>00807 uint32_t serviceList::read(apache::thrift::protocol::TProtocol* iprot) {
-<a name="l00808"></a>00808 
-<a name="l00809"></a>00809   uint32_t xfer = 0;
-<a name="l00810"></a>00810   std::string fname;
-<a name="l00811"></a>00811   apache::thrift::protocol::TType ftype;
-<a name="l00812"></a>00812   int16_t fid;
+<a name="l00749"></a>00749 
+<a name="l00750"></a>00750   <span class="keywordflow">while</span> (<span class="keyword">true</span>)
+<a name="l00751"></a>00751   {
+<a name="l00752"></a>00752     xfer += iprot-&gt;readFieldBegin(fname, ftype, fid);
+<a name="l00753"></a>00753     <span class="keywordflow">if</span> (ftype == apache::thrift::protocol::T_STOP) {
+<a name="l00754"></a>00754       <span class="keywordflow">break</span>;
+<a name="l00755"></a>00755     }
+<a name="l00756"></a>00756     <span class="keywordflow">switch</span> (fid)
+<a name="l00757"></a>00757     {
+<a name="l00758"></a>00758       <span class="keywordflow">case</span> 1:
+<a name="l00759"></a>00759         <span class="keywordflow">if</span> (ftype == apache::thrift::protocol::T_I64) {
+<a name="l00760"></a>00760           xfer += iprot-&gt;readI64(this-&gt;serviceType);
+<a name="l00761"></a>00761           this-&gt;__isset.serviceType = <span class="keyword">true</span>;
+<a name="l00762"></a>00762         } <span class="keywordflow">else</span> {
+<a name="l00763"></a>00763           xfer += iprot-&gt;skip(ftype);
+<a name="l00764"></a>00764         }
+<a name="l00765"></a>00765         <span class="keywordflow">break</span>;
+<a name="l00766"></a>00766       <span class="keywordflow">case</span> 2:
+<a name="l00767"></a>00767         <span class="keywordflow">if</span> (ftype == apache::thrift::protocol::T_I32) {
+<a name="l00768"></a>00768           xfer += iprot-&gt;readI32(this-&gt;serviceId);
+<a name="l00769"></a>00769           this-&gt;__isset.serviceId = <span class="keyword">true</span>;
+<a name="l00770"></a>00770         } <span class="keywordflow">else</span> {
+<a name="l00771"></a>00771           xfer += iprot-&gt;skip(ftype);
+<a name="l00772"></a>00772         }
+<a name="l00773"></a>00773         <span class="keywordflow">break</span>;
+<a name="l00774"></a>00774       <span class="keywordflow">default</span>:
+<a name="l00775"></a>00775         xfer += iprot-&gt;skip(ftype);
+<a name="l00776"></a>00776         <span class="keywordflow">break</span>;
+<a name="l00777"></a>00777     }
+<a name="l00778"></a>00778     xfer += iprot-&gt;readFieldEnd();
+<a name="l00779"></a>00779   }
+<a name="l00780"></a>00780 
+<a name="l00781"></a>00781   xfer += iprot-&gt;readStructEnd();
+<a name="l00782"></a>00782 
+<a name="l00783"></a>00783   <span class="keywordflow">return</span> xfer;
+<a name="l00784"></a>00784 }
+<a name="l00785"></a>00785 
+<a name="l00786"></a>00786 uint32_t serverService::write(apache::thrift::protocol::TProtocol* oprot)<span class="keyword"> const </span>{
+<a name="l00787"></a>00787   uint32_t xfer = 0;
+<a name="l00788"></a>00788   xfer += oprot-&gt;writeStructBegin(<span class="stringliteral">"serverService"</span>);
+<a name="l00789"></a>00789   xfer += oprot-&gt;writeFieldBegin(<span class="stringliteral">"serviceType"</span>, apache::thrift::protocol::T_I64, 1);
+<a name="l00790"></a>00790   xfer += oprot-&gt;writeI64(this-&gt;serviceType);
+<a name="l00791"></a>00791   xfer += oprot-&gt;writeFieldEnd();
+<a name="l00792"></a>00792   xfer += oprot-&gt;writeFieldBegin(<span class="stringliteral">"serviceId"</span>, apache::thrift::protocol::T_I32, 2);
+<a name="l00793"></a>00793   xfer += oprot-&gt;writeI32(this-&gt;serviceId);
+<a name="l00794"></a>00794   xfer += oprot-&gt;writeFieldEnd();
+<a name="l00795"></a>00795   xfer += oprot-&gt;writeFieldStop();
+<a name="l00796"></a>00796   xfer += oprot-&gt;writeStructEnd();
+<a name="l00797"></a>00797   <span class="keywordflow">return</span> xfer;
+<a name="l00798"></a>00798 }
+<a name="l00799"></a>00799 
+<a name="l00800"></a>00800 <span class="keyword">const</span> <span class="keywordtype">char</span>* serviceList::ascii_fingerprint = <span class="stringliteral">"BCF39F88A624931BC2D417E380B6FE94"</span>;
+<a name="l00801"></a>00801 <span class="keyword">const</span> uint8_t serviceList::binary_fingerprint[16] = {0xBC,0xF3,0x9F,0x88,0xA6,0x24,0x93,0x1B,0xC2,0xD4,0x17,0xE3,0x80,0xB6,0xFE,0x94};
+<a name="l00802"></a>00802 
+<a name="l00803"></a>00803 uint32_t serviceList::read(apache::thrift::protocol::TProtocol* iprot) {
+<a name="l00804"></a>00804 
+<a name="l00805"></a>00805   uint32_t xfer = 0;
+<a name="l00806"></a>00806   std::string fname;
+<a name="l00807"></a>00807   apache::thrift::protocol::TType ftype;
+<a name="l00808"></a>00808   int16_t fid;
+<a name="l00809"></a>00809 
+<a name="l00810"></a>00810   xfer += iprot-&gt;readStructBegin(fname);
+<a name="l00811"></a>00811 
+<a name="l00812"></a>00812   <span class="keyword">using</span> apache::thrift::protocol::TProtocolException;
 <a name="l00813"></a>00813 
-<a name="l00814"></a>00814   xfer += iprot-&gt;readStructBegin(fname);
-<a name="l00815"></a>00815 
-<a name="l00816"></a>00816   <span class="keyword">using</span> apache::thrift::protocol::TProtocolException;
-<a name="l00817"></a>00817 
-<a name="l00818"></a>00818 
-<a name="l00819"></a>00819   <span class="keywordflow">while</span> (<span class="keyword">true</span>)
-<a name="l00820"></a>00820   {
-<a name="l00821"></a>00821     xfer += iprot-&gt;readFieldBegin(fname, ftype, fid);
-<a name="l00822"></a>00822     <span class="keywordflow">if</span> (ftype == apache::thrift::protocol::T_STOP) {
-<a name="l00823"></a>00823       <span class="keywordflow">break</span>;
-<a name="l00824"></a>00824     }
-<a name="l00825"></a>00825     <span class="keywordflow">switch</span> (fid)
-<a name="l00826"></a>00826     {
-<a name="l00827"></a>00827       <span class="keywordflow">case</span> 1:
-<a name="l00828"></a>00828         <span class="keywordflow">if</span> (ftype == apache::thrift::protocol::T_LIST) {
-<a name="l00829"></a>00829           {
-<a name="l00830"></a>00830             this-&gt;services.clear();
-<a name="l00831"></a>00831             uint32_t _size42;
-<a name="l00832"></a>00832             apache::thrift::protocol::TType _etype45;
-<a name="l00833"></a>00833             iprot-&gt;readListBegin(_etype45, _size42);
-<a name="l00834"></a>00834             this-&gt;services.resize(_size42);
-<a name="l00835"></a>00835             uint32_t _i46;
-<a name="l00836"></a>00836             <span class="keywordflow">for</span> (_i46 = 0; _i46 &lt; _size42; ++_i46)
-<a name="l00837"></a>00837             {
-<a name="l00838"></a>00838               xfer += this-&gt;services[_i46].read(iprot);
-<a name="l00839"></a>00839             }
-<a name="l00840"></a>00840             iprot-&gt;readListEnd();
-<a name="l00841"></a>00841           }
-<a name="l00842"></a>00842           this-&gt;__isset.services = <span class="keyword">true</span>;
-<a name="l00843"></a>00843         } <span class="keywordflow">else</span> {
-<a name="l00844"></a>00844           xfer += iprot-&gt;skip(ftype);
-<a name="l00845"></a>00845         }
-<a name="l00846"></a>00846         <span class="keywordflow">break</span>;
-<a name="l00847"></a>00847       <span class="keywordflow">default</span>:
-<a name="l00848"></a>00848         xfer += iprot-&gt;skip(ftype);
-<a name="l00849"></a>00849         <span class="keywordflow">break</span>;
-<a name="l00850"></a>00850     }
-<a name="l00851"></a>00851     xfer += iprot-&gt;readFieldEnd();
-<a name="l00852"></a>00852   }
-<a name="l00853"></a>00853 
-<a name="l00854"></a>00854   xfer += iprot-&gt;readStructEnd();
-<a name="l00855"></a>00855 
-<a name="l00856"></a>00856   <span class="keywordflow">return</span> xfer;
-<a name="l00857"></a>00857 }
-<a name="l00858"></a>00858 
-<a name="l00859"></a>00859 uint32_t serviceList::write(apache::thrift::protocol::TProtocol* oprot)<span class="keyword"> const </span>{
-<a name="l00860"></a>00860   uint32_t xfer = 0;
-<a name="l00861"></a>00861   xfer += oprot-&gt;writeStructBegin(<span class="stringliteral">"serviceList"</span>);
-<a name="l00862"></a>00862   xfer += oprot-&gt;writeFieldBegin(<span class="stringliteral">"services"</span>, apache::thrift::protocol::T_LIST, 1);
-<a name="l00863"></a>00863   {
-<a name="l00864"></a>00864     xfer += oprot-&gt;writeListBegin(apache::thrift::protocol::T_STRUCT, this-&gt;services.size());
-<a name="l00865"></a>00865     std::vector&lt;serverService&gt; ::const_iterator _iter47;
-<a name="l00866"></a>00866     <span class="keywordflow">for</span> (_iter47 = this-&gt;services.begin(); _iter47 != this-&gt;services.end(); ++_iter47)
-<a name="l00867"></a>00867     {
-<a name="l00868"></a>00868       xfer += (*_iter47).write(oprot);
-<a name="l00869"></a>00869     }
-<a name="l00870"></a>00870     xfer += oprot-&gt;writeListEnd();
-<a name="l00871"></a>00871   }
-<a name="l00872"></a>00872   xfer += oprot-&gt;writeFieldEnd();
-<a name="l00873"></a>00873   xfer += oprot-&gt;writeFieldStop();
-<a name="l00874"></a>00874   xfer += oprot-&gt;writeStructEnd();
-<a name="l00875"></a>00875   <span class="keywordflow">return</span> xfer;
-<a name="l00876"></a>00876 }
-<a name="l00877"></a>00877 
-<a name="l00878"></a>00878 <span class="keyword">const</span> <span class="keywordtype">char</span>* queueItem::ascii_fingerprint = <span class="stringliteral">"A104D01649E132F2B265364F05B91078"</span>;
-<a name="l00879"></a>00879 <span class="keyword">const</span> uint8_t queueItem::binary_fingerprint[16] = {0xA1,0x04,0xD0,0x16,0x49,0xE1,0x32,0xF2,0xB2,0x65,0x36,0x4F,0x05,0xB9,0x10,0x78};
-<a name="l00880"></a>00880 
-<a name="l00881"></a>00881 uint32_t queueItem::read(apache::thrift::protocol::TProtocol* iprot) {
-<a name="l00882"></a>00882 
-<a name="l00883"></a>00883   uint32_t xfer = 0;
-<a name="l00884"></a>00884   std::string fname;
-<a name="l00885"></a>00885   apache::thrift::protocol::TType ftype;
-<a name="l00886"></a>00886   int16_t fid;
+<a name="l00814"></a>00814 
+<a name="l00815"></a>00815   <span class="keywordflow">while</span> (<span class="keyword">true</span>)
+<a name="l00816"></a>00816   {
+<a name="l00817"></a>00817     xfer += iprot-&gt;readFieldBegin(fname, ftype, fid);
+<a name="l00818"></a>00818     <span class="keywordflow">if</span> (ftype == apache::thrift::protocol::T_STOP) {
+<a name="l00819"></a>00819       <span class="keywordflow">break</span>;
+<a name="l00820"></a>00820     }
+<a name="l00821"></a>00821     <span class="keywordflow">switch</span> (fid)
+<a name="l00822"></a>00822     {
+<a name="l00823"></a>00823       <span class="keywordflow">case</span> 1:
+<a name="l00824"></a>00824         <span class="keywordflow">if</span> (ftype == apache::thrift::protocol::T_LIST) {
+<a name="l00825"></a>00825           {
+<a name="l00826"></a>00826             this-&gt;services.clear();
+<a name="l00827"></a>00827             uint32_t _size42;
+<a name="l00828"></a>00828             apache::thrift::protocol::TType _etype45;
+<a name="l00829"></a>00829             iprot-&gt;readListBegin(_etype45, _size42);
+<a name="l00830"></a>00830             this-&gt;services.resize(_size42);
+<a name="l00831"></a>00831             uint32_t _i46;
+<a name="l00832"></a>00832             <span class="keywordflow">for</span> (_i46 = 0; _i46 &lt; _size42; ++_i46)
+<a name="l00833"></a>00833             {
+<a name="l00834"></a>00834               xfer += this-&gt;services[_i46].read(iprot);
+<a name="l00835"></a>00835             }
+<a name="l00836"></a>00836             iprot-&gt;readListEnd();
+<a name="l00837"></a>00837           }
+<a name="l00838"></a>00838           this-&gt;__isset.services = <span class="keyword">true</span>;
+<a name="l00839"></a>00839         } <span class="keywordflow">else</span> {
+<a name="l00840"></a>00840           xfer += iprot-&gt;skip(ftype);
+<a name="l00841"></a>00841         }
+<a name="l00842"></a>00842         <span class="keywordflow">break</span>;
+<a name="l00843"></a>00843       <span class="keywordflow">default</span>:
+<a name="l00844"></a>00844         xfer += iprot-&gt;skip(ftype);
+<a name="l00845"></a>00845         <span class="keywordflow">break</span>;
+<a name="l00846"></a>00846     }
+<a name="l00847"></a>00847     xfer += iprot-&gt;readFieldEnd();
+<a name="l00848"></a>00848   }
+<a name="l00849"></a>00849 
+<a name="l00850"></a>00850   xfer += iprot-&gt;readStructEnd();
+<a name="l00851"></a>00851 
+<a name="l00852"></a>00852   <span class="keywordflow">return</span> xfer;
+<a name="l00853"></a>00853 }
+<a name="l00854"></a>00854 
+<a name="l00855"></a>00855 uint32_t serviceList::write(apache::thrift::protocol::TProtocol* oprot)<span class="keyword"> const </span>{
+<a name="l00856"></a>00856   uint32_t xfer = 0;
+<a name="l00857"></a>00857   xfer += oprot-&gt;writeStructBegin(<span class="stringliteral">"serviceList"</span>);
+<a name="l00858"></a>00858   xfer += oprot-&gt;writeFieldBegin(<span class="stringliteral">"services"</span>, apache::thrift::protocol::T_LIST, 1);
+<a name="l00859"></a>00859   {
+<a name="l00860"></a>00860     xfer += oprot-&gt;writeListBegin(apache::thrift::protocol::T_STRUCT, this-&gt;services.size());
+<a name="l00861"></a>00861     std::vector&lt;serverService&gt; ::const_iterator _iter47;
+<a name="l00862"></a>00862     <span class="keywordflow">for</span> (_iter47 = this-&gt;services.begin(); _iter47 != this-&gt;services.end(); ++_iter47)
+<a name="l00863"></a>00863     {
+<a name="l00864"></a>00864       xfer += (*_iter47).write(oprot);
+<a name="l00865"></a>00865     }
+<a name="l00866"></a>00866     xfer += oprot-&gt;writeListEnd();
+<a name="l00867"></a>00867   }
+<a name="l00868"></a>00868   xfer += oprot-&gt;writeFieldEnd();
+<a name="l00869"></a>00869   xfer += oprot-&gt;writeFieldStop();
+<a name="l00870"></a>00870   xfer += oprot-&gt;writeStructEnd();
+<a name="l00871"></a>00871   <span class="keywordflow">return</span> xfer;
+<a name="l00872"></a>00872 }
+<a name="l00873"></a>00873 
+<a name="l00874"></a>00874 <span class="keyword">const</span> <span class="keywordtype">char</span>* queueItem::ascii_fingerprint = <span class="stringliteral">"423E5C0930758A8A22D51D1BFA50AE4A"</span>;
+<a name="l00875"></a>00875 <span class="keyword">const</span> uint8_t queueItem::binary_fingerprint[16] = {0x42,0x3E,0x5C,0x09,0x30,0x75,0x8A,0x8A,0x22,0xD5,0x1D,0x1B,0xFA,0x50,0xAE,0x4A};
+<a name="l00876"></a>00876 
+<a name="l00877"></a>00877 uint32_t queueItem::read(apache::thrift::protocol::TProtocol* iprot) {
+<a name="l00878"></a>00878 
+<a name="l00879"></a>00879   uint32_t xfer = 0;
+<a name="l00880"></a>00880   std::string fname;
+<a name="l00881"></a>00881   apache::thrift::protocol::TType ftype;
+<a name="l00882"></a>00882   int16_t fid;
+<a name="l00883"></a>00883 
+<a name="l00884"></a>00884   xfer += iprot-&gt;readStructBegin(fname);
+<a name="l00885"></a>00885 
+<a name="l00886"></a>00886   <span class="keyword">using</span> apache::thrift::protocol::TProtocolException;
 <a name="l00887"></a>00887 
-<a name="l00888"></a>00888   xfer += iprot-&gt;readStructBegin(fname);
-<a name="l00889"></a>00889 
-<a name="l00890"></a>00890   <span class="keyword">using</span> apache::thrift::protocol::TProtocolException;
-<a name="l00891"></a>00891 
-<a name="l00892"></a>00892 
-<a name="l00893"></a>00893   <span class="keywordflow">while</span> (<span class="keyword">true</span>)
-<a name="l00894"></a>00894   {
-<a name="l00895"></a>00895     xfer += iprot-&gt;readFieldBegin(fname, ftype, fid);
-<a name="l00896"></a>00896     <span class="keywordflow">if</span> (ftype == apache::thrift::protocol::T_STOP) {
-<a name="l00897"></a>00897       <span class="keywordflow">break</span>;
-<a name="l00898"></a>00898     }
-<a name="l00899"></a>00899     <span class="keywordflow">switch</span> (fid)
-<a name="l00900"></a>00900     {
-<a name="l00901"></a>00901       <span class="keywordflow">case</span> 1:
-<a name="l00902"></a>00902         <span class="keywordflow">if</span> (ftype == apache::thrift::protocol::T_I64) {
-<a name="l00903"></a>00903           xfer += iprot-&gt;readI64(this-&gt;methodId);
-<a name="l00904"></a>00904           this-&gt;__isset.methodId = <span class="keyword">true</span>;
-<a name="l00905"></a>00905         } <span class="keywordflow">else</span> {
-<a name="l00906"></a>00906           xfer += iprot-&gt;skip(ftype);
-<a name="l00907"></a>00907         }
-<a name="l00908"></a>00908         <span class="keywordflow">break</span>;
-<a name="l00909"></a>00909       <span class="keywordflow">case</span> 2:
-<a name="l00910"></a>00910         <span class="keywordflow">if</span> (ftype == apache::thrift::protocol::T_I64) {
-<a name="l00911"></a>00911           xfer += iprot-&gt;readI64(this-&gt;serverId);
-<a name="l00912"></a>00912           this-&gt;__isset.serverId = <span class="keyword">true</span>;
-<a name="l00913"></a>00913         } <span class="keywordflow">else</span> {
-<a name="l00914"></a>00914           xfer += iprot-&gt;skip(ftype);
-<a name="l00915"></a>00915         }
-<a name="l00916"></a>00916         <span class="keywordflow">break</span>;
-<a name="l00917"></a>00917       <span class="keywordflow">case</span> 3:
-<a name="l00918"></a>00918         <span class="keywordflow">if</span> (ftype == apache::thrift::protocol::T_STRUCT) {
-<a name="l00919"></a>00919           xfer += this-&gt;argList.read(iprot);
-<a name="l00920"></a>00920           this-&gt;__isset.argList = <span class="keyword">true</span>;
-<a name="l00921"></a>00921         } <span class="keywordflow">else</span> {
-<a name="l00922"></a>00922           xfer += iprot-&gt;skip(ftype);
-<a name="l00923"></a>00923         }
-<a name="l00924"></a>00924         <span class="keywordflow">break</span>;
-<a name="l00925"></a>00925       <span class="keywordflow">default</span>:
-<a name="l00926"></a>00926         xfer += iprot-&gt;skip(ftype);
-<a name="l00927"></a>00927         <span class="keywordflow">break</span>;
-<a name="l00928"></a>00928     }
-<a name="l00929"></a>00929     xfer += iprot-&gt;readFieldEnd();
-<a name="l00930"></a>00930   }
-<a name="l00931"></a>00931 
-<a name="l00932"></a>00932   xfer += iprot-&gt;readStructEnd();
-<a name="l00933"></a>00933 
-<a name="l00934"></a>00934   <span class="keywordflow">return</span> xfer;
-<a name="l00935"></a>00935 }
-<a name="l00936"></a>00936 
-<a name="l00937"></a>00937 uint32_t queueItem::write(apache::thrift::protocol::TProtocol* oprot)<span class="keyword"> const </span>{
-<a name="l00938"></a>00938   uint32_t xfer = 0;
-<a name="l00939"></a>00939   xfer += oprot-&gt;writeStructBegin(<span class="stringliteral">"queueItem"</span>);
-<a name="l00940"></a>00940   xfer += oprot-&gt;writeFieldBegin(<span class="stringliteral">"methodId"</span>, apache::thrift::protocol::T_I64, 1);
-<a name="l00941"></a>00941   xfer += oprot-&gt;writeI64(this-&gt;methodId);
-<a name="l00942"></a>00942   xfer += oprot-&gt;writeFieldEnd();
-<a name="l00943"></a>00943   <span class="keywordflow">if</span> (this-&gt;__isset.serverId) {
-<a name="l00944"></a>00944     xfer += oprot-&gt;writeFieldBegin(<span class="stringliteral">"serverId"</span>, apache::thrift::protocol::T_I64, 2);
-<a name="l00945"></a>00945     xfer += oprot-&gt;writeI64(this-&gt;serverId);
-<a name="l00946"></a>00946     xfer += oprot-&gt;writeFieldEnd();
-<a name="l00947"></a>00947   }
-<a name="l00948"></a>00948   <span class="keywordflow">if</span> (this-&gt;__isset.argList) {
-<a name="l00949"></a>00949     xfer += oprot-&gt;writeFieldBegin(<span class="stringliteral">"argList"</span>, apache::thrift::protocol::T_STRUCT, 3);
-<a name="l00950"></a>00950     xfer += this-&gt;argList.write(oprot);
-<a name="l00951"></a>00951     xfer += oprot-&gt;writeFieldEnd();
-<a name="l00952"></a>00952   }
-<a name="l00953"></a>00953   xfer += oprot-&gt;writeFieldStop();
-<a name="l00954"></a>00954   xfer += oprot-&gt;writeStructEnd();
-<a name="l00955"></a>00955   <span class="keywordflow">return</span> xfer;
-<a name="l00956"></a>00956 }
-<a name="l00957"></a>00957 
-<a name="l00958"></a>00958 <span class="keyword">const</span> <span class="keywordtype">char</span>* queueItemList::ascii_fingerprint = <span class="stringliteral">"0F23088D4DE5581F3AE36B250AE0CCC2"</span>;
-<a name="l00959"></a>00959 <span class="keyword">const</span> uint8_t queueItemList::binary_fingerprint[16] = {0x0F,0x23,0x08,0x8D,0x4D,0xE5,0x58,0x1F,0x3A,0xE3,0x6B,0x25,0x0A,0xE0,0xCC,0xC2};
-<a name="l00960"></a>00960 
-<a name="l00961"></a>00961 uint32_t queueItemList::read(apache::thrift::protocol::TProtocol* iprot) {
-<a name="l00962"></a>00962 
-<a name="l00963"></a>00963   uint32_t xfer = 0;
-<a name="l00964"></a>00964   std::string fname;
-<a name="l00965"></a>00965   apache::thrift::protocol::TType ftype;
-<a name="l00966"></a>00966   int16_t fid;
-<a name="l00967"></a>00967 
-<a name="l00968"></a>00968   xfer += iprot-&gt;readStructBegin(fname);
-<a name="l00969"></a>00969 
-<a name="l00970"></a>00970   <span class="keyword">using</span> apache::thrift::protocol::TProtocolException;
-<a name="l00971"></a>00971 
-<a name="l00972"></a>00972 
-<a name="l00973"></a>00973   <span class="keywordflow">while</span> (<span class="keyword">true</span>)
-<a name="l00974"></a>00974   {
-<a name="l00975"></a>00975     xfer += iprot-&gt;readFieldBegin(fname, ftype, fid);
-<a name="l00976"></a>00976     <span class="keywordflow">if</span> (ftype == apache::thrift::protocol::T_STOP) {
-<a name="l00977"></a>00977       <span class="keywordflow">break</span>;
-<a name="l00978"></a>00978     }
-<a name="l00979"></a>00979     <span class="keywordflow">switch</span> (fid)
-<a name="l00980"></a>00980     {
-<a name="l00981"></a>00981       <span class="keywordflow">case</span> 1:
-<a name="l00982"></a>00982         <span class="keywordflow">if</span> (ftype == apache::thrift::protocol::T_LIST) {
-<a name="l00983"></a>00983           {
-<a name="l00984"></a>00984             this-&gt;items.clear();
-<a name="l00985"></a>00985             uint32_t _size48;
-<a name="l00986"></a>00986             apache::thrift::protocol::TType _etype51;
-<a name="l00987"></a>00987             iprot-&gt;readListBegin(_etype51, _size48);
-<a name="l00988"></a>00988             this-&gt;items.resize(_size48);
-<a name="l00989"></a>00989             uint32_t _i52;
-<a name="l00990"></a>00990             <span class="keywordflow">for</span> (_i52 = 0; _i52 &lt; _size48; ++_i52)
-<a name="l00991"></a>00991             {
-<a name="l00992"></a>00992               xfer += this-&gt;items[_i52].read(iprot);
-<a name="l00993"></a>00993             }
-<a name="l00994"></a>00994             iprot-&gt;readListEnd();
-<a name="l00995"></a>00995           }
-<a name="l00996"></a>00996           this-&gt;__isset.items = <span class="keyword">true</span>;
-<a name="l00997"></a>00997         } <span class="keywordflow">else</span> {
-<a name="l00998"></a>00998           xfer += iprot-&gt;skip(ftype);
-<a name="l00999"></a>00999         }
-<a name="l01000"></a>01000         <span class="keywordflow">break</span>;
-<a name="l01001"></a>01001       <span class="keywordflow">default</span>:
-<a name="l01002"></a>01002         xfer += iprot-&gt;skip(ftype);
-<a name="l01003"></a>01003         <span class="keywordflow">break</span>;
-<a name="l01004"></a>01004     }
-<a name="l01005"></a>01005     xfer += iprot-&gt;readFieldEnd();
-<a name="l01006"></a>01006   }
-<a name="l01007"></a>01007 
-<a name="l01008"></a>01008   xfer += iprot-&gt;readStructEnd();
-<a name="l01009"></a>01009 
-<a name="l01010"></a>01010   <span class="keywordflow">return</span> xfer;
-<a name="l01011"></a>01011 }
-<a name="l01012"></a>01012 
-<a name="l01013"></a>01013 uint32_t queueItemList::write(apache::thrift::protocol::TProtocol* oprot)<span class="keyword"> const </span>{
-<a name="l01014"></a>01014   uint32_t xfer = 0;
-<a name="l01015"></a>01015   xfer += oprot-&gt;writeStructBegin(<span class="stringliteral">"queueItemList"</span>);
-<a name="l01016"></a>01016   xfer += oprot-&gt;writeFieldBegin(<span class="stringliteral">"items"</span>, apache::thrift::protocol::T_LIST, 1);
-<a name="l01017"></a>01017   {
-<a name="l01018"></a>01018     xfer += oprot-&gt;writeListBegin(apache::thrift::protocol::T_STRUCT, this-&gt;items.size());
-<a name="l01019"></a>01019     std::vector&lt;queueItem&gt; ::const_iterator _iter53;
-<a name="l01020"></a>01020     <span class="keywordflow">for</span> (_iter53 = this-&gt;items.begin(); _iter53 != this-&gt;items.end(); ++_iter53)
-<a name="l01021"></a>01021     {
-<a name="l01022"></a>01022       xfer += (*_iter53).write(oprot);
-<a name="l01023"></a>01023     }
-<a name="l01024"></a>01024     xfer += oprot-&gt;writeListEnd();
-<a name="l01025"></a>01025   }
-<a name="l01026"></a>01026   xfer += oprot-&gt;writeFieldEnd();
-<a name="l01027"></a>01027   xfer += oprot-&gt;writeFieldStop();
-<a name="l01028"></a>01028   xfer += oprot-&gt;writeStructEnd();
-<a name="l01029"></a>01029   <span class="keywordflow">return</span> xfer;
-<a name="l01030"></a>01030 }
-<a name="l01031"></a>01031 
-<a name="l01032"></a>01032 } <span class="comment">// namespace</span>
+<a name="l00888"></a>00888 
+<a name="l00889"></a>00889   <span class="keywordflow">while</span> (<span class="keyword">true</span>)
+<a name="l00890"></a>00890   {
+<a name="l00891"></a>00891     xfer += iprot-&gt;readFieldBegin(fname, ftype, fid);
+<a name="l00892"></a>00892     <span class="keywordflow">if</span> (ftype == apache::thrift::protocol::T_STOP) {
+<a name="l00893"></a>00893       <span class="keywordflow">break</span>;
+<a name="l00894"></a>00894     }
+<a name="l00895"></a>00895     <span class="keywordflow">switch</span> (fid)
+<a name="l00896"></a>00896     {
+<a name="l00897"></a>00897       <span class="keywordflow">case</span> 1:
+<a name="l00898"></a>00898         <span class="keywordflow">if</span> (ftype == apache::thrift::protocol::T_I64) {
+<a name="l00899"></a>00899           xfer += iprot-&gt;readI64(this-&gt;methodId);
+<a name="l00900"></a>00900           this-&gt;__isset.methodId = <span class="keyword">true</span>;
+<a name="l00901"></a>00901         } <span class="keywordflow">else</span> {
+<a name="l00902"></a>00902           xfer += iprot-&gt;skip(ftype);
+<a name="l00903"></a>00903         }
+<a name="l00904"></a>00904         <span class="keywordflow">break</span>;
+<a name="l00905"></a>00905       <span class="keywordflow">case</span> 2:
+<a name="l00906"></a>00906         <span class="keywordflow">if</span> (ftype == apache::thrift::protocol::T_I64) {
+<a name="l00907"></a>00907           xfer += iprot-&gt;readI64(this-&gt;serverId);
+<a name="l00908"></a>00908           this-&gt;__isset.serverId = <span class="keyword">true</span>;
+<a name="l00909"></a>00909         } <span class="keywordflow">else</span> {
+<a name="l00910"></a>00910           xfer += iprot-&gt;skip(ftype);
+<a name="l00911"></a>00911         }
+<a name="l00912"></a>00912         <span class="keywordflow">break</span>;
+<a name="l00913"></a>00913       <span class="keywordflow">case</span> 3:
+<a name="l00914"></a>00914         <span class="keywordflow">if</span> (ftype == apache::thrift::protocol::T_STRUCT) {
+<a name="l00915"></a>00915           xfer += this-&gt;argList.read(iprot);
+<a name="l00916"></a>00916           this-&gt;__isset.argList = <span class="keyword">true</span>;
+<a name="l00917"></a>00917         } <span class="keywordflow">else</span> {
+<a name="l00918"></a>00918           xfer += iprot-&gt;skip(ftype);
+<a name="l00919"></a>00919         }
+<a name="l00920"></a>00920         <span class="keywordflow">break</span>;
+<a name="l00921"></a>00921       <span class="keywordflow">default</span>:
+<a name="l00922"></a>00922         xfer += iprot-&gt;skip(ftype);
+<a name="l00923"></a>00923         <span class="keywordflow">break</span>;
+<a name="l00924"></a>00924     }
+<a name="l00925"></a>00925     xfer += iprot-&gt;readFieldEnd();
+<a name="l00926"></a>00926   }
+<a name="l00927"></a>00927 
+<a name="l00928"></a>00928   xfer += iprot-&gt;readStructEnd();
+<a name="l00929"></a>00929 
+<a name="l00930"></a>00930   <span class="keywordflow">return</span> xfer;
+<a name="l00931"></a>00931 }
+<a name="l00932"></a>00932 
+<a name="l00933"></a>00933 uint32_t queueItem::write(apache::thrift::protocol::TProtocol* oprot)<span class="keyword"> const </span>{
+<a name="l00934"></a>00934   uint32_t xfer = 0;
+<a name="l00935"></a>00935   xfer += oprot-&gt;writeStructBegin(<span class="stringliteral">"queueItem"</span>);
+<a name="l00936"></a>00936   xfer += oprot-&gt;writeFieldBegin(<span class="stringliteral">"methodId"</span>, apache::thrift::protocol::T_I64, 1);
+<a name="l00937"></a>00937   xfer += oprot-&gt;writeI64(this-&gt;methodId);
+<a name="l00938"></a>00938   xfer += oprot-&gt;writeFieldEnd();
+<a name="l00939"></a>00939   xfer += oprot-&gt;writeFieldBegin(<span class="stringliteral">"serverId"</span>, apache::thrift::protocol::T_I64, 2);
+<a name="l00940"></a>00940   xfer += oprot-&gt;writeI64(this-&gt;serverId);
+<a name="l00941"></a>00941   xfer += oprot-&gt;writeFieldEnd();
+<a name="l00942"></a>00942   xfer += oprot-&gt;writeFieldBegin(<span class="stringliteral">"argList"</span>, apache::thrift::protocol::T_STRUCT, 3);
+<a name="l00943"></a>00943   xfer += this-&gt;argList.write(oprot);
+<a name="l00944"></a>00944   xfer += oprot-&gt;writeFieldEnd();
+<a name="l00945"></a>00945   xfer += oprot-&gt;writeFieldStop();
+<a name="l00946"></a>00946   xfer += oprot-&gt;writeStructEnd();
+<a name="l00947"></a>00947   <span class="keywordflow">return</span> xfer;
+<a name="l00948"></a>00948 }
+<a name="l00949"></a>00949 
+<a name="l00950"></a>00950 <span class="keyword">const</span> <span class="keywordtype">char</span>* queueItemList::ascii_fingerprint = <span class="stringliteral">"47299E266D53FC38B6A0F5B44E352F87"</span>;
+<a name="l00951"></a>00951 <span class="keyword">const</span> uint8_t queueItemList::binary_fingerprint[16] = {0x47,0x29,0x9E,0x26,0x6D,0x53,0xFC,0x38,0xB6,0xA0,0xF5,0xB4,0x4E,0x35,0x2F,0x87};
+<a name="l00952"></a>00952 
+<a name="l00953"></a>00953 uint32_t queueItemList::read(apache::thrift::protocol::TProtocol* iprot) {
+<a name="l00954"></a>00954 
+<a name="l00955"></a>00955   uint32_t xfer = 0;
+<a name="l00956"></a>00956   std::string fname;
+<a name="l00957"></a>00957   apache::thrift::protocol::TType ftype;
+<a name="l00958"></a>00958   int16_t fid;
+<a name="l00959"></a>00959 
+<a name="l00960"></a>00960   xfer += iprot-&gt;readStructBegin(fname);
+<a name="l00961"></a>00961 
+<a name="l00962"></a>00962   <span class="keyword">using</span> apache::thrift::protocol::TProtocolException;
+<a name="l00963"></a>00963 
+<a name="l00964"></a>00964 
+<a name="l00965"></a>00965   <span class="keywordflow">while</span> (<span class="keyword">true</span>)
+<a name="l00966"></a>00966   {
+<a name="l00967"></a>00967     xfer += iprot-&gt;readFieldBegin(fname, ftype, fid);
+<a name="l00968"></a>00968     <span class="keywordflow">if</span> (ftype == apache::thrift::protocol::T_STOP) {
+<a name="l00969"></a>00969       <span class="keywordflow">break</span>;
+<a name="l00970"></a>00970     }
+<a name="l00971"></a>00971     <span class="keywordflow">switch</span> (fid)
+<a name="l00972"></a>00972     {
+<a name="l00973"></a>00973       <span class="keywordflow">case</span> 1:
+<a name="l00974"></a>00974         <span class="keywordflow">if</span> (ftype == apache::thrift::protocol::T_LIST) {
+<a name="l00975"></a>00975           {
+<a name="l00976"></a>00976             this-&gt;items.clear();
+<a name="l00977"></a>00977             uint32_t _size48;
+<a name="l00978"></a>00978             apache::thrift::protocol::TType _etype51;
+<a name="l00979"></a>00979             iprot-&gt;readListBegin(_etype51, _size48);
+<a name="l00980"></a>00980             this-&gt;items.resize(_size48);
+<a name="l00981"></a>00981             uint32_t _i52;
+<a name="l00982"></a>00982             <span class="keywordflow">for</span> (_i52 = 0; _i52 &lt; _size48; ++_i52)
+<a name="l00983"></a>00983             {
+<a name="l00984"></a>00984               xfer += this-&gt;items[_i52].read(iprot);
+<a name="l00985"></a>00985             }
+<a name="l00986"></a>00986             iprot-&gt;readListEnd();
+<a name="l00987"></a>00987           }
+<a name="l00988"></a>00988           this-&gt;__isset.items = <span class="keyword">true</span>;
+<a name="l00989"></a>00989         } <span class="keywordflow">else</span> {
+<a name="l00990"></a>00990           xfer += iprot-&gt;skip(ftype);
+<a name="l00991"></a>00991         }
+<a name="l00992"></a>00992         <span class="keywordflow">break</span>;
+<a name="l00993"></a>00993       <span class="keywordflow">default</span>:
+<a name="l00994"></a>00994         xfer += iprot-&gt;skip(ftype);
+<a name="l00995"></a>00995         <span class="keywordflow">break</span>;
+<a name="l00996"></a>00996     }
+<a name="l00997"></a>00997     xfer += iprot-&gt;readFieldEnd();
+<a name="l00998"></a>00998   }
+<a name="l00999"></a>00999 
+<a name="l01000"></a>01000   xfer += iprot-&gt;readStructEnd();
+<a name="l01001"></a>01001 
+<a name="l01002"></a>01002   <span class="keywordflow">return</span> xfer;
+<a name="l01003"></a>01003 }
+<a name="l01004"></a>01004 
+<a name="l01005"></a>01005 uint32_t queueItemList::write(apache::thrift::protocol::TProtocol* oprot)<span class="keyword"> const </span>{
+<a name="l01006"></a>01006   uint32_t xfer = 0;
+<a name="l01007"></a>01007   xfer += oprot-&gt;writeStructBegin(<span class="stringliteral">"queueItemList"</span>);
+<a name="l01008"></a>01008   xfer += oprot-&gt;writeFieldBegin(<span class="stringliteral">"items"</span>, apache::thrift::protocol::T_LIST, 1);
+<a name="l01009"></a>01009   {
+<a name="l01010"></a>01010     xfer += oprot-&gt;writeListBegin(apache::thrift::protocol::T_STRUCT, this-&gt;items.size());
+<a name="l01011"></a>01011     std::vector&lt;queueItem&gt; ::const_iterator _iter53;
+<a name="l01012"></a>01012     <span class="keywordflow">for</span> (_iter53 = this-&gt;items.begin(); _iter53 != this-&gt;items.end(); ++_iter53)
+<a name="l01013"></a>01013     {
+<a name="l01014"></a>01014       xfer += (*_iter53).write(oprot);
+<a name="l01015"></a>01015     }
+<a name="l01016"></a>01016     xfer += oprot-&gt;writeListEnd();
+<a name="l01017"></a>01017   }
+<a name="l01018"></a>01018   xfer += oprot-&gt;writeFieldEnd();
+<a name="l01019"></a>01019   xfer += oprot-&gt;writeFieldStop();
+<a name="l01020"></a>01020   xfer += oprot-&gt;writeStructEnd();
+<a name="l01021"></a>01021   <span class="keywordflow">return</span> xfer;
+<a name="l01022"></a>01022 }
+<a name="l01023"></a>01023 
+<a name="l01024"></a>01024 } <span class="comment">// namespace</span>
 </pre></div></div>
-<hr size="1"><address style="text-align: right;"><small>Generated on Fri Aug 14 23:14:01 2009 by&nbsp;
+<hr size="1"><address style="text-align: right;"><small>Generated on Wed Sep 9 19:34:38 2009 by&nbsp;
 <a href="http://www.doxygen.org/index.html">
 <img src="doxygen.png" alt="doxygen" align="middle" border="0"></a> 1.5.5 </small></address>
 </body>

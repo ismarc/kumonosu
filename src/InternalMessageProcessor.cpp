@@ -1,5 +1,5 @@
 #include "InternalMessageProcessor.h"
-#include "internal_method_map.h"
+#include "clientlib/MethodMap.h"
 #include "Server.h"
 
 using namespace kumonosu;
@@ -122,10 +122,10 @@ InternalMessageProcessor::processQueueItem(queueItem* item)
     arguments argList = item->argList;
 
     switch (methodId) {
-    case INTERNAL_METHOD_SHUTDOWN:
+    case MethodMap::IMShutdown:
         _shutdown = true;
         break;
-    case INTERNAL_METHOD_GET_SERVER_LIST:
+    case MethodMap::IMGetServerList:
         // Sends a GET_SERVER_RESPONSE method call 
         // If returnService is set in the call, send the response to
         // the contained service id
@@ -153,7 +153,7 @@ InternalMessageProcessor::getServerList(int32_t serviceId)
         return;
     }
 
-    item->methodId = INTERNAL_METHOD_GET_SERVER_RESPONSE;
+    item->methodId = MethodMap::IMGetServerResponse;
 
     if (_client != NULL) {
         servers = _client->getServerList();

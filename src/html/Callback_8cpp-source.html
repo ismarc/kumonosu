@@ -28,10 +28,13 @@
 <a name="l00012"></a>00012 <span class="keywordtype">void</span>
 <a name="l00013"></a><a class="code" href="classkumonosu_1_1Callback.html#8489d9f6b630db7ace4e4c6344dfb575">00013</a> <a class="code" href="classkumonosu_1_1Callback.html#8489d9f6b630db7ace4e4c6344dfb575" title="Executes the stored callback function.">Callback::execute</a>(arguments argList)
 <a name="l00014"></a>00014 {
-<a name="l00015"></a>00015     _method(_methodObject, argList);
-<a name="l00016"></a>00016 }
+<a name="l00015"></a>00015     <span class="keywordflow">if</span> (_methodObject != NULL &amp;&amp;
+<a name="l00016"></a>00016         _method != NULL) {
+<a name="l00017"></a>00017         _method(_methodObject, argList);
+<a name="l00018"></a>00018     }
+<a name="l00019"></a>00019 }
 </pre></div></div>
-<hr size="1"><address style="text-align: right;"><small>Generated on Fri Aug 14 23:14:00 2009 by&nbsp;
+<hr size="1"><address style="text-align: right;"><small>Generated on Tue Sep 8 00:37:10 2009 by&nbsp;
 <a href="http://www.doxygen.org/index.html">
 <img src="doxygen.png" alt="doxygen" align="middle" border="0"></a> 1.5.5 </small></address>
 </body>

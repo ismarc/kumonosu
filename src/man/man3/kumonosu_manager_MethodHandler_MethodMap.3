@@ -1,0 +1,75 @@
+.TH "kumonosu::manager::MethodHandler::MethodMap" 3 "8 Sep 2009" "Doxygen" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+kumonosu::manager::MethodHandler::MethodMap \- Provides a reference for method ids handled by the KumonosuManager.  
+
+.PP
+.SH SYNOPSIS
+.br
+.PP
+\fC#include <MethodHandler.h>\fP
+.PP
+.SS "Static Public Attributes"
+
+.in +1c
+.ti -1c
+.RI "static const int32_t \fBGetServerList\fP"
+.br
+.RI "\fImethod id INTERNAL_METHOD_GET_SERVER_LIST \fP"
+.ti -1c
+.RI "static const int32_t \fBGetServerResponse\fP"
+.br
+.RI "\fImethod id INTERNAL_METHOD_GET_SERVER_RESPONSE \fP"
+.ti -1c
+.RI "static const int32_t \fBPing\fP = 1000"
+.br
+.RI "\fImethod id 1000 (method Ping) \fP"
+.ti -1c
+.RI "static const int32_t \fBPong\fP = 1001"
+.br
+.RI "\fImethod id 1001 (method Ping) \fP"
+.ti -1c
+.RI "static const int32_t \fBGetServiceList\fP = 1002"
+.br
+.RI "\fImethod id 1002 (method GetServiceList) \fP"
+.ti -1c
+.RI "static const int32_t \fBGetServiceListResponse\fP = 1003"
+.br
+.RI "\fImethod id 1003 (method GetServiceListResponse) \fP"
+.in -1c
+.SH "Detailed Description"
+.PP 
+Provides a reference for method ids handled by the KumonosuManager. 
+
+\fBMethodMap\fP is a simple static class, providing identifiers for the provided methods. Ids under 1000 are reserved for for internal methods, only available if 
+.PP
+Definition at line 41 of file MethodHandler.h.
+.SH "Member Data Documentation"
+.PP 
+.SS "const int32_t \fBkumonosu::manager::MethodHandler::MethodMap::GetServerList\fP\fC [static]\fP"
+.PP
+\fBInitial value:\fP
+.PP
+.nf
+
+                    INTERNAL_METHOD_GET_SERVER_LIST
+.fi
+method id INTERNAL_METHOD_GET_SERVER_LIST 
+.PP
+Definition at line 45 of file MethodHandler.h.
+.SS "const int32_t \fBkumonosu::manager::MethodHandler::MethodMap::GetServerResponse\fP\fC [static]\fP"
+.PP
+\fBInitial value:\fP
+.PP
+.nf
+
+                    INTERNAL_METHOD_GET_SERVER_RESPONSE
+.fi
+method id INTERNAL_METHOD_GET_SERVER_RESPONSE 
+.PP
+Definition at line 48 of file MethodHandler.h.
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen from the source code.

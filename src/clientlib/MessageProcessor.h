@@ -12,10 +12,14 @@
 #define   	MESSAGEPROCESSOR_H_
 
 #include "kumonosu_server_types.h"
-#include "Client.h"
+#include "clientlib/Client.h"
+#include "clientlib/MethodHandler.h"
 #include "Callback.h"
 
 namespace kumonosu {
+    template <class T>
+    class MethodHandler;
+
     //! Provides a convenience interface for managing pending items.
     /*!
      *  \class MessageProcessor
@@ -29,8 +33,10 @@ namespace kumonosu {
      *
      *  \author Matt Brace
      */
+    template <class T>
     class MessageProcessor {
     public:
+        typedef void (T::*CallbackFn)(arguments argList);
         //! Initializes the MessageProcessor
         /*!
          *  The constructor takes an object pointer and a function
@@ -42,11 +48,15 @@ namespace kumonosu {
          *  \param methodNotImplemented function pointer to the method
          *  to call when an undefined method is received.
          */
-        // Should really typedef this to look better
-        MessageProcessor(void* methodNotImplementedObject,
-                         void (*methodNotImplemented)(void* object,
-                                                      arguments argList));
-        ~MessageProcessor() {};
+        MessageProcessor(T* object,
+                         CallbackFn methodNotImplemented) :
+            _callbackObject(object),
+            _handler(_callbackObject)
+        {
+            _handler.addMethodNotFound(methodNotImplemented);
+        }
+
+        ~MessageProcessor() {}
 
         //! Assigns the supplied client
         /*!
@@ -57,7 +67,10 @@ namespace kumonosu {
          *  never explicitly disconnect the client.
          *  \param client the client object to use for message retrieval.
          */
-        void setClient(Client* client);
+        void setClient(Client* client) {
+            _client = client;
+        }
+
         //! Stores a callback function associated with a method id.
         /*!
          *  Creates a Callback object and associates it internally
@@ -69,10 +82,11 @@ namespace kumonosu {
          *  \param object the object to call with the function pointer
          *  \param FunctionPtr the function pointer for the callback.
          */
-        void setMethodCallback(int32_t methodId, void* object,
-                               void(*FunctionPtr)
-                               (void* object,
-                                arguments argList));
+        void setMethodCallback(int32_t methodId,
+                               CallbackFn function) {
+            _handler.addMethod(methodId, function);
+        }
+
         //! Removes a Callback object from the method associations.
         /*!
          *  Removes the Callback object that is associated with the
@@ -81,7 +95,10 @@ namespace kumonosu {
          *  until a new callback has been set.
          *  \param methodId the method id of the callback to remove.
          */
-        void removeMethodCallback(int32_t methodId);
+        void removeMethodCallback(int32_t methodId) {
+            _handler.removeMethod(methodId);
+        }
+
         //! Processes outstanding items.
         /*!
          *  Retrieves up to max_count items and calls the associated
@@ -91,13 +108,38 @@ namespace kumonosu {
          *  \param max_count the maximum number of items to process,
          *  use -1 to indicate all items.
          */
-        void processPendingItems(int32_t max_count);
-    private:
-        void executeMethod(int32_t methodId, arguments argList);
+        void processPendingItems(int32_t max_count) {
+            queueItemList pending_items;
 
+            if (_client == NULL) {
+                return;
+            }
+
+            try {
+                _client->connect();
+            } catch (TTransportException e) {
+                // This is similar to NULL, client can't connect;
+                return;
+            }
+
+            if (max_count == -1) {
+                pending_items = _client->getPendingItems();
+            } else {
+                pending_items = _client->getPendingItems(max_count);
+            }
+
+            for (std::vector<queueItem>::iterator it =
+                     pending_items.items.begin();
+                 it != pending_items.items.end();
+                 it++) {
+                _handler.executeMethod((*it).methodId, (*it).argList);
+            }
+        }
+
+    private:
+        T* _callbackObject;
         Client* _client;
-        Callback _methodNotImplemented;
-        std::map<int32_t, Callback> _callbackMap;
+        MethodHandler<T> _handler;
     };
 }
 
