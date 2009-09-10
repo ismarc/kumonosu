@@ -10,11 +10,6 @@ SET(client_test_executable_SRCS
   ClientTest.cpp
 )
 
-SET(callback_test_executable_SRCS
-  callback_test_main.cpp
-  CallbackTest.cpp
-)
-
 SET(message_processor_executable_SRCS
   message_processor_test_main.cpp
   MessageProcessorTest.cpp
@@ -33,14 +28,10 @@ IF (CPPUNIT_FOUND AND THRIFT_FOUND AND Boost_FOUND)
   # Client Test
   ADD_EXECUTABLE(client_test ${client_test_executable_SRCS})
   TARGET_LINK_LIBRARIES(client_test ${library_list})
-  # Callback Test
-  ADD_EXECUTABLE(callback_test ${callback_test_executable_SRCS})
-  TARGET_LINK_LIBRARIES(callback_test ${library_list})
   # Message Processor Test
   ADD_EXECUTABLE(message_processor_test ${message_processor_executable_SRCS})
   TARGET_LINK_LIBRARIES(message_processor_test ${library_list})
 ENDIF (CPPUNIT_FOUND AND THRIFT_FOUND AND Boost_FOUND)
 
 ADD_TEST("clientlib::Client" client_test)
-ADD_TEST("clientlib::Callback" callback_test)
 ADD_TEST("clientlib::MessageProcessor" message_processor_test)

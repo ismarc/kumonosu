@@ -14,7 +14,6 @@
 #include "kumonosu_server_types.h"
 #include "clientlib/Client.h"
 #include "clientlib/MethodHandler.h"
-#include "Callback.h"
 
 namespace kumonosu {
     template <class T>

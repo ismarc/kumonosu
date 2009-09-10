@@ -6,7 +6,6 @@
 #include "clientlib/MessageProcessor.h"
 #include "clientlib/MethodHandler.h"
 #include "ManagerMethodMap.h"
-#include "internal_method_map.h"
 
 using namespace kumonosu;
 using namespace kumonosu::manager;

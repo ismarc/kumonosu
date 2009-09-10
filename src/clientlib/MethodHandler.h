@@ -12,7 +12,6 @@
 #define   	METHODHANDLER_H_
 
 #include "kumonosu_server_types.h"
-#include "internal_method_map.h"
 
 #define CALL_MEMBER_FN(object, ptrToMemFn) ((object)->*(ptrToMemFn))
 

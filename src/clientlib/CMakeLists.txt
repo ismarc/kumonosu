@@ -7,7 +7,7 @@ INCLUDE_DIRECTORIES(${CMAKE_SOURCE_DIR})
 # Sources:
 SET(kumonosu_client_library_SRCS
   Client.cpp
-  Callback.cpp
+  MethodMap.h
 )
 
 IF (THRIFT_FOUND AND Boost_FOUND)
