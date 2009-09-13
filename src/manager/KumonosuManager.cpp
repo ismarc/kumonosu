@@ -1,11 +1,11 @@
 #include "KumonosuManager.h"
-#include "PingArguments.h"
 #include "ServerListArguments.h"
 #include "ServiceListArguments.h"
 #include "clientlib/Client.h"
 #include "clientlib/MessageProcessor.h"
 #include "clientlib/MethodHandler.h"
 #include "ManagerMethodMap.h"
+#include "ping_arguments.h"
 
 using namespace kumonosu;
 using namespace kumonosu::manager;
@@ -154,10 +154,7 @@ KumonosuManager::methodNotFound(arguments argList)
 void
 KumonosuManager::ping(arguments argList)
 {
-    PingArguments pingItem;
-    pingItem.loadFromArguments(argList);
-    pingItem.loadServerId(_serverList);
-
+    ping_arguments pingItem = (ping_arguments)argList;
     int32_t serverId = pingItem.getServerId();
     int32_t serviceId = pingItem.getServiceId();
     i32Arg pingId;

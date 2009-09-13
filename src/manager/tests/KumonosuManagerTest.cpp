@@ -1,7 +1,7 @@
 #include "KumonosuManagerTest.h"
 #include "manager/KumonosuManager.h"
-#include "manager/PingArguments.h"
 #include "manager/ManagerMethodMap.h"
+#include "manager/ping_arguments.h"
 
 #include "RequestQueue.h"
 #include "LocalRequestManagerHandler.h"
@@ -187,8 +187,8 @@ KumonosuManagerTest::pingTest()
     queueItem* item = new queueItem();
     item->methodId = ManagerMethodMap::Ping;
 
-    PingArguments pingItem("a.badhostname.com", 8989, 0, 1);
-    pingItem.addToArguments(&item->argList);
+    ping_arguments pingItem("a.badhostname.com", 8989, 24, 0, 1);
+    item->argList = (arguments) pingItem;
 
     iqueue->addItem(0, item);
 
